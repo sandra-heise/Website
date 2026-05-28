@@ -2,57 +2,55 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { assetPath } from '../utils/assetPath.js';
 
 interface Props {
-	title?: string;
-	description?: string;
+  title?: string;
+  description?: string;
 }
 
-const { 
-	title = "Sunny Artis - Kunstwerkstatt & Kreativbedarf", 
-	description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände." 
+const {
+  title = "Sunny Artis - Kunstwerkstatt & Kreativbedarf",
+  description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände."
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="de">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:site_name" content="Sunny Artis" />
-		<meta property="og:url" content="https://www.sunnyartis.de" />
-		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-	</head>
-	<body>
-		<Header />
-		<main id="main-content">
-			<slot />
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href={assetPath('favicon.png')} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Sunny Artis" />
+    <meta property="og:url" content="https://www.sunnyartis.de" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+  </head>
+  <body>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
 
 <style>
-	body {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-	#main-content {
-		flex-grow: 1;
-	}
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  #main-content {
+    flex-grow: 1;
+  }
 </style>

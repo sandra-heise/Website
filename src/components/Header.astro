@@ -1,4 +1,5 @@
 ---
+import { assetPath } from '../utils/assetPath.js';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -6,7 +7,7 @@ const currentPath = Astro.url.pathname;
   <div class="container header-container">
     <a href="/" class="logo-link">
       <div class="logo-wrapper">
-        <img src="/logo.png" alt="Sunny Artis Logo" class="header-logo" />
+        <img src={assetPath('logo.png')} alt="Sunny Artis Logo" class="header-logo" />
       </div>
     </a>
     
