@@ -1,0 +1,319 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// We can define static items representing Sandra's artistic portfolio.
+const portfolioItems = [
+  {
+    id: 1,
+    title: "Epoxidharz Blüten-Medaillon",
+    category: "schmuck",
+    categoryLabel: "Schmuck",
+    description: "Handgefertigter Kettenanhänger aus klarem Gießharz mit echten, gepressten Kornblumen und Goldflocken.",
+    gradientClass: "resin-gradient"
+  },
+  {
+    id: 2,
+    title: "Polymer Clay Terrazzo-Ohrringe",
+    category: "schmuck",
+    categoryLabel: "Schmuck",
+    description: "Moderne, geometrische Hängeohrringe aus Polymer Clay im bunten Terrazzo-Stil. Extrem leicht zu tragen.",
+    gradientClass: "polymer-gradient"
+  },
+  {
+    id: 3,
+    title: "Bleistiftporträt 'Geschwister'",
+    category: "zeichnungen",
+    categoryLabel: "Zeichnungen",
+    description: "Detailreiches Doppelporträt zweier Kinder, gezeichnet mit hochwertigen Bleistiften auf schwerem Künstlerkarton.",
+    gradientClass: "book-gradient"
+  },
+  {
+    id: 4,
+    title: "Aquarell-Tierporträt 'Golden Retriever'",
+    category: "zeichnungen",
+    categoryLabel: "Zeichnungen",
+    description: "Lebendiges und farbenfrohes Haustierporträt, erstellt mit professionellen Aquarellfarben und feinen Pinselstrichen.",
+    gradientClass: "canvas-gradient"
+  },
+  {
+    id: 5,
+    title: "Epoxidharz Ring 'Ginkgo'",
+    category: "schmuck",
+    categoryLabel: "Schmuck",
+    description: "Schlichter, eleganter Ring mit eingelegtem Ginkgo-Blatt-Ausschnitt auf dunkelblauem Untergrund.",
+    gradientClass: "chain-gradient"
+  },
+  {
+    id: 6,
+    title: "Kreativ-Malbuch 'Mandala Träume'",
+    category: "kreatives",
+    categoryLabel: "Kreativbedarf",
+    description: "Ein von Hand entworfenes Malbuch mit geometrischen und floralen Mandalas für entspannte Stunden.",
+    gradientClass: "book-gradient"
+  }
+];
+---
+
+<Layout title="Galerie - Sunny Artis | Handgemachter Schmuck & Kunst">
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">PORTFOLIO</span>
+      <h1 class="center-title">Meine Kunstwerke & Schmuckstücke</h1>
+      <p class="section-desc">
+        Hier findest du eine Auswahl meiner Arbeiten. Jedes Stück wird in liebevoller Handarbeit hergestellt. Gefällt dir ein Schmuckstück oder möchtest du ein eigenes Porträt in Auftrag geben? Kontaktiere mich gerne!
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section portfolio-section bg-light">
+    <div class="container">
+      <!-- Filter Buttons -->
+      <div class="filter-wrapper flex-center">
+        <button class="filter-btn active" data-filter="all">Alle</button>
+        <button class="filter-btn" data-filter="schmuck">Schmuck</button>
+        <button class="filter-btn" data-filter="zeichnungen">Zeichnungen</button>
+        <button class="filter-btn" data-filter="kreatives">Kreativbedarf</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid-3 portfolio-grid" id="portfolioGrid">
+        {portfolioItems.map(item => (
+          <div class="card portfolio-card" data-category={item.category}>
+            <div class="card-img-wrapper">
+              <div class={`simulated-image ${item.gradientClass}`}>
+                <span>{item.title}</span>
+              </div>
+              <span class="badge badge-teal card-badge">{item.categoryLabel}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">{item.title}</h3>
+              <p class="card-text">{item.description}</p>
+              <div class="card-footer">
+                {item.category === 'schmuck' && (
+                  <span class="gallery-note">Unikat</span>
+                )}
+                {item.category === 'zeichnungen' && (
+                  <a href="/portraets" class="btn btn-secondary btn-xs">Ablauf ansehen</a>
+                )}
+                {item.category === 'kreatives' && (
+                  <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-xs">Etsy Shop</a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Placeholder when gallery has no items (should not happen with default filters but good for UX) -->
+      <div class="no-results text-center hidden" id="noResults">
+        <p>Keine Kunstwerke in dieser Kategorie gefunden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="glass-container cta-box text-center">
+        <h2>Möchtest du dein persönliches Kunstwerk?</h2>
+        <p>
+          Ob ein Schmuckstück in deiner Wunschfarbe oder ein gezeichnetes Bild deines Haustiers – ich setze deine Ideen gerne um.
+        </p>
+        <div class="cta-actions flex-center">
+          <a href="/kontakt" class="btn btn-primary">Jetzt Anfrage senden</a>
+          <a href="/portraets" class="btn btn-outline-dark">Mehr über Auftragsarbeiten</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section {
+    padding-bottom: 2rem;
+  }
+
+  /* Filter Styling */
+  .filter-wrapper {
+    gap: 15px;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
+
+  .filter-btn.active {
+    background-color: var(--color-teal);
+    border-color: var(--color-teal);
+    color: var(--color-bg-white);
+    box-shadow: 0 4px 10px rgba(1, 170, 193, 0.2);
+  }
+
+  /* Gallery Item Animations */
+  .portfolio-card {
+    transition: all var(--transition-normal), opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  .portfolio-card.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .portfolio-card.fade-in {
+    opacity: 1;
+    transform: scale(1);
+    position: relative;
+    visibility: visible;
+  }
+
+  .gallery-note {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .btn-xs {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+  }
+
+  /* Simulated Image Specific Gradients */
+  .resin-gradient {
+    background: linear-gradient(135deg, #e0f2f1 0%, #bad6da 100%);
+  }
+  .polymer-gradient {
+    background: linear-gradient(135deg, #efebe9 0%, #bad6da 100%);
+  }
+  .book-gradient {
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  }
+  .canvas-gradient {
+    background: linear-gradient(135deg, #fffde7 0%, #fff59d 100%);
+  }
+  .chain-gradient {
+    background: linear-gradient(135deg, #f3e5f5 0%, #bad6da 100%);
+  }
+
+  .simulated-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-navy);
+  }
+
+  .simulated-image span {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* CTA Sektion */
+  .cta-box {
+    padding: 4rem 2rem;
+  }
+
+  .cta-box h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-box p {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1.05rem;
+  }
+
+  .cta-actions {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .no-results {
+    padding: 3rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const portfolioItems = document.querySelectorAll('.portfolio-card');
+  const noResults = document.getElementById('noResults');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Add active class to clicked button
+      button.classList.add('active');
+
+      const filterValue = button.getAttribute('data-filter');
+      let visibleCount = 0;
+
+      portfolioItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        
+        if (filterValue === 'all' || itemCategory === filterValue) {
+          item.classList.remove('hidden');
+          // Simple delay for animation effect
+          setTimeout(() => {
+            item.classList.remove('fade-out');
+            item.classList.add('fade-in');
+          }, 50);
+          visibleCount++;
+        } else {
+          item.classList.remove('fade-in');
+          item.classList.add('fade-out');
+          // Hide completely after fade out animation
+          setTimeout(() => {
+            item.classList.add('hidden');
+          }, 350);
+        }
+      });
+
+      // Show "no results" if no items are visible
+      setTimeout(() => {
+        if (visibleCount === 0) {
+          noResults?.classList.remove('hidden');
+        } else {
+          noResults?.classList.add('hidden');
+        }
+      }, 350);
+    });
+  });
+</script>

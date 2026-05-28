@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Lexend+Zetta:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --color-navy: #052035;
+  --color-teal: #01aac1;
+  --color-soft-blue: #bad6da;
+  --color-yellow: #fbcd0a;
+  
+  /* Text and Backgrounds */
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f4f8fa;
+  --color-text-dark: #052035;
+  --color-text-light: #ffffff;
+  --color-text-muted: #536c7f;
+  --color-border: #e2ecf0;
+  
+  /* Fonts */
+  --font-logo: 'Lexend Zetta', sans-serif;
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Lato', sans-serif;
+  
+  /* Spacing */
+  --container-max-width: 1200px;
+  
+  /* Shadows & Glassmorphism */
+  --shadow-sm: 0 2px 4px rgba(5, 32, 53, 0.05);
+  --shadow-md: 0 4px 20px rgba(5, 32, 53, 0.08);
+  --shadow-lg: 0 10px 30px rgba(5, 32, 53, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-white);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  color: var(--color-navy);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 3px;
+  background-color: var(--color-teal);
+  border-radius: 2px;
+}
+
+.center-title {
+  text-align: center;
+  display: block;
+  margin-bottom: 2.5rem;
+}
+
+.center-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-teal);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-navy);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Utility Layouts */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.bg-light {
+  background-color: var(--color-bg-light);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom UI Components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 30px;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-teal);
+  color: var(--color-bg-white);
+  box-shadow: 0 4px 14px rgba(1, 170, 193, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-navy);
+  color: var(--color-bg-white);
+  box-shadow: 0 4px 14px rgba(5, 32, 53, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--color-teal);
+  color: var(--color-teal);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-teal);
+  color: var(--color-bg-white);
+  transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--color-navy);
+  color: var(--color-bg-white);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background-color: var(--color-yellow);
+  color: var(--color-navy);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(251, 205, 10, 0.3);
+}
+
+.btn-accent:hover {
+  background-color: var(--color-navy);
+  color: var(--color-bg-white);
+  box-shadow: 0 4px 14px rgba(5, 32, 53, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Cards & Grid */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background-color: var(--color-bg-white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+}
+
+.card-img-wrapper {
+  position: relative;
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+  overflow: hidden;
+  background-color: var(--color-bg-light);
+}
+
+.card-img-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.card:hover .card-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin-bottom: 10px;
+}
+
+.card-text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-yellow {
+  background-color: rgba(251, 205, 10, 0.15);
+  color: #c99c00;
+}
+
+.badge-teal {
+  background-color: rgba(1, 170, 193, 0.1);
+  color: var(--color-teal);
+}
+
+.badge-navy {
+  background-color: rgba(5, 32, 53, 0.08);
+  color: var(--color-navy);
+}
+
+/* Glass effect container */
+.glass-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  border-radius: 20px;
+}

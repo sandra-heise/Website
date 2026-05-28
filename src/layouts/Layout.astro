@@ -1,23 +1,58 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Sunny Artis - Kunstwerkstatt & Kreativbedarf", 
+	description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände." 
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="de">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content="Sunny Artis" />
+		<meta property="og:url" content="https://www.sunnyartis.de" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
 	</head>
 	<body>
-		<slot />
+		<Header />
+		<main id="main-content">
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
 
 <style>
-	html,
 	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	#main-content {
+		flex-grow: 1;
 	}
 </style>

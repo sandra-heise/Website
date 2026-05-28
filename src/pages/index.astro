@@ -1,11 +1,544 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Sunny Artis - Handgefertigter Schmuck & Individuelle Kunst">
+  <!-- Hero Section -->
+  <section class="hero-section flex-center">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <span class="hero-tagline">KUNSTWERKSTATT & MANUFAKTUR</span>
+        <h1>Handgefertigte Unikate & individuelle Kunstwerke</h1>
+        <p class="hero-text">
+          Willkommen bei Sunny Artis! Ich bin Sandra Heise und kreiere in meiner Werkstatt in Magdeburg einzigartigen Schmuck, kreative Ausmalprodukte und handgezeichnete Porträts nach deinen persönlichen Fotovorlagen.
+        </p>
+        <div class="hero-actions">
+          <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+            <span>Etsy Shop besuchen</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          </a>
+          <a href="/portraets" class="btn btn-secondary">Porträt anfragen</a>
+        </div>
+      </div>
+      <div class="hero-image-wrapper">
+        <div class="hero-blob"></div>
+        <!-- Placeholder for hero image, styled nicely as a vector card -->
+        <div class="hero-illustration">
+          <div class="illus-card illus-1">🎨 Skizzen & Kunst</div>
+          <div class="illus-card illus-2">💍 Epoxidharz-Schmuck</div>
+          <div class="illus-card illus-3">📚 Kreative Malbücher</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlights Section: Malbücher & Leinwände -->
+  <section class="section highlights-section bg-light" id="highlights">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">KREATIVPRODUKTE</span>
+        <h2 class="center-title">Malbücher & handgestaltete Leinwände</h2>
+        <p class="section-desc">
+          Entdecke meine liebevoll gestalteten Kreativprodukte, die du direkt über meinen Etsy-Shop erwerben kannst. Perfekt als Geschenk oder für dein eigenes nächstes DIY-Projekt.
+        </p>
+      </div>
+
+      <div class="grid-2 highlight-grid">
+        <!-- Coloring Books Card -->
+        <div class="card highlight-card">
+          <div class="card-img-wrapper">
+            <!-- Simulated image using modern gradients representing a coloring book -->
+            <div class="simulated-image book-gradient">
+              <span class="simulated-title">MALBÜCHER</span>
+            </div>
+            <span class="badge badge-yellow card-badge">Etsy Highlight</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Kreative Malbücher & Ausmalbilder</h3>
+            <p class="card-text">
+              Entfliehe dem Alltag mit meinen detailreichen, handgezeichneten Ausmalbüchern. Jedes Motiv ist mit Liebe zum Detail entworfen – von floralen Mustern bis hin zu fantasievollen Szenen. Ideal für Kinder und Erwachsene zur Entspannung.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Ab 6,90 €</span>
+              <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759325" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-etsy-go">
+                Auf Etsy ansehen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvases Card -->
+        <div class="card highlight-card">
+          <div class="card-img-wrapper">
+            <!-- Simulated image using modern gradients representing a canvas -->
+            <div class="simulated-image canvas-gradient">
+              <span class="simulated-title">LEINWÄNDE</span>
+            </div>
+            <span class="badge badge-yellow card-badge">Etsy Highlight</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Handgestaltete Leinwände & Vorlagen</h3>
+            <p class="card-text">
+              Bringe Farbe in deine Räume! Meine Leinwände sind perfekt für deine eigenen Malprojekte oder als bereits fertig gestaltetes Kunstwerk für deine Wände. Sie bieten eine hervorragende Qualität für Acryl-, Wasserfarben und Mischtechniken.
+            </p>
+            <div class="card-footer">
+              <span class="card-price">Ab 14,90 €</span>
+              <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759327" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-etsy-go">
+                Auf Etsy ansehen
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portraits Section -->
+  <section class="section portraits-section">
+    <div class="container grid-2 align-center-grid">
+      <div class="portraits-image-container">
+        <!-- Visual frame representing a sketch art portrait -->
+        <div class="portrait-frame">
+          <div class="portrait-sketch-effect">
+            <div class="sketch-line sketch-1"></div>
+            <div class="sketch-line sketch-2"></div>
+            <span class="frame-tag">Sandra's Zeichnungen</span>
+          </div>
+        </div>
+      </div>
+      <div class="portraits-text-content">
+        <span class="section-tag">UNIKATE AUF BESTELLUNG</span>
+        <h2>Persönliche Porträts nach Foto gezeichnet</h2>
+        <p class="section-text">
+          Ein handgezeichnetes Porträt ist ein unvergessliches Geschenk für Familie, Freunde oder sich selbst. Ich zeichne für dich lebensechte Porträts von Menschen und Haustieren nach deinen Fotovorlagen.
+        </p>
+        <ul class="portrait-features">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Feine Bleistift- & Kohlezeichnungen</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Farbenfrohe Aquarelle und Wasserfarben</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Individuelle Formate und Beratung</span>
+          </li>
+        </ul>
+        <div class="portraits-actions">
+          <a href="/portraets" class="btn btn-primary">Preise & Ablauf ansehen</a>
+          <a href="/kontakt" class="btn btn-secondary">Direkt anfragen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jewelry Teaser Section -->
+  <section class="section jewelry-teaser-section bg-light">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">HANDARBEIT</span>
+        <h2 class="center-title">Handgefertigter Unikatschmuck</h2>
+        <p class="section-desc">
+          Jedes Schmuckstück ist ein absolutes Einzelstück. Ich fertige Ringe, Kettenanhänger, Ohrringe und Armbänder aus hochwertigem Epoxidharz, Blüten und farblichen Akzenten.
+        </p>
+      </div>
+
+      <div class="grid-3 teaser-gallery">
+        <div class="card gallery-teaser-card">
+          <div class="card-img-wrapper">
+            <div class="simulated-image resin-gradient">✨ Epoxidharz Ringe</div>
+          </div>
+          <div class="card-content tc">
+            <h3>Harzschmuck</h3>
+            <p class="card-text">Mit echten gepressten Blüten und edlen Pigmenten gegossen.</p>
+          </div>
+        </div>
+        <div class="card gallery-teaser-card">
+          <div class="card-img-wrapper">
+            <div class="simulated-image polymer-gradient">✨ Polymer Clay Ohrringe</div>
+          </div>
+          <div class="card-content tc">
+            <h3>Polymer-Ohrringe</h3>
+            <p class="card-text">Federleichte, moderne geometrische Formen für jeden Tag.</p>
+          </div>
+        </div>
+        <div class="card gallery-teaser-card">
+          <div class="card-img-wrapper">
+            <div class="simulated-image chain-gradient">✨ Blüten-Ketten</div>
+          </div>
+          <div class="card-content tc">
+            <h3>Medaillons</h3>
+            <p class="card-text">Filigrane Halsketten mit eingefangenen Naturschönheiten.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-30">
+        <a href="/galerie" class="btn btn-outline-dark">Zur vollständigen Galerie</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secondary Background Highlight: Plotterdateien -->
+  <section class="section plotter-banner-section">
+    <div class="container">
+      <div class="glass-container plotter-banner flex-center">
+        <div class="plotter-banner-content text-center">
+          <h3>Suchst du meine Plotterdateien?</h3>
+          <p>
+            Meine digitalen Designs und SVG-Muster für Schneideplotter (für Textildruck, Aufkleber und Dekorationen) biete ich weiterhin online an.
+          </p>
+          <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759329" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            Plotterdateien auf Etsy ansehen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* Hero styles */
+  .hero-section {
+    min-height: calc(85vh - 80px);
+    background: radial-gradient(circle at 80% 20%, rgba(186, 214, 218, 0.3) 0%, rgba(255, 255, 255, 0) 60%),
+                radial-gradient(circle at 10% 80%, rgba(251, 205, 10, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+    padding: 4rem 0;
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  @media (max-width: 991px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 40px;
+    }
+  }
+
+  .hero-tagline {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.25rem;
+    }
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 580px;
+  }
+
+  @media (max-width: 991px) {
+    .hero-text {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 991px) {
+    .hero-actions {
+      justify-content: center;
+    }
+  }
+
+  .btn-icon {
+    margin-left: 8px;
+    transition: transform var(--transition-fast);
+  }
+
+  .btn:hover .btn-icon {
+    transform: translate(2px, -2px);
+  }
+
+  /* Hero illustration */
+  .hero-image-wrapper {
+    position: relative;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 991px) {
+    .hero-image-wrapper {
+      height: 300px;
+      margin-top: 20px;
+    }
+  }
+
+  .hero-blob {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background-color: var(--color-soft-blue);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    filter: blur(10px);
+    opacity: 0.5;
+    animation: blob-animate 8s infinite ease-in-out;
+    z-index: 1;
+  }
+
+  .hero-illustration {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+  }
+
+  .illus-card {
+    position: absolute;
+    padding: 16px 24px;
+    background-color: var(--color-bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-navy);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-normal);
+  }
+
+  .illus-card:hover {
+    transform: scale(1.05);
+  }
+
+  .illus-1 {
+    top: 20%;
+    left: 10%;
+    transform: rotate(-6deg);
+    border-left: 4px solid var(--color-teal);
+  }
+
+  .illus-2 {
+    top: 50%;
+    right: 10%;
+    transform: rotate(4deg);
+    border-left: 4px solid var(--color-yellow);
+  }
+
+  .illus-3 {
+    top: 75%;
+    left: 20%;
+    transform: rotate(-3deg);
+    border-left: 4px solid var(--color-soft-blue);
+  }
+
+  @keyframes blob-animate {
+    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+    50% { border-radius: 60% 40% 50% 70% / 50% 60% 40% 60%; }
+  }
+
+  /* Section headers */
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Highlight Cards Simulated Images */
+  .simulated-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-logo);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    color: var(--color-navy);
+  }
+
+  .book-gradient {
+    background: linear-gradient(135deg, #e0f2f1 0%, #bad6da 100%);
+  }
+
+  .canvas-gradient {
+    background: linear-gradient(135deg, #fff9c4 0%, #fbe9e7 100%);
+  }
+
+  .resin-gradient {
+    background: linear-gradient(135deg, #e1f5fe 0%, #bad6da 100%);
+    color: var(--color-navy);
+  }
+
+  .polymer-gradient {
+    background: linear-gradient(135deg, #efebe9 0%, #e0f2f1 100%);
+  }
+
+  .chain-gradient {
+    background: linear-gradient(135deg, #fffde7 0%, #bad6da 100%);
+  }
+
+  .simulated-title {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 24px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+  }
+
+  .card-price {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-navy);
+  }
+
+  .btn-etsy-go {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+
+  /* Portrait section details */
+  .align-center-grid {
+    align-items: center;
+  }
+
+  .portrait-frame {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 480px;
+    margin: 0 auto;
+    border: 12px solid var(--color-navy);
+    border-radius: 4px;
+    box-shadow: var(--shadow-lg);
+    background-color: #faf9f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .portrait-sketch-effect {
+    width: 85%;
+    height: 85%;
+    border: 1px dashed rgba(5, 32, 53, 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sketch-line {
+    position: absolute;
+    border: 1px solid rgba(5, 32, 53, 0.1);
+  }
+
+  .sketch-1 {
+    width: 80%;
+    height: 80%;
+    transform: rotate(5deg);
+  }
+
+  .sketch-2 {
+    width: 75%;
+    height: 75%;
+    transform: rotate(-4deg);
+  }
+
+  .frame-tag {
+    font-family: var(--font-title);
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    z-index: 2;
+  }
+
+  .portrait-features {
+    list-style: none;
+    margin: 1.5rem 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .portrait-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+  }
+
+  .check-icon {
+    color: var(--color-teal);
+    flex-shrink: 0;
+  }
+
+  .portraits-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  /* Plotter banner styles */
+  .plotter-banner {
+    padding: 3.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .plotter-banner-content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .plotter-banner-content p {
+    color: var(--color-text-muted);
+    max-width: 580px;
+    margin: 0 auto 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Utility margin top */
+  .mt-30 {
+    margin-top: 30px;
+  }
+</style>

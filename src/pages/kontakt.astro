@@ -1,0 +1,352 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Kontakt - Sunny Artis | Kunstwerkstatt Sandra Heise"
+  description="Kontaktiere die Kunstwerkstatt Sunny Artis. Sende eine Nachricht für Porträt-Aufträge, Schmuck-Einzelstücke oder allgemeine Fragen."
+>
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">SCHREIB MIR</span>
+      <h1 class="center-title">Lass uns in Kontakt treten</h1>
+      <p class="section-desc">
+        Hast du Fragen zu meinen Arbeiten, möchtest du ein persönliches Porträt
+        in Auftrag geben oder suchst ein individuelles Schmuckstück? Ich freue
+        mich auf deine Nachricht!
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section bg-light">
+    <div class="container">
+      <div class="grid-2 contact-grid">
+        <!-- Direct Contact Details -->
+        <div class="contact-info-panel glass-container">
+          <h2>Meine Kontaktdaten</h2>
+          <p class="info-intro">
+            Du kannst mir eine Nachricht über das Formular senden, mich direkt
+            per E-Mail anschreiben oder mich telefonisch erreichen.
+          </p>
+
+          <div class="contact-methods">
+            <div class="method-item">
+              <div class="method-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path><polyline points="22,6 12,13 2,6"></polyline></svg
+                >
+              </div>
+              <div class="method-details">
+                <h3>E-Mail</h3>
+                <a href="mailto:sunnyartis@gmx.de">sunnyartis@gmx.de</a>
+              </div>
+            </div>
+
+            <div class="method-item">
+              <div class="method-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path></svg
+                >
+              </div>
+              <div class="method-details">
+                <h3>Telefon & WhatsApp</h3>
+                <a href="tel:+491787271468">+49 178 7271468</a>
+              </div>
+            </div>
+
+            <div class="method-item">
+              <div class="method-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                  ></path><circle cx="12" cy="10" r="3"></circle></svg
+                >
+              </div>
+              <div class="method-details">
+                <h3>Standort</h3>
+                <span>Magdeburg, Deutschland</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-social">
+            <h3>Folge mir auf Instagram</h3>
+            <p>
+              Auf Instagram poste ich regelmäßig Entstehungsvideos meiner Bilder
+              und neue Schmuckstücke.
+            </p>
+            <a
+              href="https://www.instagram.com/sunny_artis"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary btn-sm">@sunny_artis</a
+            >
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-panel">
+          <form
+            class="contact-form"
+            action="https://formspree.io/f/xoqykewy"
+            method="POST"
+          >
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Dein Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-Mail-Adresse *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Deine E-Mail-Adresse"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="reason">Betreff / Anliegen *</label>
+              <select id="reason" name="reason" required>
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option value="portraet">Porträt-Auftrag (nach Foto)</option>
+                <option value="schmuck">Schmuckstück-Anfrage</option>
+                <option value="allgemein">Allgemeine Frage</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Nachricht *</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="6"
+                placeholder="Beschreibe mir hier gerne deine Wünsche..."
+              ></textarea>
+            </div>
+
+            <div class="form-policy">
+              <input type="checkbox" id="policy" name="policy" required />
+              <label for="policy">
+                Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur
+                Beantwortung meiner Anfrage erhoben und verarbeitet werden. *
+                (Weitere Infos unter <a href="/datenschutz" target="_blank"
+                  >Datenschutz</a
+                >)
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100"
+              >Nachricht senden</button
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section {
+    padding-bottom: 2rem;
+  }
+
+  .contact-grid {
+    gap: 50px;
+    align-items: stretch;
+  }
+
+  /* Info Panel Styling */
+  .contact-info-panel {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-info-panel h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .info-intro {
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+    font-size: 1rem;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .method-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .method-icon {
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-bg-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-teal);
+    flex-shrink: 0;
+  }
+
+  .method-details h3 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    color: var(--color-text-muted);
+  }
+
+  .method-details a,
+  .method-details span {
+    font-family: var(--font-title);
+    font-weight: 600;
+    color: var(--color-navy);
+    font-size: 1.05rem;
+  }
+
+  .method-details a:hover {
+    color: var(--color-teal);
+  }
+
+  .contact-social h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .contact-social p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+
+  /* Form Styling */
+  .contact-form {
+    background-color: var(--color-bg-white);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-group {
+    margin-bottom: 22px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--color-navy);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-light);
+    transition: all var(--transition-fast);
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-teal);
+    background-color: var(--color-bg-white);
+    box-shadow: 0 0 0 3px rgba(1, 170, 193, 0.15);
+  }
+
+  .form-policy {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 25px;
+  }
+
+  .form-policy input {
+    margin-top: 4px;
+    cursor: pointer;
+  }
+
+  .form-policy label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  .form-policy label a {
+    color: var(--color-teal);
+    text-decoration: underline;
+  }
+
+  .w-100 {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .contact-info-panel,
+    .contact-form {
+      padding: 25px;
+    }
+  }
+</style>
