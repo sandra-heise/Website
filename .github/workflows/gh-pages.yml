@@ -1,43 +1,40 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: write
+  pages: write
+
 on:
   push:
     branches:
-      - master   # adjust if you rename the default branch to main
+      - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Node (use the same version as in your local dev env)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'   # adjust if you use a different version
+          node-version: '20'
           cache: 'npm'
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Build the Astro site (produces the `dist/` folder)
       - name: Build site
         run: npm run build
+
       - name: Create .nojekyll file
         run: |
           mkdir -p ./dist
           touch ./dist/.nojekyll
 
-      # 5️⃣ Deploy `dist/` to the `gh-pages` branch
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          keep_files: false
-          disable_jekyll: true
+          disable_nojekyll: true
