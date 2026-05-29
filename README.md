@@ -41,6 +41,20 @@ Der Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:432
 | `npm run preview`         | Build lokal vorschauen (vor dem Deployment)         |
 | `npm run astro ...`       | Astro CLI-Befehle wie `astro add`, `astro check`    |
 
+## Kontaktformular
+
+Das Kontaktformular wird über **[Formspree](https://formspree.io)** verarbeitet.
+
+- Konto: `sunnyartis@gmx.de`
+- Form-ID: `xreddgez`
+- Einsendungen sind im Formspree-Dashboard unter [formspree.io](https://formspree.io) einsehbar und werden per E-Mail weitergeleitet.
+
+Um die Form-ID zu ändern, einfach in [src/pages/kontakt.astro](src/pages/kontakt.astro) den `action`-Wert anpassen:
+
+```html
+action="https://formspree.io/f/NEUE-ID"
+```
+
 ## Deployment
 
 Das Deployment läuft über **GitHub Pages** mit GitHub Actions.

@@ -6,45 +6,72 @@ import Layout from '../layouts/Layout.astro';
   <section class="section legal-section">
     <div class="container text-content-legal">
       <h1>Impressum</h1>
-      
+
       <div class="legal-block">
         <h2>Angaben gemäß § 5 TMG</h2>
         <p>
           Sandra Heise<br />
-          Sunny Artis<br />
-          Magdeburg, Deutschland
+          Freiberufliche Auftragskünstlerin<br />
+          Curiestrasse 64B<br />
+          39124 Magdeburg
         </p>
       </div>
 
       <div class="legal-block">
         <h2>Kontakt</h2>
         <p>
-          Telefon: +49 174 4548083<br />
+          Telefon: 01787271468<br />
           E-Mail: <a href="mailto:sunnyartis@gmx.de">sunnyartis@gmx.de</a>
         </p>
       </div>
 
       <div class="legal-block">
-        <h2>Redaktionell verantwortlich</h2>
+        <h2>Umsatzsteuer</h2>
         <p>
-          Sandra Heise<br />
-          Magdeburg, Deutschland
+          Kleinunternehmer-Regelung<br />
+          Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.
         </p>
       </div>
 
       <div class="legal-block">
-        <h2>EU-Streitschlichtung</h2>
-        <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.<br />
-          Unsere E-Mail-Adresse finden Sie oben im Impressum.
-        </p>
-      </div>
-
-      <div class="legal-block">
-        <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+        <h2>Streitschlichtung</h2>
         <p>
           Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+        </p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-block">
+        <h2>Information according to § 5 TMG</h2>
+        <p>
+          Sandra Heise<br />
+          Commissioned Artist<br />
+          Curiestrasse 64B<br />
+          39124 Magdeburg
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2>Contact</h2>
+        <p>
+          Phone: 015117361813<br />
+          E-Mail: <a href="mailto:sunnyartis@gmx.de">sunnyartis@gmx.de</a>
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2>Value Added Tax</h2>
+        <p>
+          Small business regulation<br />
+          According to § 19 UStG no sales tax will be charged.
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2>Dispute Settlement</h2>
+        <p>
+          We are not prepared or obliged to participate in any dispute resolution proceedings before a consumer arbitration board.
         </p>
       </div>
     </div>
@@ -91,5 +118,12 @@ import Layout from '../layouts/Layout.astro';
 
   .legal-block a:hover {
     color: var(--color-navy);
+  }
+
+  .legal-divider {
+    border: none;
+    border-top: 1px solid var(--color-teal);
+    margin: 3rem 0;
+    opacity: 0.3;
   }
 </style>

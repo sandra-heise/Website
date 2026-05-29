@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
@@ -119,7 +120,7 @@ import Layout from "../layouts/Layout.astro";
         <div class="contact-form-panel">
           <form
             class="contact-form"
-            action="https://formspree.io/f/xoqykewy"
+            action="https://formspree.io/f/xreddgez"
             method="POST"
           >
             <div class="form-group">
@@ -171,7 +172,7 @@ import Layout from "../layouts/Layout.astro";
               <label for="policy">
                 Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur
                 Beantwortung meiner Anfrage erhoben und verarbeitet werden. *
-                (Weitere Infos unter <a href="/datenschutz" target="_blank"
+                (Weitere Infos unter <a href={`${base}/datenschutz`} target="_blank"
                   >Datenschutz</a
                 >)
               </label>
