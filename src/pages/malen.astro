@@ -1,0 +1,306 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "Acryl auf Leinwand: Die 5 häufigsten Anfängerfehler",
+    date: "20. Mai 2026",
+    excerpt: "Warum läuft die Farbe? Warum reißt die Leinwand? Ich zeige dir, was beim ersten Malprojekt schiefläuft und wie du es beim nächsten Mal besser machst.",
+    gradient: "bg-warm"
+  },
+  {
+    id: 2,
+    title: "Welche Acrylfarben lohnen sich für Einsteiger?",
+    date: "8. Mai 2026",
+    excerpt: "Günstig vs. teuer — ich vergleiche verschiedene Acrylfarb-Sets und erkläre, worauf du beim Kauf achten solltest. Mit meinen persönlichen Empfehlungen.",
+    gradient: "bg-cool"
+  },
+  {
+    id: 3,
+    title: "Hintergrund gestalten: Gradient-Technik mit Acryl",
+    date: "15. April 2026",
+    excerpt: "Weiche Farbübergänge auf Leinwand — Schritt für Schritt erklärt. So malst du professionelle Farbverläufe, die als Hintergrund für jedes Motiv funktionieren.",
+    gradient: "bg-botanical"
+  }
+];
+---
+
+<Layout
+  title="Malen & Kreativprodukte - Sunny Artis | Malbücher & Leinwände"
+  description="Malbücher und bespielte Leinwände von Sandra Heise im Etsy Shop. Dazu: Tipps und Anleitungen rund ums Malen auf Leinwand."
+>
+  <!-- Header -->
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">MALEN & KREATIVPRODUKTE</span>
+      <h1 class="center-title">Malbücher, Leinwände & Maltipps</h1>
+      <p class="section-desc">
+        Kreativprodukte für dein nächstes Malprojekt — und Inspirationen sowie Anleitungen, damit das Ergebnis gelingt.
+      </p>
+    </div>
+  </section>
+
+  <!-- Malbücher -->
+  <section class="section produkt-section bg-light">
+    <div class="container">
+      <div class="grid-2 produkt-grid align-center-grid">
+        <div class="produkt-visual malbucher-visual">
+          <div class="visual-stack">
+            <div class="visual-card vc-1">Mandala Träume</div>
+            <div class="visual-card vc-2">Florales Ausmalbuch</div>
+            <div class="visual-card vc-3">Fantasy Welten</div>
+          </div>
+        </div>
+        <div class="produkt-text">
+          <span class="section-tag">FÜR KINDER & ERWACHSENE</span>
+          <h2>Handgezeichnete Malbücher</h2>
+          <p>
+            Jedes meiner Malbücher entsteht von Hand — von der ersten Bleistiftskizze bis zum fertigen Druck. Die Motive reichen von entspannenden Mandalas über florale Muster bis hin zu fantasievollen Welten. Ideal zum Verschenken oder für eigene kreative Auszeiten.
+          </p>
+          <ul class="feature-list">
+            <li>Hochwertige Druckqualität, geeignet für Buntstifte und Filzstifte</li>
+            <li>Verschiedene Schwierigkeitsgrade — für Kinder ab 6 und Erwachsene</li>
+            <li>Sofortiger Download (PDF) oder gedruckte Version</li>
+          </ul>
+          <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759325" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+            Malbücher auf Etsy entdecken
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leinwände -->
+  <section class="section produkt-section">
+    <div class="container">
+      <div class="grid-2 produkt-grid align-center-grid reverse-grid">
+        <div class="produkt-text">
+          <span class="section-tag">ZUM SELBST BEMALEN</span>
+          <h2>Vorgestaltete Leinwände & Vorlagen</h2>
+          <p>
+            Meine vorgestalteten Leinwände sind die perfekte Grundlage für eigene Malprojekte. Ich skizziere das Motiv vor — du bringst Farbe ins Spiel. Auch als fertig bemalte Wanddekoration erhältlich.
+          </p>
+          <ul class="feature-list">
+            <li>Verschiedene Größen: 20×20 cm bis 40×50 cm</li>
+            <li>Geeignet für Acryl, Aquarell und Mischtechniken</li>
+            <li>Mit Aufhängevorrichtung — sofort einsatzbereit</li>
+          </ul>
+          <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759327" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+            Leinwände auf Etsy ansehen
+          </a>
+        </div>
+        <div class="produkt-visual leinwand-visual">
+          <div class="leinwand-mockup">
+            <div class="leinwand-inner bg-sunset"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="section blog-section bg-light">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">MAL-BLOG</span>
+        <h2 class="center-title">Tipps & Anleitungen fürs Malen</h2>
+        <p class="section-desc">
+          Ich teile meine Erfahrungen aus der Werkstatt — von Materialtipps bis zu Schritt-für-Schritt-Anleitungen.
+        </p>
+      </div>
+
+      <div class="grid-3 blog-grid">
+        {blogPosts.map(post => (
+          <article class="card blog-card">
+            <div class="card-img-wrapper">
+              <div class={`blog-preview ${post.gradient}`}></div>
+              <span class="badge badge-navy card-badge">{post.date}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title blog-title">{post.title}</h3>
+              <p class="card-text">{post.excerpt}</p>
+              <div class="card-footer">
+                <span class="coming-soon-note">Artikel folgt bald</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Social CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="glass-container social-cta text-center">
+        <h2>Folge mir für neue Malprojekte</h2>
+        <p>Ich teile regelmäßig Einblicke in meine Werkstatt, Work-in-Progress-Fotos und fertige Gemälde auf Instagram und YouTube.</p>
+        <div class="social-actions flex-center">
+          <a href="https://www.instagram.com/sunny_artis/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Instagram</a>
+          <a href="https://www.youtube.com/@SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section { padding-bottom: 2rem; }
+
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .align-center-grid { align-items: center; }
+
+  .produkt-grid {
+    gap: 60px;
+  }
+
+  @media (max-width: 768px) {
+    .produkt-grid { grid-template-columns: 1fr; gap: 40px; }
+    .reverse-grid { direction: ltr; }
+  }
+
+  .reverse-grid {
+    direction: rtl;
+  }
+  .reverse-grid > * { direction: ltr; }
+
+  .produkt-text h2 { font-size: 1.9rem; margin-bottom: 1rem; }
+  .produkt-text p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+
+  .feature-list {
+    list-style: none;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .feature-list li {
+    color: var(--color-text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.95rem;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-teal);
+    font-weight: 700;
+  }
+
+  /* Malbücher visual */
+  .malbucher-visual {
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual-stack {
+    position: relative;
+    width: 260px;
+    height: 280px;
+  }
+
+  .visual-card {
+    position: absolute;
+    width: 200px;
+    height: 240px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-navy);
+    box-shadow: var(--shadow-md);
+  }
+
+  .vc-1 {
+    background: linear-gradient(135deg, #e3f2fd, #90caf9);
+    top: 0; left: 0;
+    transform: rotate(-8deg);
+    z-index: 1;
+  }
+  .vc-2 {
+    background: linear-gradient(135deg, #f1f8e9, #a5d6a7);
+    top: 20px; left: 30px;
+    transform: rotate(-2deg);
+    z-index: 2;
+  }
+  .vc-3 {
+    background: linear-gradient(135deg, #fce4ec, #f48fb1);
+    top: 40px; left: 60px;
+    transform: rotate(5deg);
+    z-index: 3;
+  }
+
+  /* Leinwand visual */
+  .leinwand-mockup {
+    width: 280px;
+    height: 320px;
+    border: 10px solid var(--color-navy);
+    border-radius: 4px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .leinwand-inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bg-warm { background: linear-gradient(145deg, #f9a825, #ef6c00, #b71c1c); }
+  .bg-cool { background: linear-gradient(145deg, #e3f2fd, #90caf9, #42a5f5); }
+  .bg-botanical { background: linear-gradient(145deg, #f1f8e9, #a5d6a7, #388e3c); }
+  .bg-sunset { background: linear-gradient(145deg, #fff3e0, #ff8a65, #c62828); }
+
+  /* Blog */
+  .blog-preview {
+    width: 100%;
+    height: 100%;
+  }
+
+  .blog-title { font-size: 1.1rem; line-height: 1.4; margin-bottom: 10px; }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  .coming-soon-note {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  /* Social CTA */
+  .social-cta { padding: 4rem 2rem; }
+  .social-cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+  .social-cta p { color: var(--color-text-muted); max-width: 560px; margin: 0 auto 2rem; }
+  .social-actions { gap: 16px; flex-wrap: wrap; }
+</style>

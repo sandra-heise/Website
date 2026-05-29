@@ -1,6 +1,17 @@
 ---
 const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const navLinks = [
+  { href: `${base}/`, label: 'Startseite' },
+  { href: `${base}/gemaelde`, label: 'Gemälde' },
+  { href: `${base}/malen`, label: 'Malen & Kreativprodukte' },
+  { href: `${base}/portfolio`, label: 'Portfolio' },
+  { href: `${base}/basteln`, label: 'Basteln & Plotter' },
+  { href: `${base}/schmuck`, label: 'Schmuck' },
+  { href: `${base}/ueber-mich`, label: 'Über mich' },
+  { href: `${base}/kontakt`, label: 'Kontakt' },
+];
 ---
 
 <footer class="main-footer">
@@ -144,11 +155,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="footer-col links-col">
       <h3>Navigation</h3>
       <ul class="footer-links">
-        <li><a href={`${base}/`}>Startseite</a></li>
-        <li><a href={`${base}/galerie`}>Galerie</a></li>
-        <li><a href={`${base}/ueber-mich`}>Über mich</a></li>
-        <li><a href={`${base}/blog`}>DIY-Blog</a></li>
-        <li><a href={`${base}/kontakt`}>Kontakt</a></li>
+        {navLinks.map(link => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
       </ul>
     </div>
 

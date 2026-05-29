@@ -1,0 +1,266 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const gemaelde = [
+  {
+    id: 1,
+    title: "Acryl-Landschaft 'Goldene Stunde'",
+    technik: "Acryl",
+    format: "40 × 50 cm",
+    beschreibung: "Wärmendes Abendlicht über einer weiten Landschaft. Kräftige Acrylfarben auf Leinwand, strukturiert mit Spachtel und Pinsel.",
+    gradient: "bg-warm",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  },
+  {
+    id: 2,
+    title: "Aquarell 'Morgennebel'",
+    technik: "Aquarell",
+    format: "30 × 40 cm",
+    beschreibung: "Zarte Farbverläufe in kühlen Blau- und Grüntönen. Ein stimmungsvolles Aquarell auf hochwertigem Künstlerpapier.",
+    gradient: "bg-cool",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  },
+  {
+    id: 3,
+    title: "Mischtechnik 'Botanisch'",
+    technik: "Mischtechnik",
+    format: "50 × 70 cm",
+    beschreibung: "Botanische Motive in einer spannenden Kombination aus Tusche, Aquarell und Acryl. Großformatig und ausdrucksstark.",
+    gradient: "bg-botanical",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  },
+  {
+    id: 4,
+    title: "Acryl 'Abstrakt Blau'",
+    technik: "Acryl",
+    format: "60 × 60 cm",
+    beschreibung: "Tiefes Marineblau trifft auf Gold und Weiß. Dieses abstrakte Gemälde setzt ein kraftvolles Statement an jeder Wand.",
+    gradient: "bg-navy-gold",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  },
+  {
+    id: 5,
+    title: "Aquarell 'Wildblumen'",
+    technik: "Aquarell",
+    format: "21 × 29,7 cm",
+    beschreibung: "Leichte, luftige Wildblumen in Aquarellfarben. Zarte Pinselstriche fangen die Vergänglichkeit der Natur ein.",
+    gradient: "bg-floral",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  },
+  {
+    id: 6,
+    title: "Acryl 'Sonnenuntergang über dem Meer'",
+    technik: "Acryl",
+    format: "40 × 60 cm",
+    beschreibung: "Warme Orange- und Rottöne spiegeln sich im ruhigen Wasser. Strukturierte Oberfläche mit Spachtelarbeit.",
+    gradient: "bg-sunset",
+    etsy: "https://www.etsy.com/shop/SunnyArtis"
+  }
+];
+
+const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
+---
+
+<Layout
+  title="Gemälde - Sunny Artis | Original Kunstwerke kaufen"
+  description="Original Gemälde von Sandra Heise: Acryl, Aquarell und Mischtechnik auf Leinwand und Papier. Direkt im Etsy Shop erhältlich."
+>
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">ORIGINAL KUNSTWERKE</span>
+      <h1 class="center-title">Meine Gemälde</h1>
+      <p class="section-desc">
+        Handgemalte Originale auf Leinwand und Papier — jedes Bild ein Unikat. Alle Werke sind über meinen Etsy-Shop erhältlich und werden sicher verpackt versendet.
+      </p>
+    </div>
+  </section>
+
+  <section class="section gemaelde-section bg-light">
+    <div class="container">
+      <div class="filter-wrapper flex-center">
+        {techniken.map(t => (
+          <button class={`filter-btn${t === 'Alle' ? ' active' : ''}`} data-filter={t === 'Alle' ? 'all' : t.toLowerCase()}>
+            {t}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid-3 gemaelde-grid" id="gemaeldeGrid">
+        {gemaelde.map(g => (
+          <div class="card gemaelde-card" data-technik={g.technik.toLowerCase()}>
+            <div class="card-img-wrapper">
+              <div class={`kunstwerk-preview ${g.gradient}`}>
+                <span class="kunstwerk-label">{g.technik}</span>
+              </div>
+              <span class="badge badge-teal card-badge">{g.format}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">{g.title}</h3>
+              <p class="card-text">{g.beschreibung}</p>
+              <div class="card-footer">
+                <span class="technik-tag">{g.technik}</span>
+                <a href={g.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+                  Auf Etsy ansehen
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section auftragskunst-section">
+    <div class="container">
+      <div class="glass-container auftrags-box">
+        <div class="auftrags-content">
+          <span class="section-tag">AUFTRAGSGEMÄLDE</span>
+          <h2>Wunschgemälde auf Bestellung</h2>
+          <p>
+            Du hast ein bestimmtes Motiv, eine Farbpalette oder eine persönliche Geschichte, die du auf Leinwand verewigen möchtest? Ich male auch individuelle Auftragsgemälde — vom Familienporträt bis zur abstrakten Wanddekoration.
+          </p>
+          <div class="auftrags-actions">
+            <a href={`${base}/kontakt`} class="btn btn-primary">Anfrage stellen</a>
+            <a href={`${base}/portfolio`} class="btn btn-secondary">Weitere Werke im Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section {
+    padding-bottom: 2rem;
+  }
+
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .filter-wrapper {
+    gap: 12px;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .filter-btn.active {
+    background-color: var(--color-teal);
+    border-color: var(--color-teal);
+    color: white;
+    box-shadow: 0 4px 10px rgba(1,170,193,0.2);
+  }
+
+  .kunstwerk-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 16px;
+  }
+
+  .kunstwerk-label {
+    background: rgba(255,255,255,0.9);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .bg-warm { background: linear-gradient(145deg, #f9a825 0%, #ef6c00 50%, #b71c1c 100%); }
+  .bg-cool { background: linear-gradient(145deg, #e3f2fd 0%, #90caf9 50%, #42a5f5 100%); }
+  .bg-botanical { background: linear-gradient(145deg, #f1f8e9 0%, #a5d6a7 50%, #388e3c 100%); }
+  .bg-navy-gold { background: linear-gradient(145deg, #052035 0%, #01aac1 50%, #fbcd0a 100%); }
+  .bg-floral { background: linear-gradient(145deg, #fce4ec 0%, #f48fb1 50%, #ad1457 100%); }
+  .bg-sunset { background: linear-gradient(145deg, #fff3e0 0%, #ff8a65 50%, #c62828 100%); }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  .technik-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    color: var(--color-teal);
+    font-weight: 600;
+  }
+
+  .auftrags-box {
+    padding: 4rem 3rem;
+  }
+
+  .auftrags-content {
+    max-width: 680px;
+  }
+
+  .auftrags-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .auftrags-content p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .auftrags-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .gemaelde-card { transition: all var(--transition-normal); }
+  .gemaelde-card.hidden { display: none; }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.gemaelde-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        const t = card.getAttribute('data-technik');
+        card.classList.toggle('hidden', f !== 'all' && t !== f);
+      });
+    });
+  });
+</script>

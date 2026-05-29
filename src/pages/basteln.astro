@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "Plotterdateien entgittern ohne Frust",
+    date: "10. März 2026",
+    excerpt: "Feine SVG-Muster lassen sich mit dem richtigen Werkzeug und Geduld perfekt entgittern. Meine Tipps für Flexfolie, Vinyl und Papier.",
+    gradient: "bg-plotter"
+  },
+  {
+    id: 2,
+    title: "Upcycling: Alte Holzkiste mit Plotter-Vinyl gestalten",
+    date: "25. Februar 2026",
+    excerpt: "Aus einer schlichten Holzkiste wird ein hübsches Aufbewahrungsstück — mit Beschriftungsfolie und ein bisschen Geduld.",
+    gradient: "bg-botanical"
+  },
+  {
+    id: 3,
+    title: "Personalisierte Geschenkboxen mit dem Plotter",
+    date: "14. Januar 2026",
+    excerpt: "Schritt-für-Schritt: Wie ich individuelle Geschenkboxen mit meinem Schneideplotter gestalte — inkl. Vorlage zum Download.",
+    gradient: "bg-warm"
+  }
+];
+
+const amazonLinks = [
+  {
+    name: "Silhouette Cameo 4 Schneideplotter",
+    beschreibung: "Mein meistgenutzter Plotter — präzise, leise und super einfach zu bedienen. Ideal für Einsteiger und Fortgeschrittene.",
+    link: "https://www.amazon.de/s?k=silhouette+cameo+4",
+    preis: "ca. 299 €"
+  },
+  {
+    name: "Oracal 651 Vinylfolie Set",
+    beschreibung: "Hochwertige Klebefolie in verschiedenen Farben. Hält super auf Glas, Keramik und Holz. Absolute Empfehlung!",
+    link: "https://www.amazon.de/s?k=oracal+651",
+    preis: "ca. 15 €"
+  },
+  {
+    name: "Flexfolie für Textildruck",
+    beschreibung: "Die Folie, die ich für alle T-Shirt-Projekte verwende. Weich, dehnbar und nach 20+ Wäschen noch einwandfrei.",
+    link: "https://www.amazon.de/s?k=flexfolie+textildruck",
+    preis: "ca. 12 €"
+  },
+  {
+    name: "Entgitterwerkzeug-Set",
+    beschreibung: "Unverzichtbar beim Arbeiten mit feinen Schnitten. Das Set enthält Haken, Pinzette und Spatel — alles was man braucht.",
+    link: "https://www.amazon.de/s?k=entgitterwerkzeug+plotter",
+    preis: "ca. 10 €"
+  }
+];
+
+const downloads = [
+  {
+    name: "SVG-Vorlage: Blumenranke",
+    format: "SVG + PNG",
+    beschreibung: "Eine einfache Blumenranke, geeignet für Plotter, Stickmaschinen und Druckprojekte. Kostenlos für den privaten Gebrauch.",
+    datei: "/downloads/blumenranke.svg"
+  },
+  {
+    name: "Malvorlage: Einfache Mandala",
+    format: "PDF",
+    beschreibung: "Eine entspannende Mandala-Malvorlage im A4-Format. Direkt ausdrucken und loszeichnen.",
+    datei: "/downloads/mandala-einfach.pdf"
+  }
+];
+---
+
+<Layout
+  title="Basteln & Plotterdateien - Sunny Artis | Anleitungen & Downloads"
+  description="Plotterdateien, Bastelanleitungen, Amazon-Empfehlungen und kostenlose Downloads von Sandra Heise. Kreative Projekte für Plotter-Fans."
+>
+  <!-- Header -->
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">BASTELN & PLOTTER</span>
+      <h1 class="center-title">Basteln mit Herz & Plotter</h1>
+      <p class="section-desc">
+        Anleitungen, Materialempfehlungen und Downloads rund ums kreative Basteln. Mein Fokus liegt auf dem Arbeiten mit Schneideplottern und kreativen DIY-Projekten.
+      </p>
+    </div>
+  </section>
+
+  <!-- Plotterdateien -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="grid-2 align-center-grid plotter-intro-grid">
+        <div>
+          <span class="section-tag">DIGITALE DESIGNS</span>
+          <h2>Meine Plotterdateien auf Etsy</h2>
+          <p>
+            SVG-Dateien, Schnittmuster und digitale Designs für Schneideplotter — kompatibel mit Silhouette, Cricut und anderen gängigen Plottern. Alle Dateien sind sorgfältig gezeichnet und sofort einsatzbereit.
+          </p>
+          <p>
+            Von floralen Motiven über Schriftarten bis zu geometrischen Mustern: Du findest in meinem Shop das passende Design für dein nächstes Projekt.
+          </p>
+          <div class="plotter-actions">
+            <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759329" target="_blank" rel="noopener noreferrer" class="btn btn-accent">
+              Plotterdateien auf Etsy
+            </a>
+            <a href={`${base}/portfolio`} class="btn btn-secondary">Portfolio ansehen</a>
+          </div>
+        </div>
+        <div class="plotter-visual-grid">
+          <div class="pv-card pv-1">SVG</div>
+          <div class="pv-card pv-2">Florales</div>
+          <div class="pv-card pv-3">Schriften</div>
+          <div class="pv-card pv-4">Geo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">BASTEL-BLOG</span>
+        <h2 class="center-title">Anleitungen & Projekte</h2>
+        <p class="section-desc">Schritt-für-Schritt-Anleitungen für kreative Bastelprojekte mit dem Schneideplotter.</p>
+      </div>
+
+      <div class="grid-3 blog-grid">
+        {blogPosts.map(post => (
+          <article class="card blog-card">
+            <div class="card-img-wrapper">
+              <div class={`blog-preview ${post.gradient}`}></div>
+              <span class="badge badge-navy card-badge">{post.date}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title blog-title">{post.title}</h3>
+              <p class="card-text">{post.excerpt}</p>
+              <div class="card-footer">
+                <span class="coming-soon">Artikel folgt bald</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Amazon Empfehlungen -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">MEINE EMPFEHLUNGEN</span>
+        <h2 class="center-title">Materialien & Werkzeuge</h2>
+        <p class="section-desc">
+          Was ich selbst nutze und empfehle — ehrliche Einschätzungen aus meiner täglichen Arbeit.
+        </p>
+      </div>
+
+      <p class="affiliate-hinweis">
+        <strong>Hinweis:</strong> Die folgenden Links sind Amazon-Partnerlinks. Wenn du über einen dieser Links kaufst, erhalte ich eine kleine Provision — für dich entstehen keine Mehrkosten. Ich empfehle nur Produkte, die ich selbst verwende.
+      </p>
+
+      <div class="grid-2 amazon-grid">
+        {amazonLinks.map(item => (
+          <div class="card amazon-card">
+            <div class="card-content amazon-content">
+              <div class="amazon-header">
+                <h3 class="amazon-title">{item.name}</h3>
+                <span class="amazon-preis">{item.preis}</span>
+              </div>
+              <p class="card-text">{item.beschreibung}</p>
+              <a href={item.link} target="_blank" rel="noopener noreferrer sponsored" class="btn btn-outline-dark btn-sm">
+                Auf Amazon ansehen *
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="affiliate-footer">* Affiliate-Link — ich erhalte eine Provision bei Kauf.</p>
+    </div>
+  </section>
+
+  <!-- Downloads -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">GRATIS</span>
+        <h2 class="center-title">Kostenlose Downloads</h2>
+        <p class="section-desc">
+          Ausgewählte Vorlagen und Dateien zum kostenlosen Download — für den privaten, nicht-kommerziellen Gebrauch.
+        </p>
+      </div>
+
+      <div class="downloads-grid">
+        {downloads.map(dl => (
+          <div class="card download-card">
+            <div class="download-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <div class="card-content">
+              <div class="download-meta">
+                <h3 class="card-title">{dl.name}</h3>
+                <span class="format-tag">{dl.format}</span>
+              </div>
+              <p class="card-text">{dl.beschreibung}</p>
+              <a href={dl.datei} download class="btn btn-primary btn-sm">
+                Kostenlos herunterladen
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="download-hinweis">Alle kostenlosen Dateien sind nur für den privaten Gebrauch bestimmt. Eine kommerzielle Nutzung ist nicht gestattet.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section { padding-bottom: 2rem; }
+
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .align-center-grid { align-items: center; }
+  .plotter-intro-grid { gap: 60px; }
+
+  @media (max-width: 768px) {
+    .plotter-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .plotter-intro-grid h2 { font-size: 1.9rem; margin-bottom: 1rem; }
+  .plotter-intro-grid p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem; }
+  .plotter-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  /* Plotter visual */
+  .plotter-visual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .pv-card {
+    height: 120px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-navy);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pv-1 { background: linear-gradient(135deg, #fffde7, #fff59d); }
+  .pv-2 { background: linear-gradient(135deg, #fce4ec, #f48fb1); }
+  .pv-3 { background: linear-gradient(135deg, #e3f2fd, #90caf9); }
+  .pv-4 { background: linear-gradient(135deg, #f1f8e9, #a5d6a7); }
+
+  /* Blog */
+  .blog-preview { width: 100%; height: 100%; }
+  .bg-plotter { background: linear-gradient(135deg, #fffde7, #fff59d); }
+  .bg-botanical { background: linear-gradient(145deg, #f1f8e9, #a5d6a7, #388e3c); }
+  .bg-warm { background: linear-gradient(145deg, #f9a825, #ef6c00, #b71c1c); }
+
+  .card-badge { position: absolute; top: 12px; right: 12px; z-index: 2; }
+  .blog-title { font-size: 1.1rem; line-height: 1.4; }
+  .coming-soon { font-size: 0.8rem; color: var(--color-text-muted); font-style: italic; }
+
+  /* Amazon */
+  .affiliate-hinweis {
+    background: rgba(186, 214, 218, 0.2);
+    border-left: 4px solid var(--color-teal);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .amazon-grid { gap: 24px; }
+  @media (max-width: 768px) { .amazon-grid { grid-template-columns: 1fr; } }
+
+  .amazon-content { padding: 24px; }
+
+  .amazon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .amazon-title { font-size: 1.05rem; }
+  .amazon-preis {
+    font-family: var(--font-title);
+    font-weight: 700;
+    color: var(--color-teal);
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .affiliate-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* Downloads */
+  .downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 1.5rem;
+  }
+
+  .download-card {
+    display: flex;
+    gap: 0;
+    flex-direction: column;
+  }
+
+  .download-icon {
+    background: linear-gradient(135deg, var(--color-soft-blue), var(--color-teal));
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .download-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .format-tag {
+    background: var(--color-soft-blue);
+    color: var(--color-navy);
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .download-hinweis {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>

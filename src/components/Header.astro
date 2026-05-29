@@ -12,7 +12,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </a>
 
-    <!-- Mobile Hamburger Menu Button -->
     <button class="nav-toggle" aria-label="Menü öffnen" id="navToggle">
       <span class="hamburger"></span>
     </button>
@@ -23,13 +22,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href={`${base}/`} class={currentPath === `${base}/` ? 'active' : ''}>Start</a>
         </li>
         <li>
-          <a href={`${base}/galerie`} class={currentPath.startsWith(`${base}/galerie`) ? 'active' : ''}>Galerie</a>
+          <a href={`${base}/gemaelde`} class={currentPath.startsWith(`${base}/gemaelde`) ? 'active' : ''}>Gemälde</a>
         </li>
         <li>
-          <a href={`${base}/ueber-mich`} class={currentPath.startsWith(`${base}/ueber-mich`) ? 'active' : ''}>Über mich</a>
+          <a href={`${base}/malen`} class={currentPath.startsWith(`${base}/malen`) ? 'active' : ''}>Malen</a>
         </li>
         <li>
-          <a href={`${base}/blog`} class={currentPath.startsWith(`${base}/blog`) ? 'active' : ''}>DIY-Blog</a>
+          <a href={`${base}/portfolio`} class={currentPath.startsWith(`${base}/portfolio`) ? 'active' : ''}>Portfolio</a>
+        </li>
+        <li>
+          <a href={`${base}/basteln`} class={currentPath.startsWith(`${base}/basteln`) ? 'active' : ''}>Basteln</a>
+        </li>
+        <li>
+          <a href={`${base}/schmuck`} class={currentPath.startsWith(`${base}/schmuck`) ? 'active' : ''}>Schmuck</a>
         </li>
         <li>
           <a href={`${base}/kontakt`} class={currentPath.startsWith(`${base}/kontakt`) ? 'active' : ''}>Kontakt</a>
@@ -65,12 +70,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     width: 100%;
   }
 
-  /* Logo styling */
   .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
     height: 60px;
+    flex-shrink: 0;
   }
 
   .header-logo {
@@ -78,6 +83,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     width: auto;
     object-fit: contain;
   }
+
   .logo-wrapper {
     width: 60px;
     height: 60px;
@@ -88,21 +94,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     justify-content: center;
   }
 
-  /* Nav menu list */
   .nav-list {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 30px;
+    gap: 22px;
   }
 
   .nav-list a:not(.etsy-link) {
     font-family: var(--font-title);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.85);
     position: relative;
     padding: 10px 0;
+    white-space: nowrap;
   }
 
   .nav-list a:not(.etsy-link):hover,
@@ -126,13 +132,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     width: 100%;
   }
 
-  /* Etsy Button in nav */
   .etsy-link {
-    padding: 8px 18px;
-    font-size: 0.85rem;
+    padding: 7px 14px;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     text-transform: none;
     box-shadow: none;
   }
@@ -142,11 +147,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   .external-icon {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
   }
 
-  /* Mobile menu styles */
   .nav-toggle {
     display: none;
     background: transparent;
@@ -175,19 +179,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     transition: transform var(--transition-fast);
   }
 
-  .hamburger::before {
-    top: -8px;
-  }
+  .hamburger::before { top: -8px; }
+  .hamburger::after { bottom: -8px; }
 
-  .hamburger::after {
-    bottom: -8px;
-  }
-
-  @media (max-width: 991px) {
+  @media (max-width: 1100px) {
     .nav-toggle {
       display: block;
     }
-    
+
     .nav-menu {
       position: fixed;
       top: 0;
@@ -200,6 +199,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       transition: right var(--transition-normal);
       z-index: 1000;
       border-left: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-y: auto;
     }
 
     .nav-menu.open {
@@ -209,7 +209,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     .nav-list {
       flex-direction: column;
       align-items: flex-start;
-      gap: 24px;
+      gap: 20px;
       width: 100%;
     }
 
@@ -233,7 +233,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       justify-content: center;
     }
 
-    /* Hamburger Animation when open */
     .nav-toggle.open .hamburger {
       background-color: transparent;
     }
@@ -258,9 +257,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       navMenu.classList.toggle('open');
     });
 
-    // Close menu when clicking a link
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
+    navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('open');
         navMenu.classList.remove('open');

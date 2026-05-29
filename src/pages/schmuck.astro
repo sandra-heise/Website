@@ -1,0 +1,277 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const stuecke = [
+  { id: 1, title: "Epoxidharz Ring 'Kornblume'", material: "Epoxidharz", beschreibung: "Klares Gießharz mit einer echten, gepressten Kornblume. Jeder Ring ein absolutes Unikat.", gradient: "bg-resin-blue" },
+  { id: 2, title: "Blüten-Kettenanhänger", material: "Epoxidharz", beschreibung: "Ovaler Anhänger mit getrockneten Wildblumen und Goldflocken, an einer feinen Goldkette.", gradient: "bg-resin-gold" },
+  { id: 3, title: "Polymer Clay Ohrringe 'Terrazzo'", material: "Polymer Clay", beschreibung: "Federleichte geometrische Ohrringe im modernen Terrazzo-Look. Farben nach Wahl.", gradient: "bg-polymer" },
+  { id: 4, title: "Harz-Armband 'Meer'", material: "Epoxidharz", beschreibung: "Tiefblaues Armband mit Perlmuttschimmer und eingebetteten Muschelpartikeln.", gradient: "bg-ocean" },
+  { id: 5, title: "Polymer-Ohrringe 'Pastell Drops'", material: "Polymer Clay", beschreibung: "Tropfenförmige Ohrhänger in sanften Pastelltönen. Perfekt für den Alltag.", gradient: "bg-pastel" },
+  { id: 6, title: "Epoxidharz Medaillon 'Ginkgo'", material: "Epoxidharz", beschreibung: "Eleganter Kettenanhänger mit einem Ginkgo-Blatt auf dunkelblauem Untergrund.", gradient: "bg-ginkgo" },
+];
+
+const materialien = ['Alle', 'Epoxidharz', 'Polymer Clay'];
+---
+
+<Layout
+  title="Schmuck - Sunny Artis | Handgefertigte Unikate"
+  description="Handgefertigter Unikatschmuck von Sandra Heise: Epoxidharz-Schmuck mit echten Blüten und Polymer Clay Ohrringe. Individuelle Anfertigung auf Bestellung."
+>
+  <!-- Header -->
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">HANDGEMACHTE UNIKATE</span>
+      <h1 class="center-title">Schmuck aus meiner Werkstatt</h1>
+      <p class="section-desc">
+        Jedes Schmuckstück entsteht in Handarbeit — kein Stück gleicht dem anderen. Epoxidharz mit echten Blüten, Polymer Clay in modernen Formen, und immer mit viel Liebe zum Detail.
+      </p>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="filter-wrapper flex-center">
+        {materialien.map(m => (
+          <button class={`filter-btn${m === 'Alle' ? ' active' : ''}`} data-filter={m === 'Alle' ? 'all' : m.toLowerCase().replace(' ', '-')}>
+            {m}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid-3 schmuck-grid" id="schmuckGrid">
+        {stuecke.map(s => (
+          <div class="card schmuck-card" data-material={s.material.toLowerCase().replace(' ', '-')}>
+            <div class="card-img-wrapper">
+              <div class={`schmuck-preview ${s.gradient}`}>
+                <div class="schmuck-shine"></div>
+              </div>
+              <span class="badge badge-teal card-badge">{s.material}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">{s.title}</h3>
+              <p class="card-text">{s.beschreibung}</p>
+              <div class="card-footer">
+                <span class="unikat-label">Unikat</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Über den Schmuck -->
+  <section class="section">
+    <div class="container grid-2 align-center-grid handwerk-grid">
+      <div>
+        <span class="section-tag">HANDWERK & LEIDENSCHAFT</span>
+        <h2>Wie mein Schmuck entsteht</h2>
+        <p>
+          Ich sammle und trockne echte Blüten aus dem Garten und der Natur. Jede Blüte wird einzeln in transparentes Epoxidharz gegossen — ein Prozess, der Geduld erfordert, aber jedes Mal zu einem einzigartigen Ergebnis führt.
+        </p>
+        <p>
+          Meine Polymer-Clay-Stücke forme ich komplett von Hand, töne sie ein und backe sie im Ofen aus. Kein Stück ist exakt wie das andere.
+        </p>
+        <ul class="handwerk-list">
+          <li>Nur hochwertige, nicht-toxische Materialien</li>
+          <li>Nickelfreie Fassungen und Verschlüsse</li>
+          <li>Auf Wunsch auch in deiner Wunschfarbe</li>
+        </ul>
+      </div>
+      <div class="handwerk-visual">
+        <div class="hv-ring hv-1"></div>
+        <div class="hv-ring hv-2"></div>
+        <div class="hv-ring hv-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bestellung / Anfrage -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="glass-container anfrage-box">
+        <div class="anfrage-content">
+          <span class="section-tag">AKTUELL KEIN ONLINE-SHOP</span>
+          <h2>Schmuck auf Anfrage bestellen</h2>
+          <p>
+            Meine Schmuckstücke sind momentan noch nicht in einem Online-Shop erhältlich. Du kannst mich aber jederzeit direkt kontaktieren — ich fertige gerne ein individuelles Stück nach deinen Wünschen an oder informiere dich über verfügbare Unikate.
+          </p>
+          <p>
+            Wähle Material, Farbe und Stil — ich erstelle dir ein persönliches Angebot.
+          </p>
+          <a href={`${base}/kontakt`} class="btn btn-primary">Schmuck anfragen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section { padding-bottom: 2rem; }
+
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .filter-wrapper {
+    gap: 12px;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .filter-btn.active {
+    background-color: var(--color-teal);
+    border-color: var(--color-teal);
+    color: white;
+  }
+
+  .schmuck-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .schmuck-shine {
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+  }
+
+  .bg-resin-blue { background: radial-gradient(ellipse at 30% 30%, #e3f2fd, #1565c0); }
+  .bg-resin-gold { background: radial-gradient(ellipse at 30% 30%, #fffde7, #f9a825, #e65100); }
+  .bg-polymer { background: radial-gradient(ellipse at 30% 30%, #fce4ec, #ad1457); }
+  .bg-ocean { background: radial-gradient(ellipse at 30% 30%, #e0f7fa, #006064); }
+  .bg-pastel { background: radial-gradient(ellipse at 30% 30%, #f8bbd0, #f48fb1, #ce93d8); }
+  .bg-ginkgo { background: radial-gradient(ellipse at 30% 30%, #c8e6c9, #052035); }
+
+  .card-badge { position: absolute; top: 12px; right: 12px; z-index: 2; }
+  .unikat-label { font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
+  .schmuck-card.hidden { display: none; }
+
+  /* Handwerk section */
+  .align-center-grid { align-items: center; }
+  .handwerk-grid { gap: 60px; }
+
+  @media (max-width: 768px) { .handwerk-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .handwerk-grid h2 { font-size: 1.9rem; margin-bottom: 1rem; }
+  .handwerk-grid p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem; }
+
+  .handwerk-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .handwerk-list li {
+    color: var(--color-text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.95rem;
+  }
+
+  .handwerk-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--color-teal);
+    font-size: 0.8rem;
+  }
+
+  /* Handwerk visual */
+  .handwerk-visual {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hv-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid;
+  }
+
+  .hv-1 {
+    width: 240px; height: 240px;
+    background: radial-gradient(ellipse, #e3f2fd, #1565c0);
+    border-color: rgba(1,170,193,0.3);
+    box-shadow: 0 8px 32px rgba(1,170,193,0.2);
+  }
+
+  .hv-2 {
+    width: 160px; height: 160px;
+    background: radial-gradient(ellipse, #fffde7, #f9a825);
+    border-color: rgba(249,168,37,0.4);
+    box-shadow: 0 4px 16px rgba(249,168,37,0.2);
+    top: 20%; right: 15%;
+  }
+
+  .hv-3 {
+    width: 100px; height: 100px;
+    background: radial-gradient(ellipse, #fce4ec, #ad1457);
+    border-color: rgba(173,20,87,0.3);
+    bottom: 15%; left: 20%;
+  }
+
+  /* Anfrage box */
+  .anfrage-box { padding: 4rem 3rem; }
+  .anfrage-content { max-width: 640px; }
+  .anfrage-content h2 { font-size: 2rem; margin-bottom: 1rem; }
+  .anfrage-content p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem; }
+  .anfrage-content p:last-of-type { margin-bottom: 2rem; }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.schmuck-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        const m = card.getAttribute('data-material');
+        card.classList.toggle('hidden', f !== 'all' && m !== f);
+      });
+    });
+  });
+</script>

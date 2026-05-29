@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const werke = [
+  { id: 1, title: "Acryl 'Goldene Stunde'", kategorie: "gemaelde", kategorieLabel: "Gemälde", beschreibung: "Warmes Abendlicht in kräftigen Acrylfarben auf Leinwand.", gradient: "bg-warm" },
+  { id: 2, title: "Aquarell 'Wildblumen'", kategorie: "gemaelde", kategorieLabel: "Gemälde", beschreibung: "Zarte Wildblumen in luftigen Aquarellfarben auf Künstlerpapier.", gradient: "bg-floral" },
+  { id: 3, title: "Bleistiftporträt 'Geschwister'", kategorie: "portraets", kategorieLabel: "Porträts", beschreibung: "Detailreiches Doppelporträt zweier Kinder auf schwerem Künstlerkarton.", gradient: "bg-pencil" },
+  { id: 4, title: "Aquarell-Haustierporträt", kategorie: "portraets", kategorieLabel: "Porträts", beschreibung: "Lebendiges Tierporträt mit professionellen Aquarellfarben.", gradient: "bg-cool" },
+  { id: 5, title: "Epoxidharz Blüten-Medaillon", kategorie: "schmuck", kategorieLabel: "Schmuck", beschreibung: "Handgefertigter Kettenanhänger mit gepressten Kornblumen und Goldflocken.", gradient: "bg-resin" },
+  { id: 6, title: "Polymer Clay Ohrringe", kategorie: "schmuck", kategorieLabel: "Schmuck", beschreibung: "Geometrische Hängeohrringe im Terrazzo-Stil, extrem leicht.", gradient: "bg-polymer" },
+  { id: 7, title: "Malbuch 'Mandala Träume'", kategorie: "kreatives", kategorieLabel: "Kreativprodukte", beschreibung: "Handgezeichnetes Ausmalbuch mit geometrischen und floralen Mandalas.", gradient: "bg-botanical" },
+  { id: 8, title: "Vorgestaltete Leinwand 'Botanisch'", kategorie: "kreatives", kategorieLabel: "Kreativprodukte", beschreibung: "Vorskizzierte Leinwand zum Selbstbemalen — Motiv: botanische Illustrationen.", gradient: "bg-botanical-light" },
+  { id: 9, title: "SVG Plotterdatei 'Blumenranke'", kategorie: "basteln", kategorieLabel: "Basteln & Plotter", beschreibung: "Digitale Schnittdatei für Schneideplotter, geeignet für Vinyl, Flex und Papier.", gradient: "bg-plotter" },
+];
+
+const kategorien = [
+  { key: 'all', label: 'Alle' },
+  { key: 'gemaelde', label: 'Gemälde' },
+  { key: 'portraets', label: 'Porträts' },
+  { key: 'schmuck', label: 'Schmuck' },
+  { key: 'kreatives', label: 'Kreativprodukte' },
+  { key: 'basteln', label: 'Basteln & Plotter' },
+];
+
+const videos = [
+  { title: "Speed-Painting: Acryl Landschaft", plattform: "YouTube", link: "https://www.youtube.com/@SunnyArtis", beschreibung: "Zeitraffer eines kompletten Acrylgemäldes von der leeren Leinwand bis zum fertigen Bild." },
+  { title: "Harz-Schmuck gießen — Step by Step", plattform: "YouTube", link: "https://www.youtube.com/@SunnyArtis", beschreibung: "Ich zeige den gesamten Prozess: Blüten pressen, Harz anmischen, gießen und schleifen." },
+  { title: "Plotterdatei in Aktion", plattform: "Instagram", link: "https://www.instagram.com/sunny_artis/", beschreibung: "Kurzes Reel — mein Plotter schneidet eine SVG-Datei auf Vinylfolie." },
+];
+---
+
+<Layout
+  title="Portfolio - Sunny Artis | Meine Kunstwerke & Videos"
+  description="Das Portfolio von Sandra Heise: Gemälde, Porträts, Schmuck, Kreativprodukte und Bastelprojekte. Dazu Videos auf YouTube und Instagram."
+>
+  <section class="section page-header-section">
+    <div class="container text-center">
+      <span class="section-tag">MEINE ARBEITEN</span>
+      <h1 class="center-title">Portfolio</h1>
+      <p class="section-desc">
+        Alle meine Werke auf einen Blick — filtere nach Bereich oder stöbere durch die gesamte Sammlung.
+      </p>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section portfolio-section bg-light">
+    <div class="container">
+      <div class="filter-wrapper flex-center">
+        {kategorien.map(k => (
+          <button class={`filter-btn${k.key === 'all' ? ' active' : ''}`} data-filter={k.key}>
+            {k.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid-3 portfolio-grid" id="portfolioGrid">
+        {werke.map(w => (
+          <div class="card portfolio-card" data-kategorie={w.kategorie}>
+            <div class="card-img-wrapper">
+              <div class={`werk-preview ${w.gradient}`}></div>
+              <span class="badge badge-teal card-badge">{w.kategorieLabel}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">{w.title}</h3>
+              <p class="card-text">{w.beschreibung}</p>
+              <div class="card-footer">
+                {w.kategorie === 'gemaelde' && (
+                  <a href={`${base}/gemaelde`} class="btn btn-accent btn-xs">Gemälde ansehen</a>
+                )}
+                {w.kategorie === 'portraets' && (
+                  <a href={`${base}/portraets`} class="btn btn-secondary btn-xs">Porträt anfragen</a>
+                )}
+                {w.kategorie === 'schmuck' && (
+                  <a href={`${base}/schmuck`} class="btn btn-secondary btn-xs">Mehr Schmuck</a>
+                )}
+                {w.kategorie === 'kreatives' && (
+                  <a href={`${base}/malen`} class="btn btn-accent btn-xs">Auf Etsy</a>
+                )}
+                {w.kategorie === 'basteln' && (
+                  <a href={`${base}/basteln`} class="btn btn-secondary btn-xs">Zum Bastelbereich</a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="section videos-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">IN BEWEGUNG</span>
+        <h2 class="center-title">Videos & Reels</h2>
+        <p class="section-desc">
+          Schau mir bei der Arbeit zu — auf YouTube und Instagram teile ich regelmäßig neue Videos.
+        </p>
+      </div>
+
+      <div class="grid-3 video-grid">
+        {videos.map(v => (
+          <a href={v.link} target="_blank" rel="noopener noreferrer" class="video-card card">
+            <div class="video-thumb">
+              <div class="play-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+              <span class="plattform-tag">{v.plattform}</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">{v.title}</h3>
+              <p class="card-text">{v.beschreibung}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center" style="margin-top: 2.5rem;">
+        <a href="https://www.youtube.com/@SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">Alle Videos auf YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auftragskunst CTA -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="glass-container cta-box text-center">
+        <h2>Etwas Bestimmtes im Sinn?</h2>
+        <p>Ob Auftragsgemälde, individuelles Porträt oder Schmuck nach Wunsch — ich freue mich auf deine Anfrage.</p>
+        <a href={`${base}/kontakt`} class="btn btn-primary">Jetzt Anfrage stellen</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-section { padding-bottom: 2rem; }
+
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .filter-wrapper {
+    gap: 10px;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-family: var(--font-title);
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .filter-btn.active {
+    background-color: var(--color-teal);
+    border-color: var(--color-teal);
+    color: white;
+  }
+
+  .werk-preview {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bg-warm { background: linear-gradient(145deg, #f9a825, #ef6c00, #b71c1c); }
+  .bg-floral { background: linear-gradient(145deg, #fce4ec, #f48fb1, #ad1457); }
+  .bg-pencil { background: linear-gradient(135deg, #eceff1, #cfd8dc); }
+  .bg-cool { background: linear-gradient(145deg, #e3f2fd, #90caf9, #42a5f5); }
+  .bg-resin { background: linear-gradient(135deg, #e0f2f1, #bad6da); }
+  .bg-polymer { background: linear-gradient(135deg, #efebe9, #bad6da); }
+  .bg-botanical { background: linear-gradient(145deg, #f1f8e9, #a5d6a7, #388e3c); }
+  .bg-botanical-light { background: linear-gradient(135deg, #f1f8e9, #c8e6c9); }
+  .bg-plotter { background: linear-gradient(135deg, #fffde7, #fff59d); }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  .btn-xs { padding: 6px 14px; font-size: 0.75rem; border-radius: 20px; }
+
+  .portfolio-card.hidden { display: none; }
+
+  /* Videos */
+  .video-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .video-thumb {
+    height: 180px;
+    background: linear-gradient(135deg, var(--color-navy) 0%, #01aac1 100%);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .play-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: background var(--transition-fast);
+  }
+
+  .video-card:hover .play-icon {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .plattform-tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .cta-box { padding: 4rem 2rem; }
+  .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+  .cta-box p { color: var(--color-text-muted); max-width: 500px; margin: 0 auto 2rem; }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.portfolio-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        const k = card.getAttribute('data-kategorie');
+        card.classList.toggle('hidden', f !== 'all' && k !== f);
+      });
+    });
+  });
+</script>
