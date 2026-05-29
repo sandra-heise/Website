@@ -1,46 +1,59 @@
-# Astro Starter Kit: Basics
+# Sunny Artis – Website
+
+Astro-Website für [Sunny Artis](https://sandra-heise.github.io/Website/), die Kunstwerkstatt von Sandra Heise.
+
+## Live-URL
+
+**[https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)**
+
+Die Seite wird automatisch via GitHub Actions auf GitHub Pages deployed, sobald Änderungen auf den `master`-Branch gepusht werden.
+
+## Lokale Entwicklung
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Der Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` – wegen des konfigurierten Base-Pfads).
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Projektstruktur
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/               # Statische Assets (Bilder, Favicon usw.)
+├── src/
+│   ├── components/       # Wiederverwendbare Komponenten (Header, Footer …)
+│   ├── layouts/          # Seitenlayouts
+│   ├── pages/            # Seiten (je Datei eine Route)
+│   ├── styles/           # Globale CSS-Dateien
+│   └── utils/            # Hilfsfunktionen (z. B. assetPath)
+└── astro.config.mjs      # Astro-Konfiguration (site, base)
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Befehle
 
-## 🧞 Commands
+| Befehl                    | Aktion                                              |
+| :------------------------ | :-------------------------------------------------- |
+| `npm install`             | Abhängigkeiten installieren                         |
+| `npm run dev`             | Dev-Server starten → `localhost:4321/Website/`      |
+| `npm run build`           | Produktions-Build nach `./dist/`                    |
+| `npm run preview`         | Build lokal vorschauen (vor dem Deployment)         |
+| `npm run astro ...`       | Astro CLI-Befehle wie `astro add`, `astro check`    |
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Das Deployment läuft über **GitHub Pages** mit GitHub Actions.
 
-## 👀 Want to learn more?
+- Repository: `sandra-heise/Website`
+- Branch: `master`
+- Live-URL: [https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Die Konfiguration in `astro.config.mjs`:
+
+```js
+export default defineConfig({
+  site: 'https://sandra-heise.github.io/Website/',
+  base: '/Website/',
+});
+```

@@ -1,37 +1,38 @@
 ---
 import { assetPath } from '../utils/assetPath.js';
 const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <header class="main-header">
   <div class="container header-container">
-    <a href="/" class="logo-link">
+    <a href={`${base}/`} class="logo-link">
       <div class="logo-wrapper">
         <img src={assetPath('logo.png')} alt="Sunny Artis Logo" class="header-logo" />
       </div>
     </a>
-    
+
     <!-- Mobile Hamburger Menu Button -->
     <button class="nav-toggle" aria-label="Menü öffnen" id="navToggle">
       <span class="hamburger"></span>
     </button>
-    
+
     <nav class="nav-menu" id="navMenu">
       <ul class="nav-list">
         <li>
-          <a href="/" class={currentPath === '/' ? 'active' : ''}>Start</a>
+          <a href={`${base}/`} class={currentPath === `${base}/` ? 'active' : ''}>Start</a>
         </li>
         <li>
-          <a href="/galerie" class={currentPath.startsWith('/galerie') ? 'active' : ''}>Galerie</a>
+          <a href={`${base}/galerie`} class={currentPath.startsWith(`${base}/galerie`) ? 'active' : ''}>Galerie</a>
         </li>
         <li>
-          <a href="/ueber-mich" class={currentPath.startsWith('/ueber-mich') ? 'active' : ''}>Über mich</a>
+          <a href={`${base}/ueber-mich`} class={currentPath.startsWith(`${base}/ueber-mich`) ? 'active' : ''}>Über mich</a>
         </li>
         <li>
-          <a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>DIY-Blog</a>
+          <a href={`${base}/blog`} class={currentPath.startsWith(`${base}/blog`) ? 'active' : ''}>DIY-Blog</a>
         </li>
         <li>
-          <a href="/kontakt" class={currentPath.startsWith('/kontakt') ? 'active' : ''}>Kontakt</a>
+          <a href={`${base}/kontakt`} class={currentPath.startsWith(`${base}/kontakt`) ? 'active' : ''}>Kontakt</a>
         </li>
         <li class="etsy-item">
           <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm etsy-link">

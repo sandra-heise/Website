@@ -1,11 +1,12 @@
 ---
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <footer class="main-footer">
   <div class="container footer-grid">
     <div class="footer-col brand-col">
-      <a href="/" class="footer-logo">
+      <a href={`${base}/`} class="footer-logo">
         <span class="logo-sunny">SUNNY</span><span class="logo-artis"
           >ARTIS</span
         >
@@ -143,11 +144,11 @@ const year = new Date().getFullYear();
     <div class="footer-col links-col">
       <h3>Navigation</h3>
       <ul class="footer-links">
-        <li><a href="/">Startseite</a></li>
-        <li><a href="/galerie">Galerie</a></li>
-        <li><a href="/ueber-mich">Über mich</a></li>
-        <li><a href="/blog">DIY-Blog</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href={`${base}/`}>Startseite</a></li>
+        <li><a href={`${base}/galerie`}>Galerie</a></li>
+        <li><a href={`${base}/ueber-mich`}>Über mich</a></li>
+        <li><a href={`${base}/blog`}>DIY-Blog</a></li>
+        <li><a href={`${base}/kontakt`}>Kontakt</a></li>
       </ul>
     </div>
 
@@ -176,8 +177,8 @@ const year = new Date().getFullYear();
         &copy; {year} Sunny Artis. Alle Rechte vorbehalten.
       </p>
       <ul class="legal-links">
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
+        <li><a href={`${base}/impressum`}>Impressum</a></li>
+        <li><a href={`${base}/datenschutz`}>Datenschutz</a></li>
       </ul>
     </div>
   </div>
