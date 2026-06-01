@@ -1,124 +1,169 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { fetchSectionListings } from '../lib/etsy';
+import { ETSY_SHOP_ID, ETSY_SECTIONS } from '../config/etsy';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const gemaelde = [
+// Metadaten die Etsy nicht liefert (Technik, Format, kuratierte Beschreibung, Fallback-Bild)
+const SUPPLEMENTS: Record<string, { technik: string; techniklabel: string; format: string; beschreibung: string; fallbackImage: string }> = {
+  "4307467400": {
+    technik: "öl", techniklabel: "Öl auf Leinwand", format: "80 × 80 cm",
+    beschreibung: "Frauenporträt, zart von Blüten umrahmt — geheimnisvoll und verletzlich zugleich. Preisgekröntes Werk (7. Platz Kunst-Online-Wettbewerb).",
+    fallbackImage: `${base}/gemaelde/blutengeist.jpg`,
+  },
+  "4365612544": {
+    technik: "öl", techniklabel: "Öl auf Leinwand", format: "80 × 80 cm",
+    beschreibung: "Porträt einer Frau mit Rosen im Haar — leuchtende Farben und ein intensiver Blick verkörpern die Vielfalt weiblicher Gefühle und die Verbundenheit von Mensch und Natur.",
+    fallbackImage: `${base}/gemaelde/farbenfroh.jpg`,
+  },
+  "4354656293": {
+    technik: "acryl", techniklabel: "Acryl, Strukturpaste & Blattgold", format: "40 × 50 cm",
+    beschreibung: "Ausdrucksstarkes Männerporträt mit edlem Blattgold auf Schwarz und Weiß — metallischer Glanz trifft plastische Tiefe. Stärke und Zerbrechlichkeit in einem Unikat.",
+    fallbackImage: `${base}/gemaelde/vergaengliche-staerke.jpg`,
+  },
+  "4354656511": {
+    technik: "acryl", techniklabel: "Acryl, Strukturpaste & Blattgold", format: "40 × 50 cm",
+    beschreibung: "Das Folgewerk der Serie — dasselbe kraftvolle Sujet, noch intensiver im Ausdruck. Licht, Schatten und der Glanz des Blattgolds erzählen von Stärke und Vergänglichkeit.",
+    fallbackImage: `${base}/gemaelde/vergaengliche-staerke-2.jpg`,
+  },
+};
+
+// Gemälde die (noch) nicht auf Etsy sind
+const MANUAL_GEMAELDE = [
   {
-    id: 1,
     title: "Silent Crown",
     technik: "öl",
     techniklabel: "Öl auf Leinwand",
     format: "80 × 80 cm",
     preis: "525,00 €",
     beschreibung: "Modernes Frauenporträt mit geschlossenen Augen und aufgesetzter Krone. Farbakzente in Blau, Pink und Türkis vereinen Ruhe und Stärke in einer faszinierenden Komposition.",
-    image: "/gemaelde/silent-crown.jpg",
-    status: "trocknung",
-    listingId: null,
-    etsy: ""
-  },
-  {
-    id: 2,
-    title: "Blütengeist – Ausdruck einer Seele",
-    technik: "öl",
-    techniklabel: "Öl auf Leinwand",
-    format: "80 × 80 cm",
-    preis: "275,00 €",
-    beschreibung: "Frauenporträt, zart von Blüten umrahmt — geheimnisvoll und verletzlich zugleich. Preisgekröntes Werk (7. Platz Kunst-Online-Wettbewerb).",
-    image: "/gemaelde/blutengeist.jpg",
-    status: "verfügbar",
-    listingId: "4307467400",
-    etsy: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen"
-  },
-  {
-    id: 3,
-    title: "Farbenfroh",
-    technik: "öl",
-    techniklabel: "Öl auf Leinwand",
-    format: "80 × 80 cm",
-    preis: "525,00 €",
-    beschreibung: "Porträt einer Frau mit Rosen im Haar — leuchtende Farben und ein intensiver Blick verkörpern die Vielfalt weiblicher Gefühle und die Verbundenheit von Mensch und Natur.",
-    image: "/gemaelde/farbenfroh.jpg",
-    status: "verfügbar",
-    listingId: "4365612544",
-    etsy: "https://www.etsy.com/de/listing/4365612544/ol-gemalde-original-farbenfrohe-frau"
-  },
-  {
-    id: 4,
-    title: "Vergängliche Stärke",
-    technik: "acryl",
-    techniklabel: "Acryl, Strukturpaste & Blattgold",
-    format: "40 × 50 cm",
-    preis: "95,00 €",
-    beschreibung: "Ausdrucksstarkes Männerporträt mit edlem Blattgold auf Schwarz und Weiß — metallischer Glanz trifft plastische Tiefe. Stärke und Zerbrechlichkeit in einem Unikat.",
-    image: "/gemaelde/vergaengliche-staerke.jpg",
-    status: "verfügbar",
-    listingId: "4354656293",
-    etsy: "https://www.etsy.com/de/listing/4354656293/acryl-gemalde-original-vergangliche"
-  },
-  {
-    id: 5,
-    title: "Vergängliche Stärke 2",
-    technik: "acryl",
-    techniklabel: "Acryl, Strukturpaste & Blattgold",
-    format: "40 × 50 cm",
-    preis: "95,00 €",
-    beschreibung: "Das Folgewerk der Serie — dasselbe kraftvolle Sujet, noch intensiver im Ausdruck. Licht, Schatten und der Glanz des Blattgolds erzählen von Stärke und Vergänglichkeit.",
-    image: "/gemaelde/vergaengliche-staerke-2.jpg",
-    status: "verfügbar",
-    listingId: "4354656511",
-    etsy: "https://www.etsy.com/de/listing/4354656511/acryl-gemalde-original-vergangliche"
+    image: `${base}/gemaelde/silent-crown.jpg`,
+    status: "trocknung" as const,
+    etsy: "",
   },
 ];
 
-const ETSY_API_KEY = import.meta.env.ETSY_API_KEY;
+// Vollständige Fallback-Daten für wenn die Etsy API nicht verfügbar ist
+const FALLBACK_GEMAELDE = [
+  { title: "Blütengeist – Ausdruck einer Seele", preis: "275,00 €", image: `${base}/gemaelde/blutengeist.jpg`, etsy: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen", ...SUPPLEMENTS["4307467400"] },
+  { title: "Farbenfroh", preis: "525,00 €", image: `${base}/gemaelde/farbenfroh.jpg`, etsy: "https://www.etsy.com/de/listing/4365612544/ol-gemalde-original-farbenfrohe-frau", ...SUPPLEMENTS["4365612544"] },
+  { title: "Vergängliche Stärke", preis: "95,00 €", image: `${base}/gemaelde/vergaengliche-staerke.jpg`, etsy: "https://www.etsy.com/de/listing/4354656293/acryl-gemalde-original-vergangliche", ...SUPPLEMENTS["4354656293"] },
+  { title: "Vergängliche Stärke 2", preis: "95,00 €", image: `${base}/gemaelde/vergaengliche-staerke-2.jpg`, etsy: "https://www.etsy.com/de/listing/4354656511/acryl-gemalde-original-vergangliche", ...SUPPLEMENTS["4354656511"] },
+].map(g => ({ ...g, status: "verfügbar" as const }));
 
-async function fetchEtsyPrice(listingId: string | null) {
-  if (!ETSY_API_KEY || !listingId) return null;
-  try {
-    const res = await fetch(`https://openapi.etsy.com/v3/application/listings/${listingId}`, {
-      headers: { 'x-api-key': ETSY_API_KEY }
-    });
-    if (!res.ok) {
-      const body = await res.text();
-      console.error(`[Etsy] HTTP ${res.status} für Listing ${listingId}: ${body}`);
-      return null;
-    }
-    const data = await res.json();
-    const { amount, divisor, currency_code } = data.price;
-    const value = (amount / divisor).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    return `${value} ${currency_code === 'EUR' ? '€' : currency_code}`;
-  } catch (e) {
-    console.error(`[Etsy] Netzwerkfehler für Listing ${listingId}:`, e);
-    return null;
-  }
+// Etsy-Sektion abrufen
+const etsyListings = await fetchSectionListings(ETSY_SHOP_ID, ETSY_SECTIONS.gemaelde);
+
+const gemaeldeFromEtsy = etsyListings.length > 0
+  ? etsyListings.map(l => {
+      const s = SUPPLEMENTS[l.listingId];
+      return {
+        title: l.title,
+        technik: s?.technik ?? "öl",
+        techniklabel: s?.techniklabel ?? "Öl auf Leinwand",
+        format: s?.format ?? "—",
+        preis: l.preis,
+        beschreibung: s?.beschreibung ?? l.description.replace(/[\r\n]+/g, ' ').slice(0, 200).trim(),
+        image: l.imageUrl ?? s?.fallbackImage ?? `${base}/gemaelde/fallback.jpg`,
+        status: "verfügbar" as const,
+        etsy: l.etsyUrl,
+      };
+    })
+  : FALLBACK_GEMAELDE;
+
+if (etsyListings.length > 0) {
+  console.log(`[Etsy] ${etsyListings.length} Gemälde aus Etsy-Sektion geladen`);
+} else {
+  console.warn('[Etsy] Gemälde-Sektion nicht verfügbar — Fallback-Daten werden verwendet');
 }
 
-await Promise.all(
-  gemaelde.map(async (g) => {
-    const livePreis = await fetchEtsyPrice(g.listingId);
-    if (livePreis) {
-      console.log(`[Etsy] ${g.title}: ${g.preis} → ${livePreis}`);
-      g.preis = livePreis;
-    } else if (g.listingId) {
-      console.warn(`[Etsy] ${g.title}: Fetch fehlgeschlagen, Fallback-Preis wird verwendet`);
-    }
-  })
-);
-
+const gemaelde = [...MANUAL_GEMAELDE, ...gemaeldeFromEtsy];
 const techniken = ['Alle', 'Öl', 'Acryl'];
+
+const SITE = "https://www.sunnyartis.de";
+const canonicalUrl = `${SITE}/gemaelde`;
+const ogImage = `${SITE}/gemaelde/blutengeist.jpg`;
+
+function parsePreis(preis: string): string {
+  return preis.replace(/[^\d,]/g, '').replace(',', '.');
+}
+
+function parseDimensions(format: string): { width: string; height: string } {
+  const m = format.match(/(\d+)\s*[×x]\s*(\d+)/);
+  return m ? { width: `${m[1]} cm`, height: `${m[2]} cm` } : { width: format, height: format };
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Gemälde – Original Kunstwerke von Sandra Heise",
+  "description": "Handgemalte Originalgemälde auf Leinwand von Sandra Heise: Öl- und Acrylmalerei. Jedes Werk ein Unikat, direkt auf Etsy erhältlich.",
+  "url": canonicalUrl,
+  "inLanguage": "de",
+  "author": {
+    "@type": "Person",
+    "name": "Sandra Heise",
+    "url": SITE
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": gemaelde.filter(g => g.status === "verfügbar").length,
+    "itemListElement": gemaelde.map((g, i) => {
+      const { width, height } = parseDimensions(g.format);
+      return {
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "VisualArtwork",
+          "name": g.title,
+          "description": g.beschreibung,
+          "image": g.image.startsWith("http") ? g.image : `${SITE}${g.image.replace(base, "")}`,
+          "artMedium": g.techniklabel,
+          "artworkSurface": "Leinwand",
+          "width": width,
+          "height": height,
+          "creator": { "@type": "Person", "name": "Sandra Heise" },
+          ...(g.status === "verfügbar" && g.etsy ? {
+            "offers": {
+              "@type": "Offer",
+              "price": parsePreis(g.preis),
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "url": g.etsy,
+              "seller": { "@type": "Person", "name": "Sandra Heise" }
+            }
+          } : {})
+        }
+      };
+    })
+  }
+};
 ---
 
 <Layout
-  title="Gemälde - Sunny Artis | Original Kunstwerke kaufen"
-  description="Original Gemälde von Sandra Heise: Öl- und Acrylmalerei auf Leinwand. Handgemalte Unikate, direkt auf Etsy erhältlich."
+  title="Gemälde – Original Ölgemälde & Acrylmalerei kaufen | Sunny Artis"
+  description="Handgemalte Originalgemälde von Sandra Heise: Öl- und Acrylmalerei auf Leinwand, jedes Werk ein Unikat. Direkt auf Etsy erhältlich und sicher versendet."
+  ogImage={ogImage}
+  canonical={canonicalUrl}
 >
-  <section class="section page-header-section">
-    <div class="container text-center">
-      <span class="section-tag">ORIGINAL KUNSTWERKE</span>
-      <h1 class="center-title">Meine Gemälde</h1>
-      <p class="section-desc">
-        Handgemalte Originale auf Leinwand — jedes Bild ein Unikat. Die verfügbaren Werke sind über meinen Etsy-Shop erhältlich und werden sicher verpackt versendet.
-      </p>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <section class="hero-kollektion">
+    <div class="container">
+      <div class="hero-split">
+        <div class="hero-text">
+          <span class="section-tag">ORIGINAL KUNSTWERKE</span>
+          <h1>Handgemalt.<br/>Einzigartig.</h1>
+          <p>Jedes Werk entsteht aus Farbe, Gefühl und Zeit — ein Unikat, das keine Kopie kennt. Verfügbare Gemälde sind direkt auf Etsy erhältlich und werden sicher versendet.</p>
+        </div>
+        <div class="kollektions-grid">
+          <img src={`${base}/gemaelde/blutengeist.jpg`} alt="Blütengeist" />
+          <img src={`${base}/gemaelde/farbenfroh.jpg`} alt="Farbenfroh" />
+          <img src={`${base}/gemaelde/silent-crown.jpg`} alt="Silent Crown" />
+          <img src={`${base}/gemaelde/vergaengliche-staerke.jpg`} alt="Vergängliche Stärke" />
+          <img src={`${base}/gemaelde/vergaengliche-staerke-2.jpg`} alt="Vergängliche Stärke 2" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -136,7 +181,7 @@ const techniken = ['Alle', 'Öl', 'Acryl'];
         {gemaelde.map(g => (
           <div class={`card gemaelde-card${g.status === 'trocknung' ? ' card-trocknung' : ''}`} data-technik={g.technik}>
             <div class="card-img-wrapper">
-              <img src={base + g.image} alt={g.title} />
+              <img src={g.image} alt={g.title} />
               <span class="kunstwerk-label">{g.techniklabel}</span>
               {g.status === 'trocknung' ? (
                 <span class="badge badge-trocknung card-badge">In Trocknung</span>
@@ -168,28 +213,91 @@ const techniken = ['Alle', 'Öl', 'Acryl'];
     </div>
   </section>
 
-  <section class="section auftragskunst-section">
-    <div class="container">
-      <div class="glass-container auftrags-box">
-        <div class="auftrags-content">
-          <span class="section-tag">AUFTRAGSGEMÄLDE</span>
-          <h2>Wunschgemälde auf Bestellung</h2>
-          <p>
-            Du hast ein bestimmtes Motiv, eine Farbpalette oder eine persönliche Geschichte, die du auf Leinwand verewigen möchtest? Ich male auch individuelle Auftragsgemälde — vom Porträt bis zur abstrakten Wanddekoration.
-          </p>
-          <div class="auftrags-actions">
-            <a href={`${base}/kontakt`} class="btn btn-primary">Anfrage stellen</a>
-            <a href={`${base}/portfolio`} class="btn btn-secondary">Weitere Werke im Portfolio</a>
-          </div>
-        </div>
+  <section class="section mehr-section">
+    <div class="container text-center">
+      <span class="section-tag">MEHR ENTDECKEN</span>
+      <h2 class="center-title">Neugierig geworden?</h2>
+      <p class="section-desc">Schau dir mein gesamtes Portfolio an oder schreib mir — ich freue mich über jede Nachricht.</p>
+      <div class="mehr-actions">
+        <a href={`${base}/portfolio`} class="btn btn-primary">Portfolio ansehen</a>
+        <a href={`${base}/kontakt`} class="btn btn-secondary">Kontakt aufnehmen</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .page-header-section {
-    padding-bottom: 2rem;
+  /* Hero */
+  .hero-kollektion {
+    padding: 5rem 0 4rem;
+    background: var(--color-bg-white);
+  }
+
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
+    margin: 0.75rem 0 1.25rem;
+    color: var(--color-navy);
+  }
+
+  .hero-text p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 420px;
+  }
+
+  .kollektions-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-rows: 190px 190px;
+    gap: 6px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .kollektions-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .kollektions-grid img:hover { transform: scale(1.04); }
+  .kollektions-grid img:first-child { grid-row: 1 / 3; }
+
+  @media (max-width: 768px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .kollektions-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 130px 130px;
+    }
+    .kollektions-grid img:first-child { grid-row: 1; }
+  }
+
+  /* Mehr-Sektion */
+  .mehr-section {
+    background: var(--color-bg-light);
+  }
+
+  .mehr-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
   }
 
   .section-tag {
@@ -319,31 +427,6 @@ const techniken = ['Alle', 'Öl', 'Acryl'];
     font-family: var(--font-title);
     font-size: 0.85rem;
     font-weight: 600;
-  }
-
-  .auftrags-box {
-    padding: 4rem 3rem;
-  }
-
-  .auftrags-content {
-    max-width: 680px;
-  }
-
-  .auftrags-content h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .auftrags-content p {
-    color: var(--color-text-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  .auftrags-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
   }
 
   .gemaelde-card { transition: all var(--transition-normal); }

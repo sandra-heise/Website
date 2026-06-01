@@ -7,11 +7,15 @@ import { assetPath } from '../utils/assetPath.js';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  canonical?: string;
 }
 
 const {
   title = "Sunny Artis - Kunstwerkstatt & Kreativbedarf",
-  description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände."
+  description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände.",
+  ogImage,
+  canonical,
 } = Astro.props;
 ---
 
@@ -24,16 +28,23 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    {canonical && <link rel="canonical" href={canonical} />}
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Sunny Artis" />
-    <meta property="og:url" content="https://www.sunnyartis.de" />
+    <meta property="og:url" content={canonical ?? "https://www.sunnyartis.de"} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:alt" content={title} />}
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <!-- Seitenspezifische Tags (z.B. JSON-LD) -->
+    <slot name="head" />
   </head>
   <body>
     <Header />

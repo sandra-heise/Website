@@ -41,6 +41,118 @@ Der Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:432
 | `npm run preview`         | Build lokal vorschauen (vor dem Deployment)         |
 | `npm run astro ...`       | Astro CLI-Befehle wie `astro add`, `astro check`    |
 
+## Seiten & Status
+
+| Seite | Route | Status |
+| :---- | :---- | :----- |
+| Startseite | `/` | ✅ fertig |
+| Gemälde | `/gemaelde` | ✅ fertig (siehe unten) |
+| Porträts | `/portraets` | 🔲 noch nicht gebaut |
+| Galerie | `/galerie` | 🔲 noch nicht gebaut |
+| Malbücher & Basteln | `/malen`, `/basteln` | 🔲 noch nicht gebaut |
+| Schmuck | `/schmuck` | 🔲 noch nicht gebaut |
+| Über mich | `/ueber-mich` | 🔲 noch nicht gebaut |
+| Portfolio | `/portfolio` | 🔲 noch nicht gebaut |
+| Kontakt | `/kontakt` | ✅ fertig |
+| Impressum / Datenschutz | `/impressum`, `/datenschutz` | ✅ fertig |
+
+---
+
+## Gemälde-Seite
+
+### Aufbau
+
+- **Hero** mit asymmetrischer Bildcollage (5 Gemälde) und Introtext
+- **Gefiltertes Gemälde-Grid** (Filter: Alle / Öl / Acryl)
+- Jede Karte zeigt: Bild, Technik-Label, Format, Preis, Beschreibung, Etsy-Link
+- Gemälde „In Trocknung" werden mit grauem Badge angezeigt, Etsy-Button deaktiviert
+- Abschluss-Sektion mit Links zu Portfolio und Kontakt
+
+### Bilder
+
+Lokale Fallback-Bilder liegen in `public/gemaelde/`:
+
+```
+public/gemaelde/
+  blutengeist.jpg
+  farbenfroh.jpg
+  silent-crown.jpg
+  vergaengliche-staerke.jpg
+  vergaengliche-staerke-2.jpg
+```
+
+Format: JPG, ca. 1000–1400 px auf der langen Seite.
+
+### SEO & Strukturierte Daten
+
+- `<title>`, `<meta description>`, `canonical`, `og:image` seitenspezifisch gesetzt
+- **JSON-LD** im `<head>`: Schema `CollectionPage → ItemList → VisualArtwork` pro Gemälde
+- Jedes Werk enthält: Name, Beschreibung, Bild, Technik, Maße, Künstlerin, Offer (Preis + Etsy-URL)
+- Das Layout (`src/layouts/Layout.astro`) unterstützt die Props `ogImage`, `canonical` und einen `head`-Slot für seitenspezifische Tags
+
+---
+
+## Etsy API Integration
+
+### Architektur
+
+| Datei | Zweck |
+| :---- | :---- |
+| `src/lib/etsy.ts` | Generische Fetch-Funktion, wiederverwendbar für alle Seiten |
+| `src/config/etsy.ts` | Shop-ID und Sektions-IDs (nach Freigabe eintragen) |
+| `scripts/get-etsy-info.mjs` | Einmaliges Hilfsskript zum Auslesen der IDs |
+
+### Funktionsweise
+
+- Preise, Bilder und Titel werden beim **Build auf GitHub Actions** live von Etsy abgerufen
+- Kein Browser-Request — die Seite bleibt statisch
+- Fallback: Wenn die API nicht erreichbar ist, werden die hardcodierten Daten in `gemaelde.astro` verwendet
+- Neue Gemälde in der Etsy-Sektion erscheinen automatisch beim nächsten Build
+
+### Manuell verwaltete Einträge
+
+Gemälde die (noch) nicht auf Etsy sind (z. B. „Silent Crown – In Trocknung") werden direkt in `gemaelde.astro` im Array `MANUAL_GEMAELDE` gepflegt.
+
+### GitHub Actions Workflow
+
+Der Workflow (`.github/workflows/gh-pages.yml`) baut die Seite:
+- bei jedem Push auf `master`
+- täglich um **0:00 Uhr** (Preise aktuell halten)
+- **manuell** via „Run workflow" im GitHub Actions Tab
+
+Der `ETSY_API_KEY` muss als Repository Secret gesetzt sein:
+`GitHub → Settings → Secrets and variables → Actions → ETSY_API_KEY`
+
+### ⚠️ Noch offen: Etsy API Freigabe
+
+Der API-Key ist aktuell im Status **„Pending Personal Approval"**. Sobald Etsy die App freigibt:
+
+1. Skript ausführen um Shop- und Sektions-IDs zu erhalten:
+   ```sh
+   ETSY_API_KEY=dein-key node scripts/get-etsy-info.mjs
+   ```
+2. Ausgabe in `src/config/etsy.ts` eintragen (Shop-ID + Sektions-IDs)
+3. Workflow manuell starten — ab dann laufen Preise und Bilder vollautomatisch
+
+---
+
+## Was noch zu tun ist
+
+### Seiten aufbauen
+- Malbücher-Seite (`/malen`) — kann die Etsy-Architektur aus der Gemälde-Seite direkt wiederverwenden: nur `ETSY_SECTIONS.malbuecher` eintragen
+- Schmuck-Seite, Galerie, Portfolio, Porträts, Über mich
+
+### Etsy Sektions-IDs eintragen
+Nach API-Freigabe `src/config/etsy.ts` befüllen — dann läuft alles automatisch.
+
+### Silent Crown
+Sobald das Gemälde auf Etsy gelistet wird: Listing-ID in `SUPPLEMENTS` in `gemaelde.astro` eintragen und den Eintrag aus `MANUAL_GEMAELDE` entfernen.
+
+### Domain klären
+Die canonical URLs zeigen aktuell auf `https://www.sunnyartis.de`. Falls die Website unter einer anderen Domain live geht, muss die Variable `SITE` in den jeweiligen Seiten-Dateien angepasst werden (z. B. in `gemaelde.astro`).
+
+---
+
 ## Kontaktformular
 
 Das Kontaktformular wird über **[Formspree](https://formspree.io)** verarbeitet.
