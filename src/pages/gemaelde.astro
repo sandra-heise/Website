@@ -78,12 +78,17 @@ async function fetchEtsyPrice(listingId: string | null) {
     const res = await fetch(`https://openapi.etsy.com/v3/application/listings/${listingId}`, {
       headers: { 'x-api-key': ETSY_API_KEY }
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const body = await res.text();
+      console.error(`[Etsy] HTTP ${res.status} für Listing ${listingId}: ${body}`);
+      return null;
+    }
     const data = await res.json();
     const { amount, divisor, currency_code } = data.price;
     const value = (amount / divisor).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     return `${value} ${currency_code === 'EUR' ? '€' : currency_code}`;
-  } catch {
+  } catch (e) {
+    console.error(`[Etsy] Netzwerkfehler für Listing ${listingId}:`, e);
     return null;
   }
 }
