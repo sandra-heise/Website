@@ -91,7 +91,12 @@ async function fetchEtsyPrice(listingId: string | null) {
 await Promise.all(
   gemaelde.map(async (g) => {
     const livePreis = await fetchEtsyPrice(g.listingId);
-    if (livePreis) g.preis = livePreis;
+    if (livePreis) {
+      console.log(`[Etsy] ${g.title}: ${g.preis} → ${livePreis}`);
+      g.preis = livePreis;
+    } else if (g.listingId) {
+      console.warn(`[Etsy] ${g.title}: Fetch fehlgeschlagen, Fallback-Preis wird verwendet`);
+    }
   })
 );
 
