@@ -32,11 +32,13 @@ const {
     {canonical && <link rel="canonical" href={canonical} />}
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Sunny Artis" />
     <meta property="og:url" content={canonical ?? "https://www.sunnyartis.de"} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:type" content="image/jpeg" />}
     {ogImage && <meta property="og:image:alt" content={title} />}
     <!-- Twitter -->
     <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />

@@ -148,6 +148,14 @@ const jsonLd = {
   canonical={canonicalUrl}
 >
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Gemälde", "item": canonicalUrl }
+    ]
+  })} />
   <section class="hero-kollektion">
     <div class="container">
       <div class="hero-split">
@@ -157,11 +165,11 @@ const jsonLd = {
           <p>Jedes Werk entsteht aus Farbe, Gefühl und Zeit — ein Unikat, das keine Kopie kennt. Verfügbare Gemälde sind direkt auf Etsy erhältlich und werden sicher versendet.</p>
         </div>
         <div class="kollektions-grid">
-          <img src={`${base}/gemaelde/blutengeist.jpg`} alt="Blütengeist" />
-          <img src={`${base}/gemaelde/farbenfroh.jpg`} alt="Farbenfroh" />
-          <img src={`${base}/gemaelde/silent-crown.jpg`} alt="Silent Crown" />
-          <img src={`${base}/gemaelde/vergaengliche-staerke.jpg`} alt="Vergängliche Stärke" />
-          <img src={`${base}/gemaelde/vergaengliche-staerke-2.jpg`} alt="Vergängliche Stärke 2" />
+          <img src={`${base}/gemaelde/blutengeist.jpg`} alt="Blütengeist – Ausdruck einer Seele, Ölgemälde von Sandra Heise" fetchpriority="high" loading="eager" />
+          <img src={`${base}/gemaelde/farbenfroh.jpg`} alt="Farbenfroh, Ölgemälde von Sandra Heise" loading="lazy" />
+          <img src={`${base}/gemaelde/silent-crown.jpg`} alt="Silent Crown, Ölgemälde von Sandra Heise" loading="lazy" />
+          <img src={`${base}/gemaelde/vergaengliche-staerke.jpg`} alt="Vergängliche Stärke, Acrylgemälde von Sandra Heise" loading="lazy" />
+          <img src={`${base}/gemaelde/vergaengliche-staerke-2.jpg`} alt="Vergängliche Stärke 2, Acrylgemälde von Sandra Heise" loading="lazy" />
         </div>
       </div>
     </div>
@@ -169,6 +177,7 @@ const jsonLd = {
 
   <section class="section gemaelde-section bg-light">
     <div class="container">
+      <h2 class="sr-only">Alle Gemälde</h2>
       <div class="filter-wrapper flex-center">
         {techniken.map(t => (
           <button class={`filter-btn${t === 'Alle' ? ' active' : ''}`} data-filter={t === 'Alle' ? 'all' : t.toLowerCase()}>
@@ -181,7 +190,7 @@ const jsonLd = {
         {gemaelde.map(g => (
           <div class={`card gemaelde-card${g.status === 'trocknung' ? ' card-trocknung' : ''}`} data-technik={g.technik}>
             <div class="card-img-wrapper">
-              <img src={g.image} alt={g.title} />
+              <img src={g.image} alt={`${g.title} – ${g.techniklabel}, ${g.format}, Sandra Heise`} loading="lazy" />
               <span class="kunstwerk-label">{g.techniklabel}</span>
               {g.status === 'trocknung' ? (
                 <span class="badge badge-trocknung card-badge">In Trocknung</span>
