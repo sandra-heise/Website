@@ -5,73 +5,109 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const gemaelde = [
   {
     id: 1,
-    title: "Acryl-Landschaft 'Goldene Stunde'",
-    technik: "Acryl",
-    format: "40 × 50 cm",
-    beschreibung: "Wärmendes Abendlicht über einer weiten Landschaft. Kräftige Acrylfarben auf Leinwand, strukturiert mit Spachtel und Pinsel.",
-    gradient: "bg-warm",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
+    title: "Silent Crown",
+    technik: "öl",
+    techniklabel: "Öl auf Leinwand",
+    format: "80 × 80 cm",
+    preis: "525,00 €",
+    beschreibung: "Modernes Frauenporträt mit geschlossenen Augen und aufgesetzter Krone. Farbakzente in Blau, Pink und Türkis vereinen Ruhe und Stärke in einer faszinierenden Komposition.",
+    image: "/gemaelde/silent-crown.jpg",
+    status: "trocknung",
+    listingId: null,
+    etsy: ""
   },
   {
     id: 2,
-    title: "Aquarell 'Morgennebel'",
-    technik: "Aquarell",
-    format: "30 × 40 cm",
-    beschreibung: "Zarte Farbverläufe in kühlen Blau- und Grüntönen. Ein stimmungsvolles Aquarell auf hochwertigem Künstlerpapier.",
-    gradient: "bg-cool",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
+    title: "Blütengeist – Ausdruck einer Seele",
+    technik: "öl",
+    techniklabel: "Öl auf Leinwand",
+    format: "80 × 80 cm",
+    preis: "275,00 €",
+    beschreibung: "Frauenporträt, zart von Blüten umrahmt — geheimnisvoll und verletzlich zugleich. Preisgekröntes Werk (7. Platz Kunst-Online-Wettbewerb).",
+    image: "/gemaelde/blutengeist.jpg",
+    status: "verfügbar",
+    listingId: "4307467400",
+    etsy: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen"
   },
   {
     id: 3,
-    title: "Mischtechnik 'Botanisch'",
-    technik: "Mischtechnik",
-    format: "50 × 70 cm",
-    beschreibung: "Botanische Motive in einer spannenden Kombination aus Tusche, Aquarell und Acryl. Großformatig und ausdrucksstark.",
-    gradient: "bg-botanical",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
+    title: "Farbenfroh",
+    technik: "öl",
+    techniklabel: "Öl auf Leinwand",
+    format: "80 × 80 cm",
+    preis: "525,00 €",
+    beschreibung: "Porträt einer Frau mit Rosen im Haar — leuchtende Farben und ein intensiver Blick verkörpern die Vielfalt weiblicher Gefühle und die Verbundenheit von Mensch und Natur.",
+    image: "/gemaelde/farbenfroh.jpg",
+    status: "verfügbar",
+    listingId: "4365612544",
+    etsy: "https://www.etsy.com/de/listing/4365612544/ol-gemalde-original-farbenfrohe-frau"
   },
   {
     id: 4,
-    title: "Acryl 'Abstrakt Blau'",
-    technik: "Acryl",
-    format: "60 × 60 cm",
-    beschreibung: "Tiefes Marineblau trifft auf Gold und Weiß. Dieses abstrakte Gemälde setzt ein kraftvolles Statement an jeder Wand.",
-    gradient: "bg-navy-gold",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
+    title: "Vergängliche Stärke",
+    technik: "acryl",
+    techniklabel: "Acryl, Strukturpaste & Blattgold",
+    format: "40 × 50 cm",
+    preis: "95,00 €",
+    beschreibung: "Ausdrucksstarkes Männerporträt mit edlem Blattgold auf Schwarz und Weiß — metallischer Glanz trifft plastische Tiefe. Stärke und Zerbrechlichkeit in einem Unikat.",
+    image: "/gemaelde/vergaengliche-staerke.jpg",
+    status: "verfügbar",
+    listingId: "4354656293",
+    etsy: "https://www.etsy.com/de/listing/4354656293/acryl-gemalde-original-vergangliche"
   },
   {
     id: 5,
-    title: "Aquarell 'Wildblumen'",
-    technik: "Aquarell",
-    format: "21 × 29,7 cm",
-    beschreibung: "Leichte, luftige Wildblumen in Aquarellfarben. Zarte Pinselstriche fangen die Vergänglichkeit der Natur ein.",
-    gradient: "bg-floral",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
+    title: "Vergängliche Stärke 2",
+    technik: "acryl",
+    techniklabel: "Acryl, Strukturpaste & Blattgold",
+    format: "40 × 50 cm",
+    preis: "95,00 €",
+    beschreibung: "Das Folgewerk der Serie — dasselbe kraftvolle Sujet, noch intensiver im Ausdruck. Licht, Schatten und der Glanz des Blattgolds erzählen von Stärke und Vergänglichkeit.",
+    image: "/gemaelde/vergaengliche-staerke-2.jpg",
+    status: "verfügbar",
+    listingId: "4354656511",
+    etsy: "https://www.etsy.com/de/listing/4354656511/acryl-gemalde-original-vergangliche"
   },
-  {
-    id: 6,
-    title: "Acryl 'Sonnenuntergang über dem Meer'",
-    technik: "Acryl",
-    format: "40 × 60 cm",
-    beschreibung: "Warme Orange- und Rottöne spiegeln sich im ruhigen Wasser. Strukturierte Oberfläche mit Spachtelarbeit.",
-    gradient: "bg-sunset",
-    etsy: "https://www.etsy.com/shop/SunnyArtis"
-  }
 ];
 
-const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
+const ETSY_API_KEY = import.meta.env.ETSY_API_KEY;
+
+async function fetchEtsyPrice(listingId: string | null) {
+  if (!ETSY_API_KEY || !listingId) return null;
+  try {
+    const res = await fetch(`https://openapi.etsy.com/v3/application/listings/${listingId}`, {
+      headers: { 'x-api-key': ETSY_API_KEY }
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const { amount, divisor, currency_code } = data.price;
+    const value = (amount / divisor).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return `${value} ${currency_code === 'EUR' ? '€' : currency_code}`;
+  } catch {
+    return null;
+  }
+}
+
+await Promise.all(
+  gemaelde.map(async (g) => {
+    const livePreis = await fetchEtsyPrice(g.listingId);
+    if (livePreis) g.preis = livePreis;
+  })
+);
+
+const techniken = ['Alle', 'Öl', 'Acryl'];
 ---
 
 <Layout
   title="Gemälde - Sunny Artis | Original Kunstwerke kaufen"
-  description="Original Gemälde von Sandra Heise: Acryl, Aquarell und Mischtechnik auf Leinwand und Papier. Direkt im Etsy Shop erhältlich."
+  description="Original Gemälde von Sandra Heise: Öl- und Acrylmalerei auf Leinwand. Handgemalte Unikate, direkt auf Etsy erhältlich."
 >
   <section class="section page-header-section">
     <div class="container text-center">
       <span class="section-tag">ORIGINAL KUNSTWERKE</span>
       <h1 class="center-title">Meine Gemälde</h1>
       <p class="section-desc">
-        Handgemalte Originale auf Leinwand und Papier — jedes Bild ein Unikat. Alle Werke sind über meinen Etsy-Shop erhältlich und werden sicher verpackt versendet.
+        Handgemalte Originale auf Leinwand — jedes Bild ein Unikat. Die verfügbaren Werke sind über meinen Etsy-Shop erhältlich und werden sicher verpackt versendet.
       </p>
     </div>
   </section>
@@ -88,21 +124,32 @@ const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
 
       <div class="grid-3 gemaelde-grid" id="gemaeldeGrid">
         {gemaelde.map(g => (
-          <div class="card gemaelde-card" data-technik={g.technik.toLowerCase()}>
+          <div class={`card gemaelde-card${g.status === 'trocknung' ? ' card-trocknung' : ''}`} data-technik={g.technik}>
             <div class="card-img-wrapper">
-              <div class={`kunstwerk-preview ${g.gradient}`}>
-                <span class="kunstwerk-label">{g.technik}</span>
-              </div>
-              <span class="badge badge-teal card-badge">{g.format}</span>
+              <img src={base + g.image} alt={g.title} />
+              <span class="kunstwerk-label">{g.techniklabel}</span>
+              {g.status === 'trocknung' ? (
+                <span class="badge badge-trocknung card-badge">In Trocknung</span>
+              ) : (
+                <span class="badge badge-teal card-badge">{g.format}</span>
+              )}
             </div>
             <div class="card-content">
               <h3 class="card-title">{g.title}</h3>
               <p class="card-text">{g.beschreibung}</p>
+              <div class="card-meta">
+                <span class="meta-format">{g.format}</span>
+                <span class="meta-preis">{g.preis}</span>
+              </div>
               <div class="card-footer">
-                <span class="technik-tag">{g.technik}</span>
-                <a href={g.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
-                  Auf Etsy ansehen
-                </a>
+                <span class="technik-tag">{g.techniklabel}</span>
+                {g.status === 'trocknung' ? (
+                  <span class="btn btn-disabled btn-sm">Bald verfügbar</span>
+                ) : (
+                  <a href={g.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+                    Auf Etsy ansehen
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -118,7 +165,7 @@ const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
           <span class="section-tag">AUFTRAGSGEMÄLDE</span>
           <h2>Wunschgemälde auf Bestellung</h2>
           <p>
-            Du hast ein bestimmtes Motiv, eine Farbpalette oder eine persönliche Geschichte, die du auf Leinwand verewigen möchtest? Ich male auch individuelle Auftragsgemälde — vom Familienporträt bis zur abstrakten Wanddekoration.
+            Du hast ein bestimmtes Motiv, eine Farbpalette oder eine persönliche Geschichte, die du auf Leinwand verewigen möchtest? Ich male auch individuelle Auftragsgemälde — vom Porträt bis zur abstrakten Wanddekoration.
           </p>
           <div class="auftrags-actions">
             <a href={`${base}/kontakt`} class="btn btn-primary">Anfrage stellen</a>
@@ -179,16 +226,11 @@ const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
     box-shadow: 0 4px 10px rgba(1,170,193,0.2);
   }
 
-  .kunstwerk-preview {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 16px;
-  }
-
   .kunstwerk-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 1;
     background: rgba(255,255,255,0.9);
     padding: 5px 12px;
     border-radius: 20px;
@@ -198,13 +240,6 @@ const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
     color: var(--color-navy);
   }
 
-  .bg-warm { background: linear-gradient(145deg, #f9a825 0%, #ef6c00 50%, #b71c1c 100%); }
-  .bg-cool { background: linear-gradient(145deg, #e3f2fd 0%, #90caf9 50%, #42a5f5 100%); }
-  .bg-botanical { background: linear-gradient(145deg, #f1f8e9 0%, #a5d6a7 50%, #388e3c 100%); }
-  .bg-navy-gold { background: linear-gradient(145deg, #052035 0%, #01aac1 50%, #fbcd0a 100%); }
-  .bg-floral { background: linear-gradient(145deg, #fce4ec 0%, #f48fb1 50%, #ad1457 100%); }
-  .bg-sunset { background: linear-gradient(145deg, #fff3e0 0%, #ff8a65 50%, #c62828 100%); }
-
   .card-badge {
     position: absolute;
     top: 12px;
@@ -212,10 +247,67 @@ const techniken = ['Alle', 'Acryl', 'Aquarell', 'Mischtechnik'];
     z-index: 2;
   }
 
-  .technik-tag {
+  .badge-trocknung {
+    background-color: #6b7280;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: var(--font-title);
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .meta-format {
     font-family: var(--font-title);
     font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .meta-preis {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .technik-tag {
+    font-family: var(--font-title);
+    font-size: 0.78rem;
     color: var(--color-teal);
+    font-weight: 600;
+  }
+
+  /* Karte im "In Trocknung"-Status */
+  .card-trocknung {
+    opacity: 0.8;
+  }
+
+  .card-trocknung .card-img-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+
+  .btn-disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    border: none;
+    cursor: not-allowed;
+    pointer-events: none;
+    border-radius: 30px;
+    padding: 9px 18px;
+    font-family: var(--font-title);
+    font-size: 0.85rem;
     font-weight: 600;
   }
 

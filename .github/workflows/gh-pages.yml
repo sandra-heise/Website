@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   build-and-deploy:
@@ -27,6 +29,8 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
 
       - name: Create .nojekyll file
         run: |

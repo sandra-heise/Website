@@ -312,8 +312,8 @@ img {
 }
 
 .badge-teal {
-  background-color: rgba(1, 170, 193, 0.1);
-  color: var(--color-teal);
+  background-color: rgba(1, 170, 193, 0.8);
+  color: var(--glass-bg);
 }
 
 .badge-navy {
