@@ -1,32 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Hardcoded sample blog posts for simple maintenance and setup
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const blogPosts = [
   {
     id: 1,
+    title: "Magie auf Leinwand: Kreatives Ausmalen von fantasievollen Motiven",
+    date: "20. August 2024",
+    category: "Ausmalleinwände",
+    excerpt: "Ausmalen auf Leinwand mit Acrylfarben und geometrischen Motiven ist weit mehr als ein Hobby — so entsteht aus einer vorgedruckten Leinwand ein echtes Kunstwerk.",
+    image: `${base}/blog/ausmalen-leinwand-hero.jpg`,
+    gradientClass: "leinwand-gradient",
+    href: `${base}/blog/ausmalen-leinwand`,
+  },
+  {
+    id: 2,
     title: "Anleitung: Echte Blüten in Harz eingießen",
     date: "15. Mai 2026",
     category: "Basteln & Schmuck",
     excerpt: "Schritt-für-Schritt-Anleitung, wie du Blumen richtig trocknest und luftblasenfrei in Epoxidharz eingießt, um wunderschöne Schmuckstücke zu erschaffen.",
-    gradientClass: "resin-gradient"
+    gradientClass: "resin-gradient",
+    href: "#",
   },
   {
-    id: 2,
+    id: 3,
     title: "Die Grundlagen des Schattierens bei Bleistiftzeichnungen",
     date: "28. April 2026",
     category: "Zeichnen Lernen",
     excerpt: "Lerne, wie du durch die richtige Schraffur- und Wischtechnik deinen Zeichnungen mehr Tiefe und Dreidimensionalität verleihst.",
-    gradientClass: "book-gradient"
+    gradientClass: "book-gradient",
+    href: "#",
   },
   {
-    id: 3,
+    id: 4,
     title: "Tipps & Tricks für das Arbeiten mit Schneideplottern",
     date: "10. März 2026",
     category: "Plotter Tipps",
     excerpt: "So gelingt das Entgittern feiner SVG-Muster ohne Frust. Die besten Einstellungen für Flexfolien, Vinyl und Papier im Überblick.",
-    gradientClass: "canvas-gradient"
-  }
+    gradientClass: "canvas-gradient",
+    href: "#",
+  },
 ];
 ---
 
@@ -48,9 +62,10 @@ const blogPosts = [
         {blogPosts.map(post => (
           <article class="card blog-card">
             <div class="card-img-wrapper">
-              <div class={`simulated-image ${post.gradientClass}`}>
-                <span>{post.category}</span>
-              </div>
+              {post.image
+                ? <img src={post.image} alt={post.title} loading="lazy" />
+                : <div class={`simulated-image ${post.gradientClass}`}><span>{post.category}</span></div>
+              }
               <span class="badge badge-navy card-badge">{post.date}</span>
             </div>
             <div class="card-content">
@@ -58,7 +73,7 @@ const blogPosts = [
               <h3 class="card-title blog-post-title">{post.title}</h3>
               <p class="card-text">{post.excerpt}</p>
               <div class="card-footer">
-                <a href="#" class="read-more-link">
+                <a href={post.href} class="read-more-link">
                   <span>Weiterlesen</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
@@ -150,6 +165,9 @@ const blogPosts = [
   }
 
   /* Simulated Image Specific Gradients */
+  .leinwand-gradient {
+    background: linear-gradient(135deg, #fce7f3 0%, #c084fc 50%, #0891b2 100%);
+  }
   .resin-gradient {
     background: linear-gradient(135deg, #e0f2f1 0%, #bad6da 100%);
   }

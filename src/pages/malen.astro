@@ -57,44 +57,41 @@ const malbuecher = [
 
 const leinwaende = [
   {
-    title: "Einhorn",
+    titel: "Ausmalleinwände – Kollektion 1",
+    beschreibung: "8 verschiedene Motive zur Auswahl — von zarten Tiermotiven bis zur eleganten Ballerina. Dein Wunschmotiv wählst du direkt auf Etsy.",
+    motive: ["Schildkröten", "Ballerina", "Hase", "Meerjungfrau", "Katze", "Drache", "Tattoo Mädchen", "Blume mit Frau"],
+    images: [
+      `${base}/leinwaende/thumbnail_schildkroete.jpg`,
+      `${base}/leinwaende/thumbnail_ballerina.jpg`,
+      `${base}/leinwaende/Hasethumbnail.jpg`,
+      `${base}/leinwaende/meerjungfrauthumbnail.jpg`,
+      `${base}/leinwaende/katzethumbnail.jpg`,
+      `${base}/leinwaende/thumbnail_drache.jpg`,
+      `${base}/leinwaende/Mädchen auf Blume.jpg`,
+      `${base}/leinwaende/maedchentattoothumbnail.jpg`,
+    ],
     format: "20 × 30 cm",
-    schwierigkeit: "Leicht",
-    preis: "9,95 €",
-    beschreibung: "Ein verspieltes Einhorn voller Stärke und Anmut — ideal für Einsteiger und als Geschenk.",
-    gradient: "bg-lw-einhorn",
-    status: "verfügbar", // <- "ausverkauft" setzen wenn nötig
-    etsy: "ETSY_LINK_LEINWAND_EINHORN",
+    preis: "8,95 €",
+    etsy: "https://www.etsy.com/de/listing/1657906760/leinwande-mit-unterschiedlichen-motiven",
   },
   {
-    title: "Drache",
+    titel: "Ausmalleinwände – Kollektion 2",
+    beschreibung: "9 weitere Motive zur Auswahl — von verspielten Tieren bis zu starken Frauenfiguren. Dein Wunschmotiv wählst du direkt auf Etsy.",
+    motive: ["Einhorn", "Papageien", "Mädchen bei Nacht", "Mädchen mit Teddy", "Crazy Dog", "Gesicht mit Blumen", "Selbstbewusste Frau", "Eule mit Amulett", "Auge"],
+    images: [
+      `${base}/leinwaende/Einhorn.jpg`,
+      `${base}/leinwaende/Papagei.jpg`,
+      `${base}/leinwaende/Mädchen mit Mond.jpg`,
+      `${base}/leinwaende/Mädchen mit Teddy.jpg`,
+      `${base}/leinwaende/Crazydog.jpg`,
+      `${base}/leinwaende/Blumengesicht.jpg`,
+      `${base}/leinwaende/Frau mit Stern.jpg`,
+      `${base}/leinwaende/Eule.jpg`,
+      `${base}/leinwaende/Auge.jpg`,
+    ],
     format: "20 × 30 cm",
-    schwierigkeit: "Mittel",
-    preis: "9,95 €",
-    beschreibung: "Ein detailreicher Drache mit fantasievollen geometrischen Mustern — für alle, die beim Ausmalen eintauchen möchten.",
-    gradient: "bg-lw-drache",
-    status: "verfügbar",
-    etsy: "ETSY_LINK_LEINWAND_DRACHE",
-  },
-  {
-    title: "Ballerina",
-    format: "20 × 30 cm",
-    schwierigkeit: "Fortgeschritten",
-    preis: "9,95 €",
-    beschreibung: "Eine elegante Ballerina mit filigranerm Mosaikmuster im Kleid — für erfahrene Ausmalende.",
-    gradient: "bg-lw-ballerina",
-    status: "verfügbar",
-    etsy: "ETSY_LINK_LEINWAND_BALLERINA",
-  },
-  {
-    title: "Schildkröten",
-    format: "20 × 30 cm",
-    schwierigkeit: "Mittel",
-    preis: "9,95 €",
-    beschreibung: "Drei liebevoll gestaltete Schildkröten in einer bunten Blumenlandschaft — ruhig, farbfroh und wunderschön.",
-    gradient: "bg-lw-schildkroeten",
-    status: "verfügbar",
-    etsy: "ETSY_LINK_LEINWAND_SCHILDKROETEN",
+    preis: "8,95 €",    
+    etsy: "https://www.etsy.com/de/listing/1464917977/leinwand-zum-ausmalen-motive-auf",
   },
 ];
 
@@ -115,7 +112,7 @@ const shortsAktiv = shorts.filter(v => v.url && !v.url.startsWith("YOUTUBE"));
 
 const SITE = "https://www.sunnyartis.de";
 const canonicalUrl = `${SITE}/malen`;
-const ogImage = `${SITE}/gemaelde/farbenfroh.jpg`;
+const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -124,9 +121,19 @@ const jsonLd = {
   "description": "Handgezeichnete Malbücher und vorgestaltete Ausmalleinwände von Sandra Heise. Für Kinder, Teenager und Erwachsene.",
   "url": canonicalUrl,
   "inLanguage": "de",
-  "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+  "author": {
+    "@type": "Person",
+    "name": "Sandra Heise",
+    "url": SITE,
+    "sameAs": [
+      "https://www.instagram.com/sunny_artis/",
+      "https://www.youtube.com/@SunnyArtis",
+      "https://www.etsy.com/de/shop/SunnyArtis"
+    ]
+  },
   "mainEntity": {
     "@type": "ItemList",
+    "numberOfItems": malbuecher.length + leinwaende.length,
     "itemListElement": [
       ...malbuecher.map((b, i) => ({
         "@type": "ListItem",
@@ -137,7 +144,11 @@ const jsonLd = {
           "description": b.beschreibung,
           "author": { "@type": "Person", "name": "Sandra Heise" },
           "inLanguage": "de",
-          "offers": { "@type": "Offer", "price": "11.55", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "url": b.etsy,
+          "offers": [
+            { "@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.etsy, "seller": { "@type": "Organization", "name": "Etsy" } },
+            { "@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.amazon, "seller": { "@type": "Organization", "name": "Amazon" } }
+          ]
         }
       })),
       ...leinwaende.map((l, i) => ({
@@ -145,37 +156,77 @@ const jsonLd = {
         "position": malbuecher.length + i + 1,
         "item": {
           "@type": "Product",
-          "name": `Ausmalleinwand ${l.title}`,
+          "name": l.titel,
           "description": l.beschreibung,
           "brand": { "@type": "Brand", "name": "Sunny Artis" },
+          "url": l.etsy,
           "offers": {
             "@type": "Offer",
-            "price": "9.95",
+            "price": "8.95",
             "priceCurrency": "EUR",
-            "availability": l.status === "ausverkauft"
-              ? "https://schema.org/OutOfStock"
-              : "https://schema.org/InStock"
+            "availability": "https://schema.org/InStock",
+            "url": l.etsy,
+            "seller": { "@type": "Person", "name": "Sandra Heise" }
           }
         }
       }))
     ]
   }
 };
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was sind Ausmalleinwände?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ausmalleinwände sind vorgedruckte Leinwände auf stabilem Keilrahmen mit fantasievollen Motiven. Du bemalst sie mit Acryl- oder Ölfarben in deinen Wunschfarben — am Ende hängst du ein echtes, einzigartiges Kunstwerk an die Wand. Jede Leinwand ist 20 × 30 cm groß und enthält ein Beispielbild zur Orientierung." }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Farben brauche ich für Ausmalleinwände?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Am besten eignen sich Acrylfarben — sie trocknen schnell, sind einfach zu handhaben und für Einsteiger ideal. Ölfarben sind ebenfalls möglich und ermöglichen weichere Farbübergänge. Buntstifte oder Filzstifte sind nicht geeignet." }
+    },
+    {
+      "@type": "Question",
+      "name": "Für welches Alter sind die Ausmalleinwände geeignet?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Die Ausmalleinwände sind für Kinder ab ca. 10 Jahren, Teenager und Erwachsene geeignet. Es gibt Motive in verschiedenen Schwierigkeitsgraden — von leicht (ideal für Einsteiger) bis fortgeschritten (für detailverliebte Ausmalende)." }
+    },
+    {
+      "@type": "Question",
+      "name": "Was kostet eine Ausmalleinwand?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Unsere Ausmalleinwände kosten 8,95 € zzgl. Versand. Du kannst aus insgesamt 17 verschiedenen Motiven wählen — Tiere, Fantasiefiguren, Frauen und mehr. Erhältlich auf Etsy." }
+    },
+    {
+      "@type": "Question",
+      "name": "Was ist der Unterschied zwischen einem Malbuch und einer Ausmalleinwand?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In Malbüchern arbeitest du auf Papier mit Buntstiften oder Filzstiften. Auf einer Ausmalleinwand verwendest du Acryl- oder Ölfarben auf echter Leinwand — die Farben sind intensiver, die Textur verleiht dem Bild Tiefe, und das fertige Werk kann direkt aufgehängt werden." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wo kann ich die Malbücher kaufen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Die Malbücher der Reihe 'Fantasie in Farbe' sind auf Etsy und Amazon erhältlich. Ab 9,99 € erhältst du 50 Seiten mit 25 einzigartigen Motiven im Format 20 × 25 cm, geeignet für Buntstifte und Filzstifte." }
+    }
+  ]
+};
 ---
 
 <Layout
-  title="Malbücher & Ausmalleinwände kaufen | Kreatives Ausmalen – Sunny Artis"
-  description="Handgezeichnete Malbücher und vorgestaltete Ausmalleinwände von Sandra Heise — für Kinder, Teenager und Erwachsene. Jetzt auf Etsy und Amazon erhältlich."
+  title="Malbücher & Ausmalleinwände kaufen – Kreativ Ausmalen mit Acryl | Sunny Artis"
+  description="Handgezeichnete Malbücher und vorgestaltete Ausmalleinwände von Sandra Heise — 17 Motive, 20 × 30 cm, ab 8,95 €. Für Kinder, Teenager und Erwachsene. Auf Etsy & Amazon."
   ogImage={ogImage}
   canonical={canonicalUrl}
 >
+  <meta name="keywords" content="Ausmalleinwand, Leinwand zum Ausmalen, Malbuch Teenager, Ausmalen auf Leinwand, Acrylfarben Anfänger, Kreativgeschenk, Malbuch Erwachsene, Fantasie in Farbe, Sunny Artis" slot="head" />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
-      { "@type": "ListItem", "position": 2, "name": "Malen & Kreativprodukte", "item": canonicalUrl }
+      { "@type": "ListItem", "position": 2, "name": "Malbücher & Ausmalleinwände", "item": canonicalUrl }
     ]
   })} />
 
@@ -323,37 +374,53 @@ const jsonLd = {
         <h2 class="center-title">Leinwände zum Selberbemalen</h2>
         <p class="section-desc">Vorgedruckte Leinwände auf stabilem Keilrahmen — Acryl- oder Ölfarben drauf und los. Jede Leinwand ist 20 × 30 cm groß und kommt mit einem Beispielbild.</p>
       </div>
-      <div class="grid-4 lw-grid">
+      <div class="grid-2 lw-grid">
         {leinwaende.map(l => (
-          <article class={`card lw-card${l.status === 'ausverkauft' ? ' lw-ausverkauft' : ''}`}>
+          <article class="card lw-card">
             <div class="card-img-wrapper lw-cover">
-              <div class={`lw-visual ${l.gradient}`}></div>
-              <span class={`badge schwierigkeit-badge card-badge badge-${l.schwierigkeit.toLowerCase()}`}>
-                {l.schwierigkeit}
-              </span>
-              {l.status === 'ausverkauft' && (
-                <div class="ausverkauft-overlay">Ausverkauft</div>
-              )}
+              <div class="lw-collage">
+                {l.images.map((src, i) => (
+                  <img src={src} alt={`${l.titel} – Motiv ${i + 1}`} loading="lazy" />
+                ))}
+              </div>
+              <span class="badge badge-teal card-badge">{l.preis}</span>
             </div>
             <div class="card-content">
-              <h3 class="card-title">{l.title}</h3>
+              <h3 class="card-title">{l.titel}</h3>
               <p class="card-text">{l.beschreibung}</p>
+              <ul class="lw-motive-liste">
+                {l.motive.map(m => <li>{m}</li>)}
+              </ul>
               <div class="lw-meta">
-                <span class="lw-format">{l.format}</span>
+                <span class="lw-format">{l.format} · mit Beispielbild</span>
                 <span class="lw-preis">{l.preis}</span>
               </div>
               <div class="card-footer">
-                {l.status === 'ausverkauft' ? (
-                  <span class="btn btn-disabled btn-sm">Ausverkauft</span>
-                ) : (
-                  <a href={l.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
-                    Auf Etsy ansehen
-                  </a>
-                )}
+                <a href={l.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+                  Auf Etsy ansehen
+                </a>
               </div>
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog-Tipp -->
+  <section class="section blog-tipp-section">
+    <div class="container">
+      <div class="blog-tipp-card">
+        <div class="blog-tipp-text">
+          <span class="section-tag">AUS DEM BLOG</span>
+          <h2>Magie auf Leinwand: Kreatives Ausmalen von fantasievollen Motiven</h2>
+          <p>Wie Acrylfarben, geometrische Muster und eine vorgedruckte Leinwand zusammen echte Kunst ergeben — und warum das viel mehr Spaß macht als ein Malbuch.</p>
+          <a href={`${base}/blog/ausmalen-leinwand`} class="btn btn-accent">Artikel lesen</a>
+        </div>
+        <div class="blog-tipp-images">
+          <img src={`${base}/blog/ausmalen-leinwand-1.jpg`} alt="Ausgemalte Leinwand – Beispiel aus dem Blog" loading="lazy" />
+          <img src={`${base}/blog/ausmalen-leinwand-2.jpg`} alt="Fertige Ausmalleinwand von Sandra Heise" loading="lazy" />
+        </div>
       </div>
     </div>
   </section>
@@ -559,8 +626,8 @@ const jsonLd = {
   /* A4-Hochformat ~3:4 */
   .mb-cover { padding-top: 133% !important; height: 0 !important; }
 
-  /* Leinwand 20×30 = 2:3 */
-  .lw-cover { padding-top: 150% !important; height: 0 !important; }
+  /* Querformat für Landscape-Bilder */
+  .lw-cover { padding-top: 56.25% !important; height: 0 !important; }
 
   .mb-subtitle {
     font-family: var(--font-title);
@@ -663,11 +730,45 @@ const jsonLd = {
     color: var(--color-navy);
   }
 
-  /* Leinwand Farbverläufe */
-  .bg-lw-einhorn      { background: linear-gradient(145deg, #f3e8ff 0%, #c084fc 60%, #818cf8 100%); }
-  .bg-lw-drache       { background: linear-gradient(145deg, #d1fae5 0%, #34d399 50%, #f97316 100%); }
-  .bg-lw-ballerina    { background: linear-gradient(145deg, #fce7f3 0%, #f9a8d4 60%, #e879f9 100%); }
-  .bg-lw-schildkroeten { background: linear-gradient(145deg, #cffafe 0%, #22d3ee 50%, #4ade80 100%); }
+  .lw-collage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  /* Globales card-img-wrapper img überschreiben */
+  .lw-collage img {
+    position: static !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .lw-motive-liste {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0.75rem 0 1rem;
+    padding: 0;
+  }
+
+  .lw-motive-liste li {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    padding: 3px 10px;
+  }
 
   /* Card helpers */
   .card-badge {
@@ -688,6 +789,59 @@ const jsonLd = {
     font-family: var(--font-title);
     font-size: 0.85rem;
     font-weight: 600;
+  }
+
+  /* Blog-Tipp */
+  .blog-tipp-section { background: var(--color-bg-white); }
+
+  .blog-tipp-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    background: var(--color-bg-light);
+    border-radius: 20px;
+    padding: 3rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .blog-tipp-text h2 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: var(--color-navy);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .blog-tipp-text p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-tipp-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .blog-tipp-images img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .blog-tipp-images img:hover { transform: scale(1.04); }
+
+  @media (max-width: 768px) {
+    .blog-tipp-card {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
   }
 
   /* Social CTA */

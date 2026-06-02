@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { fetchSectionListings } from '../lib/etsy';
-import { ETSY_SHOP_ID, ETSY_SECTIONS } from '../config/etsy';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -44,41 +42,14 @@ const MANUAL_GEMAELDE = [
   },
 ];
 
-// Vollständige Fallback-Daten für wenn die Etsy API nicht verfügbar ist
-const FALLBACK_GEMAELDE = [
+const GEMAELDE = [
   { title: "Blütengeist – Ausdruck einer Seele", preis: "275,00 €", image: `${base}/gemaelde/blutengeist.jpg`, etsy: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen", ...SUPPLEMENTS["4307467400"] },
   { title: "Farbenfroh", preis: "525,00 €", image: `${base}/gemaelde/farbenfroh.jpg`, etsy: "https://www.etsy.com/de/listing/4365612544/ol-gemalde-original-farbenfrohe-frau", ...SUPPLEMENTS["4365612544"] },
   { title: "Vergängliche Stärke", preis: "95,00 €", image: `${base}/gemaelde/vergaengliche-staerke.jpg`, etsy: "https://www.etsy.com/de/listing/4354656293/acryl-gemalde-original-vergangliche", ...SUPPLEMENTS["4354656293"] },
   { title: "Vergängliche Stärke 2", preis: "95,00 €", image: `${base}/gemaelde/vergaengliche-staerke-2.jpg`, etsy: "https://www.etsy.com/de/listing/4354656511/acryl-gemalde-original-vergangliche", ...SUPPLEMENTS["4354656511"] },
 ].map(g => ({ ...g, status: "verfügbar" as const }));
 
-// Etsy-Sektion abrufen
-const etsyListings = await fetchSectionListings(ETSY_SHOP_ID, ETSY_SECTIONS.gemaelde);
-
-const gemaeldeFromEtsy = etsyListings.length > 0
-  ? etsyListings.map(l => {
-      const s = SUPPLEMENTS[l.listingId];
-      return {
-        title: l.title,
-        technik: s?.technik ?? "öl",
-        techniklabel: s?.techniklabel ?? "Öl auf Leinwand",
-        format: s?.format ?? "—",
-        preis: l.preis,
-        beschreibung: s?.beschreibung ?? l.description.replace(/[\r\n]+/g, ' ').slice(0, 200).trim(),
-        image: l.imageUrl ?? s?.fallbackImage ?? `${base}/gemaelde/fallback.jpg`,
-        status: "verfügbar" as const,
-        etsy: l.etsyUrl,
-      };
-    })
-  : FALLBACK_GEMAELDE;
-
-if (etsyListings.length > 0) {
-  console.log(`[Etsy] ${etsyListings.length} Gemälde aus Etsy-Sektion geladen`);
-} else {
-  console.warn('[Etsy] Gemälde-Sektion nicht verfügbar — Fallback-Daten werden verwendet');
-}
-
-const gemaelde = [...MANUAL_GEMAELDE, ...gemaeldeFromEtsy];
+const gemaelde = [...MANUAL_GEMAELDE, ...GEMAELDE];
 const techniken = ['Alle', 'Öl', 'Acryl'];
 
 const SITE = "https://www.sunnyartis.de";
