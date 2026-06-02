@@ -4,9 +4,12 @@ Astro-Website für [Sunny Artis](https://sandra-heise.github.io/Website/), die K
 
 ## Live-URL
 
-**[https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)**
+**[https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)**  
+Ziel-Domain: `https://www.sunnyartis.de`
 
-Die Seite wird automatisch via GitHub Actions auf GitHub Pages deployed, sobald Änderungen auf den `master`-Branch gepusht werden.
+Das Deployment läuft automatisch via GitHub Actions auf GitHub Pages, sobald Änderungen auf den `master`-Branch gepusht werden.
+
+---
 
 ## Lokale Entwicklung
 
@@ -15,165 +18,145 @@ npm install
 npm run dev
 ```
 
-Der Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` – wegen des konfigurierten Base-Pfads).
-
-## Projektstruktur
-
-```text
-/
-├── public/               # Statische Assets (Bilder, Favicon usw.)
-├── src/
-│   ├── components/       # Wiederverwendbare Komponenten (Header, Footer …)
-│   ├── layouts/          # Seitenlayouts
-│   ├── pages/            # Seiten (je Datei eine Route)
-│   ├── styles/           # Globale CSS-Dateien
-│   └── utils/            # Hilfsfunktionen (z. B. assetPath)
-└── astro.config.mjs      # Astro-Konfiguration (site, base)
-```
+Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` — wegen des konfigurierten Base-Pfads `/Website/`).
 
 ## Befehle
 
-| Befehl                    | Aktion                                              |
-| :------------------------ | :-------------------------------------------------- |
-| `npm install`             | Abhängigkeiten installieren                         |
-| `npm run dev`             | Dev-Server starten → `localhost:4321/Website/`      |
-| `npm run build`           | Produktions-Build nach `./dist/`                    |
-| `npm run preview`         | Build lokal vorschauen (vor dem Deployment)         |
-| `npm run astro ...`       | Astro CLI-Befehle wie `astro add`, `astro check`    |
-
-## Seiten & Status
-
-| Seite | Route | Status |
-| :---- | :---- | :----- |
-| Startseite | `/` | ✅ fertig |
-| Gemälde | `/gemaelde` | ✅ fertig (siehe unten) |
-| Porträts | `/portraets` | 🔲 noch nicht gebaut |
-| Galerie | `/galerie` | 🔲 noch nicht gebaut |
-| Malbücher & Basteln | `/malen`, `/basteln` | 🔲 noch nicht gebaut |
-| Schmuck | `/schmuck` | 🔲 noch nicht gebaut |
-| Über mich | `/ueber-mich` | 🔲 noch nicht gebaut |
-| Portfolio | `/portfolio` | 🔲 noch nicht gebaut |
-| Kontakt | `/kontakt` | ✅ fertig |
-| Impressum / Datenschutz | `/impressum`, `/datenschutz` | ✅ fertig |
+| Befehl | Aktion |
+| :--- | :--- |
+| `npm install` | Abhängigkeiten installieren |
+| `npm run dev` | Dev-Server → `localhost:4321/Website/` |
+| `npm run build` | Produktions-Build nach `./dist/` |
+| `npm run preview` | Build lokal vorschauen |
 
 ---
 
-## Gemälde-Seite
-
-### Aufbau
-
-- **Hero** mit asymmetrischer Bildcollage (5 Gemälde) und Introtext
-- **Gefiltertes Gemälde-Grid** (Filter: Alle / Öl / Acryl)
-- Jede Karte zeigt: Bild, Technik-Label, Format, Preis, Beschreibung, Etsy-Link
-- Gemälde „In Trocknung" werden mit grauem Badge angezeigt, Etsy-Button deaktiviert
-- Abschluss-Sektion mit Links zu Portfolio und Kontakt
-
-### Bilder
-
-Lokale Fallback-Bilder liegen in `public/gemaelde/`:
+## Projektstruktur
 
 ```
-public/gemaelde/
-  blutengeist.jpg
-  farbenfroh.jpg
-  silent-crown.jpg
-  vergaengliche-staerke.jpg
-  vergaengliche-staerke-2.jpg
+/
+├── public/
+│   ├── blog/           Bilder für Blog-Artikel
+│   ├── gemaelde/       Original-Gemälde Fotos
+│   ├── leinwaende/     Ausmalleinwand-Thumbnails (Querformat)
+│   └── malbuecher/     Malbuch-Cover und Inhaltsseiten
+├── src/
+│   ├── components/     Header, Footer
+│   ├── config/
+│   │   └── downloads.ts    Zentrale Liste aller R2-Plotterdateien
+│   ├── layouts/        Layout.astro (title, description, og, canonical)
+│   ├── pages/
+│   │   ├── blog/       Einzelne Blog-Artikel
+│   │   └── *.astro     Alle Hauptseiten
+│   ├── styles/         global.css
+│   └── utils/          assetPath.js
+└── astro.config.mjs    site + base konfiguriert
 ```
 
-Format: JPG, ca. 1000–1400 px auf der langen Seite.
+---
 
-### SEO & Strukturierte Daten
+## Seiten
 
-- `<title>`, `<meta description>`, `canonical`, `og:image` seitenspezifisch gesetzt
-- **JSON-LD** im `<head>`: Schema `CollectionPage → ItemList → VisualArtwork` pro Gemälde
-- Jedes Werk enthält: Name, Beschreibung, Bild, Technik, Maße, Künstlerin, Offer (Preis + Etsy-URL)
-- Das Layout (`src/layouts/Layout.astro`) unterstützt die Props `ogImage`, `canonical` und einen `head`-Slot für seitenspezifische Tags
+| Seite | Route | Beschreibung |
+| :---- | :---- | :--- |
+| Startseite | `/` | Hero, Highlights, CTA |
+| Malbücher & Leinwände | `/malen` | 5 Malbücher + 2 Etsy-Kollektionen mit Collage |
+| Gemälde | `/gemaelde` | Original-Gemälde, statische Daten |
+| Galerie | `/galerie` | Bildergalerie |
+| Porträts | `/portraets` | Portrait-Aufträge |
+| Schmuck | `/schmuck` | Handgefertigter Schmuck |
+| Basteln | `/basteln` | Bastelprodukte |
+| **Downloads** | `/downloads` | Kostenlose Plotterdateien (R2) |
+| **Blog** | `/blog` | Übersicht aller Artikel |
+| Blog – Ausmalen | `/blog/ausmalen-leinwand` | |
+| Blog – Halloween Laterne | `/blog/halloween-laterne` | inkl. kostenlosem Download |
+| Blog – Das sind wir | `/blog/das-sind-wir` | |
+| Blog – Kreativmarkt | `/blog/kreativmarkt-magdeburg` | |
+| Blog – Federn zeichnen | `/blog/federn-zeichnen` | |
+| Über mich | `/ueber-mich` | |
+| Portfolio | `/portfolio` | |
+| Kontakt | `/kontakt` | Formspree-Formular |
+| Impressum | `/impressum` | |
+| Datenschutz | `/datenschutz` | |
 
 ---
 
-## Etsy API Integration
+## Kostenlose Plotterdateien (Cloudflare R2)
 
-### Architektur
+Dateien werden auf **Cloudflare R2** gehostet und sind öffentlich zugänglich.
 
-| Datei | Zweck |
-| :---- | :---- |
-| `src/lib/etsy.ts` | Generische Fetch-Funktion, wiederverwendbar für alle Seiten |
-| `src/config/etsy.ts` | Shop-ID und Sektions-IDs (nach Freigabe eintragen) |
-| `scripts/get-etsy-info.mjs` | Einmaliges Hilfsskript zum Auslesen der IDs |
+**Bucket-URL:** `https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/`
 
-### Funktionsweise
+### Neue Datei hinzufügen
 
-- Preise, Bilder und Titel werden beim **Build auf GitHub Actions** live von Etsy abgerufen
-- Kein Browser-Request — die Seite bleibt statisch
-- Fallback: Wenn die API nicht erreichbar ist, werden die hardcodierten Daten in `gemaelde.astro` verwendet
-- Neue Gemälde in der Etsy-Sektion erscheinen automatisch beim nächsten Build
+1. Datei im Cloudflare Dashboard hochladen (R2 → Bucket → Upload)
+2. Eintrag in **`src/config/downloads.ts`** ergänzen:
 
-### Manuell verwaltete Einträge
+```typescript
+{
+  id: "mein-motiv",
+  title: "Name der Datei",
+  beschreibung: "Was ist enthalten.",
+  url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/dateiname.zip",
+  format: "ZIP (SVG)",
+  kategorie: "Kategorie",
+  blogPost: "/blog/mein-artikel",  // optional
+  vorschau: "/blog/vorschau.jpg",  // optional
+}
+```
 
-Gemälde die (noch) nicht auf Etsy sind (z. B. „Silent Crown – In Trocknung") werden direkt in `gemaelde.astro` im Array `MANUAL_GEMAELDE` gepflegt.
+3. Fertig — erscheint automatisch auf `/downloads` und in der Blog-Übersicht.
 
-### GitHub Actions Workflow
+### Verfügbare Dateien
 
-Der Workflow (`.github/workflows/gh-pages.yml`) baut die Seite:
-- bei jedem Push auf `master`
-- täglich um **0:00 Uhr** (Preise aktuell halten)
-- **manuell** via „Run workflow" im GitHub Actions Tab
-
-Der `ETSY_API_KEY` muss als Repository Secret gesetzt sein:
-`GitHub → Settings → Secrets and variables → Actions → ETSY_API_KEY`
-
-### ⚠️ Noch offen: Etsy API Freigabe
-
-Der API-Key ist aktuell im Status **„Pending Personal Approval"**. Sobald Etsy die App freigibt:
-
-1. Skript ausführen um Shop- und Sektions-IDs zu erhalten:
-   ```sh
-   ETSY_API_KEY=dein-key node scripts/get-etsy-info.mjs
-   ```
-2. Ausgabe in `src/config/etsy.ts` eintragen (Shop-ID + Sektions-IDs)
-3. Workflow manuell starten — ab dann laufen Preise und Bilder vollautomatisch
+| Titel | Dateiname |
+| :---- | :-------- |
+| Halloween Laterne | `SunnyArtis_plotterdatei_0114HalloweenLaterne.zip` |
 
 ---
 
-## Was noch zu tun ist
+## Blog-Artikel hinzufügen
 
-### Seiten aufbauen
-- Malbücher-Seite (`/malen`) — kann die Etsy-Architektur aus der Gemälde-Seite direkt wiederverwenden: nur `ETSY_SECTIONS.malbuecher` eintragen
-- Schmuck-Seite, Galerie, Portfolio, Porträts, Über mich
+1. Neue Datei unter `src/pages/blog/mein-slug.astro` anlegen (Vorlage: `federn-zeichnen.astro`)
+2. Bilder nach `public/blog/` legen
+3. Eintrag in `src/pages/blog.astro` in der `blogPosts`-Liste oben ergänzen (neueste zuerst)
+4. Alle Bildpfade mit `${base}/blog/bild.jpg` — nie mit absolutem `/` (wegen Base-Pfad)
 
-### Etsy Sektions-IDs eintragen
-Nach API-Freigabe `src/config/etsy.ts` befüllen — dann läuft alles automatisch.
+---
 
-### Silent Crown
-Sobald das Gemälde auf Etsy gelistet wird: Listing-ID in `SUPPLEMENTS` in `gemaelde.astro` eintragen und den Eintrag aus `MANUAL_GEMAELDE` entfernen.
+## Bilder
 
-### Domain klären
-Die canonical URLs zeigen aktuell auf `https://www.sunnyartis.de`. Falls die Website unter einer anderen Domain live geht, muss die Variable `SITE` in den jeweiligen Seiten-Dateien angepasst werden (z. B. in `gemaelde.astro`).
+Alle Bildpfade im Code **immer** mit `${base}/ordner/bild.jpg` referenzieren — nie mit `/ordner/bild.jpg`.  
+Grund: GitHub Pages liefert unter `/Website/`, ein einfaches `/` würde den Basepfad überspringen.
+
+---
+
+## SEO & Structured Data
+
+Jede Seite hat:
+- `title`, `description`, `canonical`, `og:image` via Layout-Props
+- JSON-LD per `<script type="application/ld+json" slot="head">`
+- BreadcrumbList-Schema
+
+Blog-Artikel zusätzlich:
+- `og:type = article` + `article:*`-Tags
+- `FAQPage`-Schema (wo sinnvoll)
+- `HowTo`-Schema für Schritt-für-Schritt-Anleitungen
+- `speakable` für KI/Voice-Search
 
 ---
 
 ## Kontaktformular
 
-Das Kontaktformular wird über **[Formspree](https://formspree.io)** verarbeitet.
+Verarbeitet über **[Formspree](https://formspree.io)** — Konto: `sunnyartis@gmx.de`.
 
-- Konto: `sunnyartis@gmx.de`
-- Einsendungen sind im Formspree-Dashboard unter [formspree.io](https://formspree.io) einsehbar und werden per E-Mail weitergeleitet.
-
+---
 
 ## Deployment
 
-Das Deployment läuft über **GitHub Pages** mit GitHub Actions.
-
 - Repository: `sandra-heise/Website`
 - Branch: `master`
-- Live-URL: [https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)
+- Plattform: GitHub Pages + GitHub Actions
+- `astro.config.mjs`: `site: 'https://sandra-heise.github.io/Website/'`, `base: '/Website/'`
 
-Die Konfiguration in `astro.config.mjs`:
-
-```js
-export default defineConfig({
-  site: 'https://sandra-heise.github.io/Website/',
-  base: '/Website/',
-});
-```
+Sobald die Domain `sunnyartis.de` umgestellt wird: `SITE`-Variable in den `.astro`-Dateien von `https://www.sunnyartis.de` auf die neue Domain anpassen (canonical URLs).

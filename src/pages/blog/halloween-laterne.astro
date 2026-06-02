@@ -1,0 +1,274 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = "https://www.sunnyartis.de";
+const canonicalUrl = `${SITE}/blog/halloween-laterne`;
+const ogImage = `${SITE}/blog/halloween-hero.jpg`;
+
+const schritte = [
+  {
+    name: "Datei vorbereiten",
+    text: "Lade die Plotterdatei in dein Schneideprogramm und ziehe sie auf die gewünschte Größe. In unserem Beispiel beträgt das Format 21 × 25 cm.",
+    bilder: ["halloween-02.jpg", "halloween-03.jpg"],
+  },
+  {
+    name: "Seiten plotten",
+    text: "Schneide jede Seite der Datei auf dickem Papier aus. Achte darauf, dass alle Teile vollständig geschnitten sind. Schritt 1 und 2 können auch ohne Plotter durchgeführt werden — ist aber deutlich schwerer.",
+    bilder: ["halloween-04.jpg", "halloween-05.jpg"],
+  },
+  {
+    name: "Rückseiten bekleben",
+    text: "Beklebe die Rückseiten der geschnittenen Teile mit Transparentpapier. So wird die Laterne stabiler und die Muster kommen schön zur Geltung.",
+    bilder: ["halloween-06.jpg", "halloween-07.jpg"],
+  },
+  {
+    name: "Kanten falzen und knicken",
+    text: "Klappe nun die Unterseiten nach innen und die Seitenteile nach außen. Ein Lineal eignet sich hier perfekt als Hilfe, damit die Kanten sauber werden.",
+    bilder: ["halloween-08.jpg", "halloween-09.jpg"],
+  },
+  {
+    name: "Wände zusammenkleben",
+    text: "Klebe die einzelnen Seitenteile wie auf der Vorlage gezeigt aneinander. Zum Schluss verbindest du die erste und letzte Seite, sodass eine viereckige Form entsteht.",
+    bilder: ["halloween-10.jpg", "halloween-11.jpg", "halloween-12.jpg"],
+  },
+  {
+    name: "Unterseite verschließen",
+    text: "Für eine stehende Laterne: Klebe die Unterseite an den überlappenden Laschen zusammen. Für eine hängende Laterne: Verwende ein zusätzliches, viereckiges Stück Papier und klebe es von innen ein.",
+    bilder: ["halloween-13.jpg", "halloween-14.jpg", "halloween-15.jpg"],
+  },
+  {
+    name: "Beleuchtung einsetzen",
+    text: "Setze eine elektrische Kerze hinein oder befestige ein kleines Licht über einen Draht von oben, falls die Laterne aufgehängt werden soll.",
+    bilder: ["halloween-16.jpg", "halloween-17.jpg"],
+  },
+];
+---
+
+<Layout
+  title="Halloween Laterne selber machen – Schritt-für-Schritt Plotteranleitung | Sunny Artis"
+  description="Mit dieser einfachen Plotteranleitung bastelst du deine eigene Halloween-Laterne aus Papier — perfekt für herbstliche Abende oder als Dekoration. Inkl. SVG-Plotterdatei."
+  ogImage={ogImage}
+  canonical={canonicalUrl}
+>
+  <meta name="keywords" content="Halloween Laterne basteln, Laterne selber machen, Plotteranleitung Laterne, Halloween Deko, SVG Plotterdatei, Papierlaternen Anleitung, Basteln Herbst" slot="head" />
+  <meta property="article:published_time" content="2025-09-11" slot="head" />
+  <meta property="article:author" content="Sandra Heise" slot="head" />
+  <meta property="article:section" content="Basteln & Plotten" slot="head" />
+  <meta property="article:tag" content="Halloween" slot="head" />
+  <meta property="article:tag" content="Plotter" slot="head" />
+  <meta property="article:tag" content="Basteln" slot="head" />
+  <meta property="og:type" content="article" slot="head" />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Halloween Laterne selber machen – Schritt-für-Schritt Plotteranleitung",
+    "description": "Mit dieser einfachen Plotteranleitung bastelst du deine eigene Halloween-Laterne aus Papier — perfekt für herbstliche Abende oder als Dekoration.",
+    "image": ogImage,
+    "datePublished": "2025-09-11",
+    "dateModified": "2025-09-11",
+    "keywords": "Halloween Laterne, Plotteranleitung, Laterne basteln, SVG, Papierlaternen, Halloween Deko",
+    "inLanguage": "de",
+    "url": canonicalUrl,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE, "sameAs": ["https://www.instagram.com/sunny_artis/"] },
+    "publisher": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+    "speakable": { "@type": "SpeakableSpecification", "cssSelector": [".article-title", ".article-container h2", ".step-text"] },
+    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog` }
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Halloween Laterne selber machen",
+    "description": "Mit einer Plotterdatei und dickem Papier eine viereckige Halloween-Laterne basteln — stabil, dekorativ und sicher für elektrische Kerzen.",
+    "image": ogImage,
+    "totalTime": "PT90M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "EUR", "value": "10" },
+    "supply": [
+      { "@type": "HowToSupply", "name": "Dickes Papier" },
+      { "@type": "HowToSupply", "name": "Transparentpapier" },
+      { "@type": "HowToSupply", "name": "Kleber" },
+      { "@type": "HowToSupply", "name": "Elektrische Kerze oder LED-Licht" }
+    ],
+    "tool": [
+      { "@type": "HowToTool", "name": "Plotter (oder Schere)" },
+      { "@type": "HowToTool", "name": "Lineal" }
+    ],
+    "step": schritte.map((s, i) => ({
+      "@type": "HowToStep",
+      "position": i + 1,
+      "name": s.name,
+      "text": s.text,
+      "image": `${SITE}/blog/${s.bilder[0]}`
+    }))
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Brauche ich zwingend einen Plotter für die Halloween-Laterne?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nein — du kannst das Muster auch per Hand ausschneiden. Mit einem Plotter geht es aber deutlich schneller und präziser, besonders bei feinen Details." }
+      },
+      {
+        "@type": "Question",
+        "name": "Welches Papier eignet sich für die Laterne?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Verwende dickeres Papier (mind. 160–200 g/m²), damit die Laterne stabil steht. Die Rückseite wird mit Transparentpapier beklebt, damit das Licht schön durchscheint." }
+      },
+      {
+        "@type": "Question",
+        "name": "Ist die Laterne für echte Kerzen geeignet?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nein — verwende ausschließlich elektrische Kerzen oder LED-Lichter. Papier ist feuergefährlich, daher sind offene Flammen nicht geeignet." }
+      }
+    ]
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog` },
+      { "@type": "ListItem", "position": 3, "name": "Halloween Laterne", "item": canonicalUrl }
+    ]
+  })} />
+
+  <section class="article-hero">
+    <div class="container">
+      <div class="article-meta">
+        <a href={`${base}/blog`} class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Zurück zum Blog
+        </a>
+        <span class="article-category">Basteln & Plotten</span>
+      </div>
+      <h1 class="article-title">Halloween Laterne selber machen – Plotteranleitung</h1>
+      <p class="article-date">11. September 2025 · von Sandra Heise</p>
+    </div>
+  </section>
+
+  <article class="article-body">
+    <div class="container article-container">
+
+      <figure class="article-figure article-figure--top">
+        <img src={`${base}/blog/halloween-hero.jpg`} alt="Fertige Halloween-Laterne aus Papier" fetchpriority="high" loading="eager" />
+      </figure>
+
+      <p>
+        Mit dieser einfachen Anleitung bastelst du dir deine eigene Laterne — perfekt für herbstliche Abende oder als stimmungsvolle Halloween-Dekoration. Du brauchst nur dickes Papier, Transparentpapier, Kleber und eine elektrische Kerze. Mit einem Plotter geht es besonders schnell, aber auch ohne Plotter ist es machbar.
+      </p>
+
+      <div class="material-box">
+        <h3>Das brauchst du</h3>
+        <div class="material-grid">
+          <div>
+            <strong>Material</strong>
+            <ul>
+              <li>Dickes Papier (mind. 160 g/m²)</li>
+              <li>Transparentpapier</li>
+              <li>Kleber</li>
+              <li>Elektrische Kerze / LED-Licht</li>
+            </ul>
+          </div>
+          <div>
+            <strong>Werkzeug</strong>
+            <ul>
+              <li>Plotter (oder Schere)</li>
+              <li>Lineal</li>
+            </ul>
+          </div>
+          <div>
+            <strong>Optional</strong>
+            <ul>
+              <li><a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download>SVG-Plotterdatei (kostenlos)</a></li>
+              <li><a href="https://amzn.to/46bouxj" target="_blank" rel="noopener noreferrer sponsored">Bastelpapier (Amazon)</a></li>
+              <li><a href="https://amzn.to/4mRdVGS" target="_blank" rel="noopener noreferrer sponsored">Transparentpapier (Amazon)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h2>Schritt-für-Schritt-Anleitung</h2>
+
+      {schritte.map((s, i) => (
+        <div class="step-block">
+          <div class="step-header">
+            <span class="step-nr">{i + 1}</span>
+            <h3 class="step-title">{s.name}</h3>
+          </div>
+          <p class="step-text">{s.text}</p>
+          <div class={`step-bilder step-bilder--${s.bilder.length}`}>
+            {s.bilder.map((b, j) => (
+              <img src={`${base}/blog/${b}`} alt={`${s.name} – Schritt ${i + 1}, Bild ${j + 1}`} loading="lazy" />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div class="fazit-box">
+        <p>✨ <strong>Fertig ist deine selbstgebastelte Laterne</strong> — stabil, dekorativ und sicher!</p>
+      </div>
+
+      <div class="article-cta">
+        <p>Die SVG-Plotterdatei gibt es kostenlos zum Download:</p>
+        <a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download class="btn btn-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Kostenlos herunterladen
+        </a>
+        <a href={`${base}/downloads`} class="mehr-link">Alle kostenlosen Dateien →</a>
+      </div>
+
+    </div>
+  </article>
+
+  <section class="section back-section bg-light">
+    <div class="container text-center">
+      <a href={`${base}/blog`} class="btn btn-secondary">Weitere Blog-Artikel</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .article-hero { padding: 4rem 0 2.5rem; background: var(--color-bg-white); border-bottom: 1px solid var(--color-border); }
+  .article-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-family: var(--font-title); font-size: 0.88rem; font-weight: 600; color: var(--color-text-muted); transition: color var(--transition-fast); }
+  .back-link:hover { color: var(--color-teal); }
+  .article-category { font-family: var(--font-title); font-size: 0.78rem; font-weight: 700; color: var(--color-teal); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(1,170,193,0.1); padding: 3px 10px; border-radius: 20px; }
+  .article-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2; color: var(--color-navy); max-width: 820px; margin-bottom: 0.75rem; }
+  .article-date { font-family: var(--font-title); font-size: 0.88rem; color: var(--color-text-muted); }
+  .article-body { padding: 3.5rem 0 4rem; }
+  .article-container { max-width: 740px; margin: 0 auto; }
+  .article-container p { font-size: 1.05rem; line-height: 1.85; color: var(--color-text); margin-bottom: 1.5rem; }
+  .article-container h2 { font-size: 1.5rem; color: var(--color-navy); margin: 2.5rem 0 1.25rem; }
+  .article-container a:not(.btn) { color: var(--color-teal); text-decoration: underline; text-underline-offset: 3px; }
+  .article-container a:not(.btn):hover { color: var(--color-navy); }
+  .article-figure { margin: 2rem 0 2.5rem; text-align: center; }
+  .article-figure--top img { width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-md); display: block; }
+  .article-cta { background: var(--color-bg-light); border-left: 4px solid var(--color-teal); border-radius: 0 12px 12px 0; padding: 1.5rem 2rem; margin-top: 2.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .article-cta p { margin: 0 !important; font-weight: 500; flex: 1; min-width: 200px; }
+  .mehr-link { font-family: var(--font-title); font-size: 0.85rem; font-weight: 600; color: var(--color-teal); transition: color var(--transition-fast); }
+  .mehr-link:hover { color: var(--color-navy); }
+  .back-section { padding: 3rem 0; }
+
+  .material-box { background: var(--color-bg-light); border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0 2.5rem; }
+  .material-box h3 { color: var(--color-navy); font-size: 1.05rem; margin: 0 0 1rem; }
+  .material-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .material-grid strong { display: block; font-family: var(--font-title); font-size: 0.85rem; color: var(--color-navy); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .material-grid ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+  .material-grid li { font-size: 0.9rem; color: var(--color-text-muted); }
+  @media (max-width: 600px) { .material-grid { grid-template-columns: 1fr; } }
+
+  .step-block { margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--color-border); }
+  .step-block:last-of-type { border-bottom: none; }
+  .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+  .step-nr { width: 2rem; height: 2rem; border-radius: 50%; background: var(--color-teal); color: white; font-family: var(--font-title); font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-title { font-size: 1.15rem; color: var(--color-navy); margin: 0; font-family: var(--font-title); font-weight: 700; }
+  .step-text { color: var(--color-text-muted); margin-bottom: 1rem !important; }
+  .step-bilder { display: grid; gap: 6px; border-radius: 10px; overflow: hidden; }
+  .step-bilder--1 { grid-template-columns: 1fr; }
+  .step-bilder--2 { grid-template-columns: 1fr 1fr; }
+  .step-bilder--3 { grid-template-columns: 1fr 1fr 1fr; }
+  .step-bilder img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+
+  .fazit-box { background: rgba(1,170,193,0.08); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; font-size: 1.05rem; }
+</style>
