@@ -6,6 +6,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
 const canonicalUrl = `${SITE}/downloads`;
 
+// Eindeutige Kategorien extrahieren
+const categories = [...new Set(FREE_DOWNLOADS.map(d => d.kategorie))];
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -60,11 +63,25 @@ const jsonLd = {
     </div>
   </section>
 
+  <!-- Kategorie-Filter -->
+  {categories.length > 0 && (
+    <section class="filter-section">
+      <div class="container text-center">
+        <div class="filter-buttons" id="filter-buttons">
+          <button class="btn-filter active" data-category="all">Alle</button>
+          {categories.map(cat => (
+            <button class="btn-filter" data-category={cat}>{cat}</button>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="section bg-light downloads-section">
     <div class="container">
       <div class="downloads-grid">
         {FREE_DOWNLOADS.map(d => (
-          <article class="card download-card">
+          <article class="card download-card" data-category={d.kategorie}>
             <div class="card-img-wrapper">
               {d.vorschau
                 ? <img src={`${base}${d.vorschau}`} alt={`${d.title} – Plotterdatei Vorschau`} loading="lazy" />
@@ -119,6 +136,42 @@ const jsonLd = {
   </section>
 </Layout>
 
+<script>
+  const buttons = document.querySelectorAll('.btn-filter');
+  const cards = document.querySelectorAll('.download-card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Aktive Klasse bei Buttons umschalten
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selectedCat = btn.getAttribute('data-category');
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const cardElement = card as HTMLElement;
+
+        if (selectedCat === 'all' || cardCat === selectedCat) {
+          cardElement.style.display = 'flex';
+          // Sanftes Einblenden
+          setTimeout(() => {
+            cardElement.style.opacity = '1';
+            cardElement.style.transform = 'translateY(0)';
+          }, 10);
+        } else {
+          // Sanftes Ausblenden
+          cardElement.style.opacity = '0';
+          cardElement.style.transform = 'translateY(12px)';
+          setTimeout(() => {
+            cardElement.style.display = 'none';
+          }, 200); // Entspricht der Transitionsdauer
+        }
+      });
+    });
+  });
+</script>
+
 <style>
   .section-tag {
     font-family: var(--font-title);
@@ -137,6 +190,46 @@ const jsonLd = {
     color: var(--color-text-muted);
   }
 
+  /* Filter-Bar */
+  .filter-section {
+    padding: 0 0 3rem;
+    background-color: var(--color-bg-white);
+  }
+
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-filter {
+    padding: 8px 24px;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .btn-filter:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+    transform: translateY(-1px);
+  }
+
+  .btn-filter.active {
+    background-color: var(--color-teal);
+    border-color: var(--color-teal);
+    color: white;
+    box-shadow: 0 4px 12px rgba(1, 170, 193, 0.15);
+  }
+
+  /* Downloads-Grid */
   .downloads-section { padding-bottom: 5rem; }
 
   .downloads-grid {
@@ -145,7 +238,12 @@ const jsonLd = {
     gap: 2rem;
   }
 
-  .download-card { height: 100%; }
+  .download-card {
+    height: 100%;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   .download-placeholder {
     width: 100%;
