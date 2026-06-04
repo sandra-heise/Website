@@ -2,141 +2,287 @@
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const werke = [
-  { id: 1, title: "Acryl 'Goldene Stunde'", kategorie: "gemaelde", kategorieLabel: "Gemälde", beschreibung: "Warmes Abendlicht in kräftigen Acrylfarben auf Leinwand.", gradient: "bg-warm" },
-  { id: 2, title: "Aquarell 'Wildblumen'", kategorie: "gemaelde", kategorieLabel: "Gemälde", beschreibung: "Zarte Wildblumen in luftigen Aquarellfarben auf Künstlerpapier.", gradient: "bg-floral" },
-  { id: 3, title: "Bleistiftporträt 'Geschwister'", kategorie: "portraets", kategorieLabel: "Porträts", beschreibung: "Detailreiches Doppelporträt zweier Kinder auf schwerem Künstlerkarton.", gradient: "bg-pencil" },
-  { id: 4, title: "Aquarell-Haustierporträt", kategorie: "portraets", kategorieLabel: "Porträts", beschreibung: "Lebendiges Tierporträt mit professionellen Aquarellfarben.", gradient: "bg-cool" },
-  { id: 5, title: "Epoxidharz Blüten-Medaillon", kategorie: "schmuck", kategorieLabel: "Schmuck", beschreibung: "Handgefertigter Kettenanhänger mit gepressten Kornblumen und Goldflocken.", gradient: "bg-resin" },
-  { id: 6, title: "Polymer Clay Ohrringe", kategorie: "schmuck", kategorieLabel: "Schmuck", beschreibung: "Geometrische Hängeohrringe im Terrazzo-Stil, extrem leicht.", gradient: "bg-polymer" },
-  { id: 7, title: "Malbuch 'Mandala Träume'", kategorie: "kreatives", kategorieLabel: "Kreativprodukte", beschreibung: "Handgezeichnetes Ausmalbuch mit geometrischen und floralen Mandalas.", gradient: "bg-botanical" },
-  { id: 8, title: "Vorgestaltete Leinwand 'Botanisch'", kategorie: "kreatives", kategorieLabel: "Kreativprodukte", beschreibung: "Vorskizzierte Leinwand zum Selbstbemalen — Motiv: botanische Illustrationen.", gradient: "bg-botanical-light" },
-  { id: 9, title: "SVG Plotterdatei 'Blumenranke'", kategorie: "basteln", kategorieLabel: "Basteln & Plotter", beschreibung: "Digitale Schnittdatei für Schneideplotter, geeignet für Vinyl, Flex und Papier.", gradient: "bg-plotter" },
+const SITE = "https://www.sunnyartis.de";
+const canonicalUrl = `${SITE}/portfolio`;
+const ogImage = `${SITE}/portraets/produkte-auftraege.png`;
+
+const blenderArbeiten = [
+  { title: "Pilze in der Flasche", src: `${base}/portfolio/blender-pilze.png`, credit: "Tutorial: 3DGreenhorn" },
+  { title: "Schlafzimmer", src: `${base}/portfolio/blender-schlafzimmer.png`, credit: "Tutorial: 3DGreenhorn" },
+  { title: "Donut", src: `${base}/portfolio/blender-donut.png`, credit: "Tutorial: Blender Guru" },
 ];
 
-const kategorien = [
-  { key: 'all', label: 'Alle' },
-  { key: 'gemaelde', label: 'Gemälde' },
-  { key: 'portraets', label: 'Porträts' },
-  { key: 'schmuck', label: 'Schmuck' },
-  { key: 'kreatives', label: 'Kreativprodukte' },
-  { key: 'basteln', label: 'Basteln & Plotter' },
-];
-
-const videos = [
-  { title: "Speed-Painting: Acryl Landschaft", plattform: "YouTube", link: "https://www.youtube.com/@SunnyArtis", beschreibung: "Zeitraffer eines kompletten Acrylgemäldes von der leeren Leinwand bis zum fertigen Bild." },
-  { title: "Harz-Schmuck gießen — Step by Step", plattform: "YouTube", link: "https://www.youtube.com/@SunnyArtis", beschreibung: "Ich zeige den gesamten Prozess: Blüten pressen, Harz anmischen, gießen und schleifen." },
-  { title: "Plotterdatei in Aktion", plattform: "Instagram", link: "https://www.instagram.com/sunny_artis/", beschreibung: "Kurzes Reel — mein Plotter schneidet eine SVG-Datei auf Vinylfolie." },
+const animationen = [
+  { title: "Buch", src: `${base}/portfolio/anim-buch.gif` },
+  { title: "Rehe", src: `${base}/portfolio/anim-rehe.gif` },
+  { title: "Flamme", src: `${base}/portfolio/anim-flamme.gif` },
+  { title: "Regentropfen", src: `${base}/portfolio/anim-regentropfen.gif` },
+  { title: "Schmetterling", src: `${base}/portfolio/anim-schmetterling.gif` },
 ];
 ---
 
 <Layout
-  title="Portfolio - Sunny Artis | Meine Kunstwerke & Videos"
-  description="Das Portfolio von Sandra Heise: Gemälde, Porträts, Schmuck, Kreativprodukte und Bastelprojekte. Dazu Videos auf YouTube und Instagram."
+  title="Portfolio – Sandra Heise: Digitale Kunst, Porträts & Animation | Sunny Artis"
+  description="Portfolio von Sandra Heise: Handgezeichnete Porträts, ProCreate-Animationen, Blender 3D und UI-Design. Kunstwerke auf Etsy und als Auftragsarbeit erhältlich."
+  ogImage={ogImage}
+  canonical={canonicalUrl}
 >
-  <section class="section page-header-section">
+  <meta name="keywords" content="Sandra Heise Portfolio, handgezeichnete Porträts, ProCreate Animation, Blender 3D, digitale Kunst, Aquarellporträt, Sunny Artis Magdeburg" slot="head" />
+  <meta property="og:type" content="profile" slot="head" />
+  <meta property="profile:first_name" content="Sandra" slot="head" />
+  <meta property="profile:last_name" content="Heise" slot="head" />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "Portfolio – Sandra Heise",
+    "description": "Handgezeichnete Porträts, ProCreate-Animationen, Blender 3D und UI-Design von Sandra Heise / Sunny Artis.",
+    "url": canonicalUrl,
+    "inLanguage": "de",
+    "image": ogImage,
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".portfolio-title", ".portfolio-desc", ".tools-text h2"]
+    },
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Sandra Heise",
+      "jobTitle": "Künstlerin & Designerin",
+      "url": SITE,
+      "address": { "@type": "PostalAddress", "addressLocality": "Magdeburg", "addressCountry": "DE" },
+      "knowsAbout": [
+        "Bleistiftzeichnung", "Ölmalerei", "Acrylmalerei", "Aquarellmalerei",
+        "ProCreate", "Blender 3D", "UI-Design", "Handgezeichnete Porträts", "Animation"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Künstlerin & Designerin",
+        "occupationLocation": { "@type": "City", "name": "Magdeburg" }
+      },
+      "sameAs": [
+        "https://www.instagram.com/sunny_artis/",
+        "https://www.youtube.com/@SunnyArtis",
+        "https://www.etsy.com/de/shop/SunnyArtis"
+      ]
+    }
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Animation with ProCreate Dreams – Sunny Artis",
+    "description": "ProCreate Dreams Animation von Sandra Heise / Sunny Artis — digitale Illustration in Bewegung.",
+    "thumbnailUrl": "https://img.youtube.com/vi/d6q8K0KpPQQ/maxresdefault.jpg",
+    "uploadDate": "2024-01-01",
+    "contentUrl": "https://www.youtube.com/watch?v=d6q8K0KpPQQ",
+    "embedUrl": "https://www.youtube.com/embed/d6q8K0KpPQQ",
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE }
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": canonicalUrl }
+    ]
+  })} />
+
+  <!-- Video Hero -->
+  <section class="video-hero">
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/d6q8K0KpPQQ?autoplay=1&mute=1&loop=1&playlist=d6q8K0KpPQQ&controls=0&modestbranding=1&rel=0"
+        title="Sunny Artis – Animation with ProCreate Dreams"
+        allow="autoplay; fullscreen; accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        loading="eager"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- Hero -->
+  <section class="portfolio-hero">
     <div class="container text-center">
       <span class="section-tag">MEINE ARBEITEN</span>
-      <h1 class="center-title">Portfolio</h1>
-      <p class="section-desc">
-        Alle meine Werke auf einen Blick — filtere nach Bereich oder stöbere durch die gesamte Sammlung.
+      <h1 class="portfolio-title">Portfolio</h1>
+      <p class="portfolio-desc">
+        Ein Einblick in mein kreatives Schaffen — von digitaler Illustration mit ProCreate-Animationen bis hin zur traditionellen Kunst.
       </p>
     </div>
   </section>
 
-  <!-- Galerie -->
-  <section class="section portfolio-section bg-light">
+  <!-- Tabs -->
+  <section class="section tabs-section">
     <div class="container">
-      <div class="filter-wrapper flex-center">
-        {kategorien.map(k => (
-          <button class={`filter-btn${k.key === 'all' ? ' active' : ''}`} data-filter={k.key}>
-            {k.label}
-          </button>
-        ))}
+      <nav class="tabs-nav" role="tablist">
+        <button class="tab-btn active" data-tab="previous-works" role="tab" aria-selected="true">Previous Works</button>
+        <button class="tab-btn" data-tab="blender" role="tab" aria-selected="false">Blender 3D</button>
+        <button class="tab-btn" data-tab="animationen" role="tab" aria-selected="false">Animationen</button>
+        <button class="tab-btn" data-tab="portraets" role="tab" aria-selected="false">Porträts</button>
+      </nav>
+
+      <!-- Tab: Previous Works -->
+      <div class="tab-panel active" id="previous-works" role="tabpanel">
+        <div class="pf-galerie">
+          <img src={`${base}/portfolio/sample-work-1.png`} alt="Digitale Kunstarbeit von Sandra Heise – Previous Works 2022/2023" loading="lazy" />
+          <img src={`${base}/portfolio/sample-work-2.png`} alt="Digitale Kunstarbeit von Sandra Heise – Previous Works 2021/2024" loading="lazy" />
+        </div>
       </div>
 
-      <div class="grid-3 portfolio-grid" id="portfolioGrid">
-        {werke.map(w => (
-          <div class="card portfolio-card" data-kategorie={w.kategorie}>
-            <div class="card-img-wrapper">
-              <div class={`werk-preview ${w.gradient}`}></div>
-              <span class="badge badge-teal card-badge">{w.kategorieLabel}</span>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">{w.title}</h3>
-              <p class="card-text">{w.beschreibung}</p>
-              <div class="card-footer">
-                {w.kategorie === 'gemaelde' && (
-                  <a href={`${base}/gemaelde`} class="btn btn-accent btn-xs">Gemälde ansehen</a>
-                )}
-                {w.kategorie === 'portraets' && (
-                  <a href={`${base}/portraets`} class="btn btn-secondary btn-xs">Porträt anfragen</a>
-                )}
-                {w.kategorie === 'schmuck' && (
-                  <a href={`${base}/schmuck`} class="btn btn-secondary btn-xs">Mehr Schmuck</a>
-                )}
-                {w.kategorie === 'kreatives' && (
-                  <a href={`${base}/malen`} class="btn btn-accent btn-xs">Auf Etsy</a>
-                )}
-                {w.kategorie === 'basteln' && (
-                  <a href={`${base}/basteln`} class="btn btn-secondary btn-xs">Zum Bastelbereich</a>
-                )}
+      <!-- Tab: Blender 3D -->
+      <div class="tab-panel" id="blender" role="tabpanel">
+        <div class="tab-intro">
+          <p>Renders aus verschiedenen Blender-Tutorials — als Lernprojekte entstanden.</p>
+        </div>
+        <div class="pf-grid-3">
+          {blenderArbeiten.map(b => (
+            <figure class="pf-figure">
+              <img src={b.src} alt={`Blender 3D: ${b.title}`} loading="lazy" />
+              <figcaption>
+                <strong>{b.title}</strong>
+                <span>{b.credit}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <!-- Tab: Animationen -->
+      <div class="tab-panel" id="animationen" role="tabpanel">
+        <div class="tab-intro">
+          <p>Kurze animierte GIFs, erstellt in ProCreate und ProCreate Dreams.</p>
+        </div>
+        <div class="pf-grid-5">
+          {animationen.map(a => (
+            <figure class="pf-figure pf-figure--anim">
+              <img src={a.src} alt={`ProCreate Animation: ${a.title}`} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+      </div>
+      <!-- Tab: Porträts -->
+      <div class="tab-panel" id="portraets" role="tabpanel">
+
+        <!-- Infotext + Hauptbild -->
+        <div class="portraet-split">
+          <div class="portraet-left">
+            <p class="portraet-intro-text">Handgezeichnete Porträts nach Foto — auf hochwertigem Hahnemühle-Papier, mit Fixativ behandelt für Langlebigkeit. Kostenloser Versand innerhalb Deutschlands, Zahlung erst nach deiner Zufriedenheit.</p>
+            <div class="portraet-techniken">
+              <div class="technik-card">
+                <h3>Bleistift & Kohle</h3>
+                <p>Detailreiche Porträts auf Hahnemühle-Zeichenpapier (190 g/m²) — klassisch, zeitlos, präzise.</p>
+              </div>
+              <div class="technik-card">
+                <h3>Wasserfarben-Kontur</h3>
+                <p>Zarte Konturzeichnungen mit Aquarellfarben auf Hahnemühle Aquarellpapier (310 g/m²).</p>
               </div>
             </div>
+            <div class="portraet-usps">
+              <span>✓ Kostenloser Versand in Deutschland</span>
+              <span>✓ Zahlung erst nach Zufriedenheit</span>
+              <span>✓ Individuelle Motive & Größen möglich</span>
+            </div>
+            <a href={`${base}/portraets`} class="btn btn-accent">Porträt anfragen</a>
           </div>
-        ))}
+          <figure class="portraet-hauptbild">
+            <img src={`${base}/portraets/produkte-auftraege.png`} alt="Porträt handgezeichnetes Mädchen umringt von Blumen" loading="lazy" />
+          </figure>
+        </div>
+
+        <!-- Kleine Galerie-Reihe -->
+        <div class="portraet-reihe" id="portraetReihe">
+          <img src={`${base}/portraets/selbstportrait.jpg`} alt="Bleistift-Selbstporträt, Sandra Heise" loading="lazy" />
+          <img src={`${base}/portraets/portraet-aktuell.jpg`} alt="Handgezeichnetes Porträt, aktuelles Werk" loading="lazy" />
+          <img src={`${base}/portraets/sarah-watercolor.jpg`} alt="Aquarell-Konturporträt einer Frau, Sandra Heise" loading="lazy" />
+          <img src={`${base}/portraets/lya-portraet.png`} alt="Bleistiftporträt eines Kindes, Sandra Heise" loading="lazy" />
+          <img src={`${base}/portraets/robin-portraet.jpg`} alt="Bleistiftporträt, Robin, Sandra Heise" loading="lazy" />
+          <img src={`${base}/portraets/hund-portraet.jpg`} alt="Hundeporträt, handgezeichnet von Sandra Heise" loading="lazy" />
+          <img src={`${base}/portraets/harald-portraet.png`} alt="Bleistiftporträt eines Mannes, Sandra Heise" loading="lazy" />
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Videos -->
-  <section class="section videos-section">
+  <!-- Tools & Skills -->
+  <section class="section tools-section bg-light">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag">IN BEWEGUNG</span>
-        <h2 class="center-title">Videos & Reels</h2>
-        <p class="section-desc">
-          Schau mir bei der Arbeit zu — auf YouTube und Instagram teile ich regelmäßig neue Videos.
-        </p>
-      </div>
+      <div class="tools-grid">
+        <div class="tools-text">
+          <span class="section-tag">KOMPETENZEN</span>
+          <h2>Tools & Skills</h2>
 
-      <div class="grid-3 video-grid">
-        {videos.map(v => (
-          <a href={v.link} target="_blank" rel="noopener noreferrer" class="video-card card">
-            <div class="video-thumb">
-              <div class="play-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              </div>
-              <span class="plattform-tag">{v.plattform}</span>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">{v.title}</h3>
-              <p class="card-text">{v.beschreibung}</p>
-            </div>
-          </a>
-        ))}
-      </div>
+          <div class="tools-gruppe">
+            <h3>Traditionelle Kunst</h3>
+            <ul>
+              <li>Bleistift & Graphit</li>
+              <li>Acrylfarben auf Leinwand</li>
+              <li>Ölfarben auf Leinwand</li>
+              <li>Aquarellfarben</li>
+            </ul>
+          </div>
 
-      <div class="text-center" style="margin-top: 2.5rem;">
-        <a href="https://www.youtube.com/@SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">Alle Videos auf YouTube</a>
+          <div class="tools-gruppe">
+            <h3>Digitale Kunst & Animation</h3>
+            <ul>
+              <li>ProCreate (iPad)</li>
+              <li>ProCreate Dreams (Animation)</li>
+              <li>Krita</li>
+              <li>Rebelle 3</li>              
+              <li>Blender 3D (Anfänger)</li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="tools-bild">
+          <img src={`${base}/gemaelde/farbenfroh.jpg`} alt="Farbenfroh – Ölgemälde von Sandra Heise" loading="lazy" />
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Auftragskunst CTA -->
+  <!-- Kontakt CTA -->
   <section class="section bg-light">
     <div class="container">
       <div class="glass-container cta-box text-center">
-        <h2>Etwas Bestimmtes im Sinn?</h2>
-        <p>Ob Auftragsgemälde, individuelles Porträt oder Schmuck nach Wunsch — ich freue mich auf deine Anfrage.</p>
-        <a href={`${base}/kontakt`} class="btn btn-primary">Jetzt Anfrage stellen</a>
+        <h2>Interesse an einer Zusammenarbeit?</h2>
+        <p>Ob Auftragsgemälde, Porträt oder kreatives Projekt — schreib mir einfach.</p>
+        <div class="cta-actions">
+          <a href={`${base}/kontakt`} class="btn btn-primary">Kontakt aufnehmen</a>
+          <a href={`${base}/gemaelde`} class="btn btn-secondary">Gemälde ansehen</a>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .page-header-section { padding-bottom: 2rem; }
+  /* Video Hero */
+  .video-hero {
+    width: 70%;
+    background: #000;
+    margin: 0 auto;
+    border-radius: 12px;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 */
+    width: 100%;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* Hero */
+  .portfolio-hero {
+    padding: 4rem 0 2.5rem;
+    background: var(--color-bg-white);
+  }
 
   .section-tag {
     font-family: var(--font-title);
@@ -146,138 +292,380 @@ const videos = [
     letter-spacing: 0.1em;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
-  .section-desc {
-    max-width: 600px;
-    margin: 0 auto 3rem;
+  .portfolio-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-navy);
+    margin-bottom: 1rem;
+  }
+
+  .portfolio-desc {
+    max-width: 580px;
+    margin: 0 auto;
     color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
   }
 
-  .filter-wrapper {
-    gap: 10px;
-    margin-bottom: 3rem;
+  /* Bildgalerie */
+  .pf-galerie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 0 5rem;
+  }
+
+  .pf-galerie img {
+    width: 70%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .pf-galerie img { width: 90%; }
+  }
+
+  /* Tabs */
+  .tabs-section {
+    padding-bottom: 5rem;
+    background: linear-gradient(180deg, #f0f9fb 0%, #ffffff 100%);
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 2.5rem;
     flex-wrap: wrap;
   }
 
-  .filter-btn {
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-muted);
-    padding: 8px 18px;
-    border-radius: 30px;
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
     font-family: var(--font-title);
-    font-weight: 500;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
     cursor: pointer;
-    transition: all var(--transition-normal);
+    position: relative;
+    bottom: -2px;
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
   }
 
-  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
-  .filter-btn.active {
-    background-color: var(--color-teal);
-    border-color: var(--color-teal);
-    color: white;
+  .tab-btn:hover { color: var(--color-navy); }
+
+  .tab-btn.active {
+    color: var(--color-navy);
+    border-bottom-color: var(--color-teal);
   }
 
-  .werk-preview {
-    width: 100%;
-    height: 100%;
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .tab-intro {
+    margin-bottom: 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
   }
 
-  .bg-warm { background: linear-gradient(145deg, #f9a825, #ef6c00, #b71c1c); }
-  .bg-floral { background: linear-gradient(145deg, #fce4ec, #f48fb1, #ad1457); }
-  .bg-pencil { background: linear-gradient(135deg, #eceff1, #cfd8dc); }
-  .bg-cool { background: linear-gradient(145deg, #e3f2fd, #90caf9, #42a5f5); }
-  .bg-resin { background: linear-gradient(135deg, #e0f2f1, #bad6da); }
-  .bg-polymer { background: linear-gradient(135deg, #efebe9, #bad6da); }
-  .bg-botanical { background: linear-gradient(145deg, #f1f8e9, #a5d6a7, #388e3c); }
-  .bg-botanical-light { background: linear-gradient(135deg, #f1f8e9, #c8e6c9); }
-  .bg-plotter { background: linear-gradient(135deg, #fffde7, #fff59d); }
+  .tab-intro p { margin: 0; }
 
-  .card-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 2;
+  /* Sections */
+  .pf-section { padding-bottom: 5rem; }
+
+  .pf-section-header { margin-bottom: 2.5rem; }
+  .pf-section-header h2 { font-size: 1.75rem; color: var(--color-navy); margin: 0.4rem 0 0; }
+  .pf-section-desc { color: var(--color-text-muted); margin: 0.5rem 0 0; font-size: 0.95rem; }
+
+  .pf-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .pf-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+
+  .pf-figure { margin: 0; border-radius: 12px; overflow: hidden; background: var(--color-bg-light); border: 1px solid var(--color-border); }
+  .pf-figure img { width: 100%; height: auto; display: block; }
+  .pf-figure--anim img { object-fit: cover; }
+  .pf-figure figcaption { padding: 0.75rem 1rem; font-family: var(--font-title); font-size: 0.82rem; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 2px; }
+  .pf-figure figcaption strong { color: var(--color-navy); font-size: 0.88rem; }
+
+  @media (max-width: 900px) { .pf-grid-5 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .pf-grid-3 { grid-template-columns: 1fr 1fr; } .pf-grid-5 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .pf-grid-3 { grid-template-columns: 1fr; } }
+
+  /* Porträt-Tab */
+  .portraet-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 2.5rem;
   }
 
-  .btn-xs { padding: 6px 14px; font-size: 0.75rem; border-radius: 20px; }
-
-  .portfolio-card.hidden { display: none; }
-
-  /* Videos */
-  .video-card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  .portraet-intro-text {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
   }
 
-  .video-card:hover {
-    transform: translateY(-4px);
+  .portraet-techniken {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .technik-card {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  .technik-card h3 {
+    font-family: var(--font-title);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin: 0 0 0.4rem;
+  }
+
+  .technik-card p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .portraet-usps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-teal);
+  }
+
+  .portraet-hauptbild {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
     box-shadow: var(--shadow-lg);
   }
 
-  .video-thumb {
-    height: 180px;
-    background: linear-gradient(135deg, var(--color-navy) 0%, #01aac1 100%);
-    border-radius: 8px 8px 0 0;
-    display: flex;
+  .portraet-hauptbild img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .portraet-reihe {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .portraet-reihe img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .portraet-reihe img:hover { transform: scale(1.05); }
+
+  @media (max-width: 768px) {
+    .portraet-split { grid-template-columns: 1fr; gap: 2rem; }
+    .portraet-reihe { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .portraet-techniken { grid-template-columns: 1fr; }
+  }
+
+  /* Tools & Skills */
+  .tools-section { padding-bottom: 5rem; }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
-    justify-content: center;
+  }
+
+  .tools-text h2 {
+    font-size: 2rem;
+    color: var(--color-navy);
+    margin: 0.4rem 0 2rem;
+  }
+
+  .tools-gruppe {
+    margin-bottom: 2rem;
+  }
+
+  .tools-gruppe h3 {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-teal);
+    margin: 0 0 0.75rem;
+  }
+
+  .tools-gruppe ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .tools-gruppe li {
+    font-size: 1rem;
+    color: var(--color-text);
+    padding-left: 1.2rem;
     position: relative;
   }
 
-  .play-icon {
-    width: 60px;
-    height: 60px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid rgba(255,255,255,0.4);
-    transition: background var(--transition-fast);
-  }
-
-  .video-card:hover .play-icon {
-    background: rgba(255,255,255,0.25);
-  }
-
-  .plattform-tag {
+  .tools-gruppe li::before {
+    content: "—";
     position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    font-family: var(--font-title);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
+    left: 0;
+    color: var(--color-teal);
+    font-weight: 700;
   }
 
+  .tools-bild {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tools-bild img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .tools-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  /* CTA */
   .cta-box { padding: 4rem 2rem; }
   .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; }
   .cta-box p { color: var(--color-text-muted); max-width: 500px; margin: 0 auto 2rem; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    cursor: default;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  #portraetReihe img { cursor: zoom-in; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .video-hero { width: 100%; border-radius: 0; }
+
+    .tab-btn { font-size: 14px; padding: 0rem 0.75rem; }
+
+    .cta-box h2 { font-size: clamp(1.25rem, 5vw, 1.75rem); }
+
+    .pf-galerie { padding: 1.5rem 0 2rem; gap: 1rem; }
+    .pf-galerie img { width: 100%; }
+  }
 </style>
 
-<script>
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.portfolio-card');
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bild vergrößert">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Schließen">✕</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
 
-  filterBtns.forEach(btn => {
+<script>
+  // Tabs
+  const btns = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      panels.forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
-      const f = btn.getAttribute('data-filter');
-      cards.forEach(card => {
-        const k = card.getAttribute('data-kategorie');
-        card.classList.toggle('hidden', f !== 'all' && k !== f);
-      });
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(btn.dataset.tab!)?.classList.add('active');
     });
   });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox')!;
+  const lightboxImg = document.getElementById('lightboxImg') as HTMLImageElement;
+
+  document.getElementById('portraetReihe')?.querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
