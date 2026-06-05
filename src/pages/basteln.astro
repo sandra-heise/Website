@@ -2,7 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import { FREE_DOWNLOADS } from "../config/downloads";
 
+const bestsellers = FREE_DOWNLOADS.filter(d => d.bestseller);
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const SITE = "https://www.sunnyartis.de";
+const canonicalUrl = `${SITE}/basteln`;
+const ogImage = `${SITE}/basteln/tshirtanker.png`;
 
 // Featured Blog-Beiträge (Basteln & Plotten)
 const featuredPosts = [
@@ -38,28 +43,12 @@ const featuredPosts = [
   },
 ];
 
-// Etsy-Gallery-Platzhalter (Bilder werden vom User später übergeben)
-const etsyGallery = [
-  {
-    title: "Grusel-Laterne SVG Set",
-    placeholderId: "laterne-svg",
-    gradient: "linear-gradient(135deg, #fff3e0, #ffe0b2)",
-  },
-  {
-    title: "Florale Mandalas & Ranken",
-    placeholderId: "floral-svg",
-    gradient: "linear-gradient(135deg, #e8f5e9, #c8e6c9)",
-  },
-  {
-    title: "Geburtstag & Feiern Schriftzüge",
-    placeholderId: "schrift-svg",
-    gradient: "linear-gradient(135deg, #e3f2fd, #bbdefb)",
-  },
-  {
-    title: "Geschenkboxen & Verpackungen",
-    placeholderId: "boxen-svg",
-    gradient: "linear-gradient(135deg, #f3e5f5, #e1bee7)",
-  },
+const etsyImages = [
+  { src: `${base}/basteln/tshirtanker.png`,    alt: "Anker-Motiv auf T-Shirt, ausgeschnitten mit Plotter" },
+  { src: `${base}/basteln/Baer_thirt.jpg`,     alt: "Bär-Motiv auf T-Shirt mit Plotterdatei" },
+  { src: `${base}/basteln/cup_rabbit.jpg`,     alt: "Hase-Motiv auf Becher, gebastelt mit SVG-Datei" },
+  { src: `${base}/basteln/Gamer_mit_stil.jpg`, alt: "Gaming-Schriftzug auf Shirt – Plotterdatei von Sunny Artis" },
+  { src: `${base}/basteln/Stern.jpg`,       alt: "Weihnachtsstern zum Basteln aus Papier - Giveaway" },
 ];
 
 // Amazon Empfehlungen (Kompakt für den Fußbereich)
@@ -95,49 +84,91 @@ const amazonLinks = [
 ---
 
 <Layout
-  title="Basteln & Plotterdateien - Sunny Artis | Kreative SVG-Vorlagen & DIY-Ideen"
-  description="Entdecke kreative Plotterdateien für Cricut & Silhouette auf Etsy, kostenlose SVG-Downloads und ausführliche Bastelanleitungen im DIY-Blog von Sandra Heise."
+  title="Basteln & Plotterdateien – SVG-Schnittdateien für Cricut & Silhouette | Sunny Artis"
+  description="Basteln mit Plotterdateien von Sandra Heise: SVG, DXF & PNG für Cricut, Silhouette & Co. Kostenlose Freebies zum Download + Anleitungen im Blog."
+  canonical={canonicalUrl}
+  ogImage={ogImage}
 >
-  <!-- SEO-relevante Keywords & Breadcrumbs als Schema.org (JSON-LD) -->
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="head"
-    set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Basteln & Plotterdateien – Sunny Artis",
-      description:
-        "Entdecke kreative Plotterdateien für Cricut & Silhouette auf Etsy, kostenlose SVG-Downloads und ausführliche Bastelanleitungen.",
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Startseite",
-            item: "https://www.sunnyartis.de",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Basteln & Plotterdateien",
-            item: "https://www.sunnyartis.de/basteln",
-          },
-        ],
+  <meta name="keywords" content="Plotterdatei, SVG Schnittdatei, DXF Datei, Cricut Plotterdatei, Silhouette Cameo SVG, kostenlose Plotterdatei, Basteln Anleitung, DIY Plotter, Sunny Artis, Vinyl Plotter, Halloween SVG, Weihnachten Plotterdatei" slot="head" />
+  <meta property="og:type" content="website" slot="head" />
+
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Basteln & Plotterdateien – Sunny Artis",
+    "description": "Plotterdateien als SVG, DXF und PNG für Cricut, Silhouette Cameo und Brother ScanNCut. Kostenlose Freebies zum direkten Download sowie bezahlte Designs auf Etsy.",
+    "url": canonicalUrl,
+    "inLanguage": "de",
+    "image": ogImage,
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+    "publisher": { "@type": "Organization", "name": "Sunny Artis", "url": SITE },
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Kostenlose Bestseller-Plotterdateien",
+      "numberOfItems": bestsellers.length,
+      "itemListElement": bestsellers.map((d, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "DigitalDocument",
+          "name": d.title,
+          "description": d.beschreibung,
+          "encodingFormat": "application/zip",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+          "url": d.url
+        }
+      }))
+    }
+  })} />
+
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Basteln & Plotterdateien", "item": canonicalUrl }
+    ]
+  })} />
+
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Was ist eine Plotterdatei?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Eine Plotterdatei ist eine Vektorgrafik (SVG oder DXF), die von einem Schneideplotter wie Cricut Maker, Silhouette Cameo oder Brother ScanNCut ausgeschnitten wird. Das Gerät folgt den Linien der Datei und schneidet das Motiv präzise aus Papier, Vinyl, Stoff oder anderen Materialien." }
       },
-    })}
-  />
+      {
+        "@type": "Question",
+        "name": "Welche Formate enthalten die Plotterdateien von Sunny Artis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Alle Plotterdateien von Sunny Artis — ob kostenlos oder kostenpflichtig — enthalten vier Formate: SVG (für alle modernen Plotter-Programme), DXF (für ältere Software), PNG (als transparente Bilddatei) und JPG (als Vorschau). Du bekommst also immer alle Varianten in einer ZIP-Datei." }
+      },
+      {
+        "@type": "Question",
+        "name": "Für welche Plotter-Programme sind die SVG-Dateien geeignet?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Die SVG-Schnittdateien funktionieren mit allen gängigen Programmen: Cricut Design Space, Silhouette Studio, Brother Canvas Workspace, Inkscape und viele mehr. DXF-Dateien sind zusätzlich kompatibel mit älteren Plotter-Softwareversionen." }
+      },
+      {
+        "@type": "Question",
+        "name": "Wo kann ich die kostenpflichtigen Plotterdateien kaufen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Die bezahlten Plotterdateien von Sunny Artis sind im Etsy-Shop von Sandra Heise erhältlich. Nach dem Kauf steht der Download sofort als digitale Datei bereit — kein Versand, kein Warten." }
+      },
+      {
+        "@type": "Question",
+        "name": "Darf ich die Dateien für selbstgemachte Produkte nutzen, die ich verkaufe?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Die kostenlosen Freebies sind ausschließlich für den privaten Gebrauch. Für kommerzielle Nutzung (z. B. selbst hergestellte Produkte verkaufen) benötigst du eine der kostenpflichtigen Lizenzdateien aus dem Etsy-Shop." }
+      }
+    ]
+  })} />
 
   <!-- Hero Bereich -->
   <section class="hero-section text-center">
     <div class="container hero-container">
-      <span class="section-tag animate-tag">Basteln & Plotter</span>
-      <h1 class="hero-title">Kreative Plotterwelten</h1>
+
+      <h1 class="hero-title">Basteln & Plotterdateien</h1>
       <p class="hero-desc">
-        Digitale Schnittdateien (SVG, DXF), liebevolle Bastelanleitungen und
-        tolle Freebies für deinen Schneideplotter. Lass dich inspirieren und
-        starte dein nächstes DIY-Projekt!
+        SVG- und DXF-Schnittdateien für Cricut, Silhouette & Co. — plus kostenlose Freebies zum direkten Download und Schritt-für-Schritt-Bastelanleitungen.
       </p>
       <div class="hero-cta-buttons">
         <a href="#etsy-shop" class="btn btn-primary">Etsy Plotterdateien</a>
@@ -152,7 +183,7 @@ const amazonLinks = [
   <section id="etsy-shop" class="section etsy-section">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag">Etsy Shop</span>
+
         <h2>Meine Plotterdateien auf Etsy</h2>
         <p class="section-desc">
           Alle Schnittmuster und SVG-Dateien sind präzise gezeichnet und
@@ -161,39 +192,19 @@ const amazonLinks = [
         </p>
       </div>
 
-      <!-- Galerie-Grid der Bilder/Platzhalter -->
-      <div class="etsy-gallery-grid">
-        {
-          etsyGallery.map((item) => (
-            <div class="etsy-gallery-item">
-              <div
-                class="gallery-img-wrapper"
-                style={`background: ${item.gradient};`}
-              >
-                <div class="blueprint-overlay">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="blueprint-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                    <path d="M12 6v12M6 12h12" />
-                    <path d="m15 9-6 6M9 9l6 6" />
-                  </svg>
-                  <span class="blueprint-text">{item.title}</span>
-                  <span class="blueprint-subtext">
-                    (Produktbild Platzhalter)
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))
-        }
+      <!-- Bildercollage -->
+      <div class="etsy-collage">
+        <div class="etsy-collage-main">
+          <img src={etsyImages[0].src} alt={etsyImages[0].alt} loading="eager" fetchpriority="high" />
+        </div>
+        <div class="etsy-collage-stack">
+          <img src={etsyImages[1].src} alt={etsyImages[1].alt} loading="lazy" />
+          <img src={etsyImages[2].src} alt={etsyImages[2].alt} loading="lazy" />
+        </div>
+        <div class="etsy-collage-bottom">
+          <img src={etsyImages[3].src} alt={etsyImages[3].alt} loading="lazy" />
+          <img src={etsyImages[4].src} alt={etsyImages[4].alt} loading="lazy" />
+        </div>
       </div>
 
       <!-- Zentraler Button zum Etsy Shop -->
@@ -206,7 +217,7 @@ const amazonLinks = [
           href="https://www.etsy.com/shop/SunnyArtis?section_id=45759329"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-accent btn-lg etsy-shop-btn"
+          class="btn btn-partner btn-lg etsy-shop-btn"
         >
           <span>Sunny Artis Plotterdateien auf Etsy kaufen</span>
           <svg
@@ -227,87 +238,72 @@ const amazonLinks = [
     </div>
   </section>
 
-  <!-- Kostenlose Downloads Sektion -->
-  <section id="downloads-freebies" class="section bg-light downloads-section">
+  <!-- Bestseller-Slider Sektion -->
+  <section id="downloads-freebies" class="section bg-light slider-section">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag">Gratis Vorlagen</span>
-        <h2>Kostenlose Plotterdateien & Freebies</h2>
+
+        <h2>Beliebteste Plotterdateien</h2>
         <p class="section-desc">
-          Probiere meine Schnittdateien aus! Hier findest du eine feine Auswahl
-          an kostenlosen Designs für den privaten Gebrauch zum direkten
-          Download.
+          Die meistgenutzten kostenlosen Designs — direkt zum Download, ohne Anmeldung.
         </p>
       </div>
 
-      <div class="downloads-preview-grid">
-        {
-          FREE_DOWNLOADS.slice(0, 3).map((dl) => (
-            <div class="card download-card-premium">
-              <div class="download-badge-tag">Freebie</div>
-              <div class="download-image-area">
-                {dl.vorschau ? (
-                  <img
-                    src={`${base}${dl.vorschau}`}
-                    alt={dl.title}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div class="download-placeholder-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  </div>
-                )}
+      <div class="slider-wrapper">
+        <button class="slider-arrow slider-prev" aria-label="Zurück" id="sliderPrev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="slider-track" id="sliderTrack">
+          {bestsellers.map((dl) => (
+            <div class="slider-card">
+              <div class="slider-img">
+                {dl.vorschau
+                  ? <img src={`${base}${dl.vorschau}`} alt={`${dl.title} – kostenlose Plotterdatei`} loading="lazy" />
+                  : <div class="slider-placeholder"><span>{dl.kategorie}</span></div>
+                }
+                <span class="slider-kategorie-badge">{dl.kategorie}</span>
               </div>
-              <div class="card-content">
-                <div class="download-meta-row">
-                  <span class="download-category">{dl.kategorie}</span>
-                  <span class="format-badge">{dl.format}</span>
-                </div>
-                <h3 class="card-title">{dl.title}</h3>
-                <p class="card-text">{dl.beschreibung}</p>
-                <div class="download-actions-row">
-                  {dl.blogPost && (
-                    <a href={`${base}${dl.blogPost}`} class="anleitung-btn">
-                      Zur Anleitung
-                    </a>
-                  )}
-                  <a
-                    href={dl.url}
-                    download
-                    class="btn btn-primary btn-sm flex-grow text-center"
-                  >
+              <div class="slider-card-content">
+                <h3 class="slider-card-title">{dl.title}</h3>
+                <div class="slider-card-actions">
+                  <a href={dl.url} download class="btn btn-accent btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Herunterladen
                   </a>
+                  {dl.blogPost && (
+                    <a href={`${base}${dl.blogPost}`} class="slider-anleitung-link">Anleitung →</a>
+                  )}
                 </div>
               </div>
             </div>
-          ))
-        }
-      </div>
+          ))}
+        </div>
 
-      <div class="downloads-teaser-banner glass-container text-center">
-        <h3>Lust auf mehr kostenfreie Downloads?</h3>
-        <p>
-          In unserer großen Download-Bibliothek erwarten dich weitere
-          Malvorlagen, Skizzen und Bastelvorlagen.
-        </p>
-        <a href={`${base}/downloads`} class="btn btn-secondary">
-          <span>Gesamtes Sortiment durchstöbern</span>
-        </a>
+        <button class="slider-arrow slider-next" aria-label="Weiter" id="sliderNext">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auffälliger Download-CTA -->
+  <section class="download-cta-section">
+    <div class="container">
+      <div class="download-cta-inner">
+        <div class="download-cta-deco">
+          <span class="cta-big-number">{FREE_DOWNLOADS.length}</span>
+          <span class="cta-big-label">kostenlose<br/>Designs</span>
+        </div>
+        <div class="download-cta-text">
+          <span class="cta-kicker">Komplett gratis · Sofort verfügbar · Kein Konto</span>
+          <h2 class="cta-headline">SVG · DXF · PNG · JPG —<br/>alle Formate, eine Datei.</h2>
+          <p class="cta-body">Halloween, Weihnachten, Ostern, Herbst und mehr — die gesamte Bibliothek wartet auf dich.</p>
+          <a href={`${base}/downloads`} class="btn cta-btn">
+            Alle Downloads ansehen
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -316,7 +312,7 @@ const amazonLinks = [
   <section class="section blog-section">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag">Anleitungen & Ideen</span>
+
         <h2>Schritt-für-Schritt-Anleitungen</h2>
         <p class="section-desc">
           Praktische Tipps, genaue Anleitungen und Inspirationen rund um das
@@ -377,7 +373,7 @@ const amazonLinks = [
   <section class="section bg-light compact-material-section">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag">Zubehör & Material</span>
+
         <h2>Meine Plotter-Empfehlungen</h2>
         <p class="section-desc">
           Diese Geräte, Werkzeuge und Folien verwende ich in meiner eigenen
@@ -419,6 +415,20 @@ const amazonLinks = [
   </section>
 </Layout>
 
+<script>
+  const track = document.getElementById('sliderTrack') as HTMLElement;
+  const prev = document.getElementById('sliderPrev') as HTMLButtonElement;
+  const next = document.getElementById('sliderNext') as HTMLButtonElement;
+  if (track && prev && next) {
+    const scrollAmount = () => {
+      const card = track.querySelector('.slider-card') as HTMLElement;
+      return card ? card.offsetWidth + 20 : 280;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+  }
+</script>
+
 <style>
   /* Header & Hero */
   .hero-section {
@@ -449,19 +459,6 @@ const amazonLinks = [
     z-index: 2;
   }
 
-  .section-tag {
-    font-family: var(--font-title);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-teal);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 1rem;
-    padding: 4px 16px;
-    background-color: rgba(1, 170, 193, 0.08);
-    border-radius: 30px;
-  }
 
   .hero-title {
     font-size: clamp(2.5rem, 6vw, 4.2rem);
@@ -513,44 +510,93 @@ const amazonLinks = [
     background-color: var(--color-bg-white);
   }
 
-  .etsy-gallery-grid {
+  /* Bildercollage */
+  .etsy-collage {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 1024px) {
-    .etsy-gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 560px) {
-    .etsy-gallery-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .etsy-gallery-item {
-    border-radius: 16px;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border);
-    transition:
-      transform var(--transition-normal),
-      box-shadow var(--transition-normal);
   }
 
-  .etsy-gallery-item:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .gallery-img-wrapper {
-    position: relative;
-    padding-top: 100%; /* 1:1 Quadratische Bilder */
+  .etsy-collage-main {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    height: 560px;
     overflow: hidden;
+  }
+
+  .etsy-collage-stack {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 560px;
+  }
+
+  .etsy-collage-stack > * {
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .etsy-collage-bottom {
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .etsy-collage img,
+  .etsy-collage-stack img,
+  .etsy-collage-bottom img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+    border-radius: 12px;
+  }
+
+  .etsy-collage-main img {
+    border-radius: 12px;
+    height: 100%;
+  }
+
+  .etsy-collage-stack img {
+    border-radius: 10px;
+    height: 100%;
+  }
+
+  .etsy-collage-bottom img {
+    aspect-ratio: 16/7;
+    border-radius: 10px;
+  }
+
+  .etsy-collage img:hover,
+  .etsy-collage-stack img:hover,
+  .etsy-collage-bottom img:hover {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 600px) {
+    .etsy-collage {
+      grid-template-columns: 1fr 1fr;
+    }
+    .etsy-collage-main {
+      grid-column: 1 / 3;
+    }
+    .etsy-collage-stack {
+      grid-column: 1 / 3;
+      flex-direction: row;
+    }
+    .etsy-collage-bottom {
+      grid-column: 1 / 3;
+    }
   }
 
   .etsy-cta-row {
@@ -585,44 +631,6 @@ const amazonLinks = [
     transform: translateX(5px);
   }
 
-  /* Placeholder Styling für Etsy-Mockups */
-  .blueprint-overlay {
-    position: absolute;
-    inset: 15px;
-    border: 2px dashed rgba(5, 32, 53, 0.2);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(2px);
-    color: var(--color-navy);
-    padding: 12px;
-    text-align: center;
-  }
-
-  .blueprint-icon {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 6px;
-    opacity: 0.5;
-    color: var(--color-teal);
-  }
-
-  .blueprint-text {
-    font-family: var(--font-title);
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--color-navy);
-    line-height: 1.25;
-  }
-
-  .blueprint-subtext {
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    margin-top: 4px;
-  }
 
   /* Downloads Sektion */
   .downloads-section {
@@ -926,27 +934,257 @@ const amazonLinks = [
     background: linear-gradient(135deg, #efebe9 0%, #bad6da 100%);
   }
 
+  /* ── Bestseller-Slider ─────────────────────────────── */
+  .slider-section { background: var(--color-bg-light); }
+
+  .slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.5rem 0 1rem;
+    flex: 1;
+  }
+  .slider-track::-webkit-scrollbar { display: none; }
+
+  .slider-card {
+    flex: 0 0 230px;
+    scroll-snap-align: start;
+    background: var(--color-bg-white);
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  .slider-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .slider-img {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    background: var(--color-bg-light);
+  }
+  .slider-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-normal);
+  }
+  .slider-card:hover .slider-img img { transform: scale(1.05); }
+
+  .slider-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--color-soft-blue), var(--color-teal));
+    color: white;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .slider-kategorie-badge {
+    position: absolute;
+    bottom: 8px; left: 10px;
+    background: rgba(5, 32, 53, 0.65);
+    color: white;
+    font-family: var(--font-title);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(4px);
+  }
+
+  .slider-card-content {
+    padding: 14px 16px 16px;
+  }
+
+  .slider-card-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    color: var(--color-navy);
+  }
+
+  .slider-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .slider-anleitung-link {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-teal);
+  }
+  .slider-anleitung-link:hover { color: var(--color-navy); }
+
+  .slider-arrow {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-white);
+    color: var(--color-navy);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+    z-index: 2;
+  }
+  .slider-arrow:hover {
+    background: var(--color-teal);
+    color: white;
+    border-color: var(--color-teal);
+  }
+
+  /* ── Download CTA ───────────────────────────────────── */
+  .download-cta-section {
+    background: linear-gradient(135deg, var(--color-navy) 0%, #0a3a5e 60%, #0d4f70 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .download-cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 50%, rgba(1,170,193,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .download-cta-inner {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+  }
+
+  .download-cta-deco {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    padding-right: 4rem;
+  }
+
+  .cta-big-number {
+    font-family: var(--font-title);
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 700;
+    color: var(--color-teal);
+    line-height: 1;
+  }
+
+  .cta-big-label {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 0.25rem;
+  }
+
+  .download-cta-text {
+    flex: 1;
+  }
+
+  .cta-kicker {
+    font-family: var(--font-title);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-headline {
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .cta-headline::after { display: none; }
+
+  .cta-body {
+    color: rgba(255,255,255,0.7);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+    max-width: 520px;
+  }
+
+  .cta-btn {
+    background: var(--color-teal);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px 36px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 24px rgba(1,170,193,0.35);
+    transition: all var(--transition-normal);
+  }
+  .cta-btn:hover {
+    background: #ffffff;
+    color: var(--color-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(1,170,193,0.2);
+  }
+  .cta-btn svg { transition: transform var(--transition-fast); }
+  .cta-btn:hover svg { transform: translateX(4px); }
+
   /* Mobil-Optimierung */
   @media (max-width: 768px) {
-    .hero-section {
-      padding: 5rem 0 3.5rem;
-    }
+    .hero-section { padding: 5rem 0 3.5rem; }
+    .hero-title { font-size: 2.4rem; }
+    .section-header h2 { font-size: 1.8rem; }
 
-    .hero-title {
-      font-size: 2.4rem;
-    }
+    .slider-arrow { display: none; }
+    .slider-card { flex: 0 0 200px; }
+    .slider-card-actions .btn { font-size: 0.75rem; padding: 7px 14px; }
+    .slider-anleitung-link { font-size: 0.72rem; }
 
-    .section-header h2 {
-      font-size: 1.8rem;
+    .download-cta-inner {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
     }
-
-    .downloads-preview-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
+    .download-cta-deco {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-right: 0;
+      padding-bottom: 1.5rem;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: baseline;
     }
-
-    .downloads-teaser-banner {
-      padding: 2rem 1.5rem;
-    }
+    .cta-big-number { font-size: 3.5rem; }
+    .cta-body { max-width: 100%; }
   }
 </style>

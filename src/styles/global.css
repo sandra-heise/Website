@@ -3,9 +3,10 @@
 :root {
   /* Brand Colors */
   --color-navy: #052035;
+  --color-tuerkis: #027496;
   --color-teal: #01aac1;
   --color-soft-blue: #bad6da;
-  --color-yellow: #fbcd0a;
+  --color-yellow: #fbcd0a;   /* nur für externe Partner-Links: Amazon, Etsy */
   
   /* Text and Backgrounds */
   --color-bg-white: #ffffff;
@@ -213,15 +214,30 @@ img {
 }
 
 .btn-accent {
+  background-color: var(--color-tuerkis);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(2, 116, 150, 0.3);
+}
+
+.btn-accent:hover {
+  background-color: var(--color-navy);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(5, 32, 53, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Gelb nur für externe Partner-Links (Amazon, Etsy) */
+.btn-partner {
   background-color: var(--color-yellow);
   color: var(--color-navy);
   font-weight: 600;
   box-shadow: 0 4px 14px rgba(251, 205, 10, 0.3);
 }
 
-.btn-accent:hover {
+.btn-partner:hover {
   background-color: var(--color-navy);
-  color: var(--color-bg-white);
+  color: #ffffff;
   box-shadow: 0 4px 14px rgba(5, 32, 53, 0.3);
   transform: translateY(-2px);
 }
