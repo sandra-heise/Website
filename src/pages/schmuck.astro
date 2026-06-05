@@ -1,59 +1,154 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const stuecke = [
-  { id: 1, title: "Epoxidharz Ring 'Kornblume'", material: "Epoxidharz", beschreibung: "Klares Gießharz mit einer echten, gepressten Kornblume. Jeder Ring ein absolutes Unikat.", gradient: "bg-resin-blue" },
-  { id: 2, title: "Blüten-Kettenanhänger", material: "Epoxidharz", beschreibung: "Ovaler Anhänger mit getrockneten Wildblumen und Goldflocken, an einer feinen Goldkette.", gradient: "bg-resin-gold" },
-  { id: 3, title: "Polymer Clay Ohrringe 'Terrazzo'", material: "Polymer Clay", beschreibung: "Federleichte geometrische Ohrringe im modernen Terrazzo-Look. Farben nach Wahl.", gradient: "bg-polymer" },
-  { id: 4, title: "Harz-Armband 'Meer'", material: "Epoxidharz", beschreibung: "Tiefblaues Armband mit Perlmuttschimmer und eingebetteten Muschelpartikeln.", gradient: "bg-ocean" },
-  { id: 5, title: "Polymer-Ohrringe 'Pastell Drops'", material: "Polymer Clay", beschreibung: "Tropfenförmige Ohrhänger in sanften Pastelltönen. Perfekt für den Alltag.", gradient: "bg-pastel" },
-  { id: 6, title: "Epoxidharz Medaillon 'Ginkgo'", material: "Epoxidharz", beschreibung: "Eleganter Kettenanhänger mit einem Ginkgo-Blatt auf dunkelblauem Untergrund.", gradient: "bg-ginkgo" },
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = "https://www.sunnyartis.de";
+const canonicalUrl = `${SITE}/schmuck`;
+
+// ── Schmuck-Galerie ──────────────────────────────────────────────
+// Bilder in public/schmuck/ ablegen, Pfade hier eintragen.
+// kategorie: "Armbänder" | "Ohrringe" | "Ketten" | "Sets"
+const schmuckItems = [
+  // Armbänder
+  { id: 1,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-1.jpg` },
+  { id: 2,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-2.jpg` },
+  { id: 3,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-3.jpg` },
+  // Ohrringe
+  { id: 4,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-1.jpg` },
+  { id: 5,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-2.jpg` },
+  { id: 6,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-3.jpg` },
+  // Ketten
+  { id: 7,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-1.jpg` },
+  { id: 8,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-2.jpg` },
+  { id: 9,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-3.jpg` },
+  // Sets
+  { id: 10, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-1.jpg` },
+  { id: 11, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-2.jpg` },
+  { id: 12, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-3.jpg` },
 ];
 
-const materialien = ['Alle', 'Epoxidharz', 'Polymer Clay'];
+// ── Videos ──────────────────────────────────────────────────────
+// Videos in public/schmuck/ ablegen, Pfade hier eintragen.
+const videos = [
+  { src: `/schmuck/armband.mp4`, poster: `/schmuck/armband-2.jpg`, title: "Schmuck in Bewegung" },
+  { src: `/schmuck/ohrringe-1.mp4`, poster: `/schmuck/ohrringe-1.jpg`, title: "Schmuck in Bewegung" },
+  { src: `/schmuck/ohrringe-4.mp4`, poster: `/schmuck/ohrringe-4.jpg`, title: "Schmuck in Bewegung" },
+  
+];
+
+// ── Markttermine ─────────────────────────────────────────────────
+// Einfach hier aktualisieren, erscheinen automatisch auf der Seite.
+const markttermine = [
+  { datum: "Sa 16. & So 17. Januar 2027", name: "Kreativmarkt Magdeburg", ort: "Messe Magdeburg" },
+];
+
+const kategorien = ["Alle", "Armbänder", "Ohrringe", "Ketten", "Sets"];
+const ogImage = `${SITE}/schmuck/armband-1.jpg`;
 ---
 
 <Layout
-  title="Schmuck - Sunny Artis | Handgefertigte Unikate"
-  description="Handgefertigter Unikatschmuck von Sandra Heise: Epoxidharz-Schmuck mit echten Blüten und Polymer Clay Ohrringe. Individuelle Anfertigung auf Bestellung."
+  title="Handgemachter Schmuck – Unikate von Sandra Heise | Sunny Artis"
+  description="Handgefertigter Unikat-Schmuck von Sandra Heise: Armbänder, Ohrringe, Ketten und Sets. Kein Stück wie das andere — erhältlich auf Märkten und auf Anfrage."
+  canonical={canonicalUrl}
+  ogImage={ogImage}
 >
-  <!-- Header -->
-  <section class="section page-header-section">
-    <div class="container text-center">
-      <span class="section-tag">HANDGEMACHTE UNIKATE</span>
-      <h1 class="center-title">Schmuck aus meiner Werkstatt</h1>
-      <p class="section-desc">
-        Jedes Schmuckstück entsteht in Handarbeit — kein Stück gleicht dem anderen. Epoxidharz mit echten Blüten, Polymer Clay in modernen Formen, und immer mit viel Liebe zum Detail.
-      </p>
+  <meta name="keywords" content="handgemachter Schmuck, Unikat Schmuck, Armbänder handmade, Ohrringe handgemacht, Ketten Unikat, Schmuck Set, Sandra Heise Schmuck, Sunny Artis Schmuck, Schmuck Magdeburg" slot="head" />
+  <meta property="og:type" content="website" slot="head" />
+
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Handgemachter Schmuck – Sunny Artis",
+    "description": "Handgefertigter Unikat-Schmuck von Sandra Heise: Armbänder, Ohrringe, Ketten und Sets. Kein Stück wie das andere.",
+    "url": canonicalUrl,
+    "inLanguage": "de",
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+    "publisher": { "@type": "Organization", "name": "Sunny Artis", "url": SITE }
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Schmuck", "item": canonicalUrl }
+    ]
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Wo kann ich den Schmuck von Sunny Artis kaufen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Der handgefertigte Schmuck von Sandra Heise ist auf regionalen Kreativmärkten erhältlich. Aktuelle Termine findest du auf dieser Seite und auf Instagram. Für Sonderanfertigungen und Vorabanfragen stehe ich jederzeit per Kontaktformular zur Verfügung." }
+      },
+      {
+        "@type": "Question",
+        "name": "Sind die Schmuckstücke wirklich Unikate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja, jedes Stück wird einzeln von Hand gefertigt. Da alle Formen, Farben und Materialien von Hand verarbeitet werden, ist kein Stück exakt wie ein anderes — jedes Schmuckstück ist ein echtes Unikat." }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann ich ein individuelles Schmuckstück in Auftrag geben?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja! Über das Kontaktformular auf dieser Website kannst du eine individuelle Anfrage stellen. Beschreibe deine Wunschvorstellung — Material, Farbe, Stil — und ich erstelle dir ein persönliches Angebot." }
+      }
+    ]
+  })} />
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1 class="hero-title">Handgemachter<br/>Schmuck</h1>
+        <p class="hero-desc">
+          Jedes Stück entsteht in Handarbeit — von der ersten Form bis zum letzten Verschluss. Kein Stück gleicht dem anderen. Armbänder, Ohrringe, Ketten und Sets als echte Unikate.
+        </p>
+        <div class="hero-actions">
+          <a href="#galerie" class="btn btn-primary">Galerie ansehen</a>
+          <a href="#kaufen" class="btn btn-secondary">Wo kaufen?</a>
+        </div>
+      </div>
+      <div class="hero-badges">
+        <span class="hero-badge">Handarbeit</span>
+        <span class="hero-badge">Unikate</span>
+        <span class="hero-badge">Auf Anfrage</span>
+      </div>
     </div>
   </section>
 
   <!-- Galerie -->
-  <section class="section bg-light">
+  <section id="galerie" class="section bg-light galerie-section">
     <div class="container">
-      <div class="filter-wrapper flex-center">
-        {materialien.map(m => (
-          <button class={`filter-btn${m === 'Alle' ? ' active' : ''}`} data-filter={m === 'Alle' ? 'all' : m.toLowerCase().replace(' ', '-')}>
-            {m}
-          </button>
+      <div class="galerie-header text-center">
+        <h2>Meine Schmuckstücke</h2>
+        <p class="galerie-desc">Alle Stücke sind Unikate — einmal verkauft, nicht mehr verfügbar. Folge mir auf Instagram für aktuelle Neuheiten.</p>
+      </div>
+
+      <!-- Kategorie-Filter -->
+      <div class="filter-row" role="group" aria-label="Kategorie filtern">
+        {kategorien.map((k, i) => (
+          <button
+            class={`filter-btn${i === 0 ? ' active' : ''}`}
+            data-filter={i === 0 ? 'all' : k}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >{k}</button>
         ))}
       </div>
 
-      <div class="grid-3 schmuck-grid" id="schmuckGrid">
-        {stuecke.map(s => (
-          <div class="card schmuck-card" data-material={s.material.toLowerCase().replace(' ', '-')}>
-            <div class="card-img-wrapper">
-              <div class={`schmuck-preview ${s.gradient}`}>
-                <div class="schmuck-shine"></div>
-              </div>
-              <span class="badge badge-teal card-badge">{s.material}</span>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">{s.title}</h3>
-              <p class="card-text">{s.beschreibung}</p>
-              <div class="card-footer">
-                <span class="unikat-label">Unikat</span>
+      <!-- Bildergrid -->
+      <div class="schmuck-grid" id="schmuckGrid">
+        {schmuckItems.map((item, i) => (
+          <div class="schmuck-item" data-kategorie={item.kategorie}>
+            <div class="schmuck-img-wrapper">
+              <img
+                src={`${base}${item.bild}`}
+                alt={`${item.title} – handgemachtes Unikat von Sunny Artis`}
+                loading={i < 6 ? "eager" : "lazy"}
+                fetchpriority={i < 3 ? "high" : "auto"}
+              />
+              <div class="schmuck-overlay">
+                <span class="schmuck-overlay-kategorie">{item.kategorie}</span>
+                <span class="schmuck-overlay-unikat">Unikat</span>
               </div>
             </div>
           </div>
@@ -62,216 +157,407 @@ const materialien = ['Alle', 'Epoxidharz', 'Polymer Clay'];
     </div>
   </section>
 
-  <!-- Über den Schmuck -->
-  <section class="section">
-    <div class="container grid-2 align-center-grid handwerk-grid">
-      <div>
-        <span class="section-tag">HANDWERK & LEIDENSCHAFT</span>
-        <h2>Wie mein Schmuck entsteht</h2>
-        <p>
-          Ich sammle und trockne echte Blüten aus dem Garten und der Natur. Jede Blüte wird einzeln in transparentes Epoxidharz gegossen — ein Prozess, der Geduld erfordert, aber jedes Mal zu einem einzigartigen Ergebnis führt.
-        </p>
-        <p>
-          Meine Polymer-Clay-Stücke forme ich komplett von Hand, töne sie ein und backe sie im Ofen aus. Kein Stück ist exakt wie das andere.
-        </p>
-        <ul class="handwerk-list">
-          <li>Nur hochwertige, nicht-toxische Materialien</li>
-          <li>Nickelfreie Fassungen und Verschlüsse</li>
-          <li>Auf Wunsch auch in deiner Wunschfarbe</li>
-        </ul>
-      </div>
-      <div class="handwerk-visual">
-        <div class="hv-ring hv-1"></div>
-        <div class="hv-ring hv-2"></div>
-        <div class="hv-ring hv-3"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bestellung / Anfrage -->
-  <section class="section bg-light">
-    <div class="container">
-      <div class="glass-container anfrage-box">
-        <div class="anfrage-content">
-          <span class="section-tag">AKTUELL KEIN ONLINE-SHOP</span>
-          <h2>Schmuck auf Anfrage bestellen</h2>
-          <p>
-            Meine Schmuckstücke sind momentan noch nicht in einem Online-Shop erhältlich. Du kannst mich aber jederzeit direkt kontaktieren — ich fertige gerne ein individuelles Stück nach deinen Wünschen an oder informiere dich über verfügbare Unikate.
-          </p>
-          <p>
-            Wähle Material, Farbe und Stil — ich erstelle dir ein persönliches Angebot.
-          </p>
-          <a href={`${base}/kontakt`} class="btn btn-primary">Schmuck anfragen</a>
+  <!-- Videos (nur anzeigen wenn Videos vorhanden) -->
+  {videos.length > 0 && (
+    <section class="section video-section">
+      <div class="container">
+        <div class="text-center" style="margin-bottom: 2.5rem;">
+          <h2>Schmuck in Bewegung</h2>
+          <p class="galerie-desc">Wie der Schmuck glänzt und sich bewegt — am besten im Video zu sehen.</p>
+        </div>
+        <div class="video-grid">
+          {videos.map(v => (
+            <div class="video-wrapper">
+              <video
+                src={`${base}${v.src}`}
+                poster={v.poster ? `${base}${v.poster}` : undefined}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label={v.title}
+              ></video>
+            </div>
+          ))}
         </div>
       </div>
+    </section>
+  )}
+
+  <!-- Wo kaufen -->
+  <section id="kaufen" class="section kaufen-section">
+    <div class="container">
+      <h2 class="text-center kaufen-title">Wo gibt es den Schmuck?</h2>
+      <div class="kaufen-grid">
+
+        <!-- Märkte -->
+        <div class="kaufen-card">
+          <div class="kaufen-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Auf dem Markt</h3>
+          <p>Ich bin 1–2 Mal im Jahr auf regionalen Kreativmärkten anzutreffen — mit dem gesamten aktuellen Schmuck-Sortiment zum Anfassen und Mitnehmen.</p>
+          {markttermine.length > 0 ? (
+            <ul class="markt-liste">
+              {markttermine.map(m => (
+                <li>
+                  <span class="markt-datum">{m.datum}</span>
+                  <span class="markt-name">{m.name} · {m.ort}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="keine-termine">Aktuell keine Termine geplant — folge mir auf Instagram für aktuelle Ankündigungen.</p>
+          )}
+        </div>
+
+        <!-- Instagram -->
+        <div class="kaufen-card kaufen-card--instagram">
+          <div class="kaufen-icon kaufen-icon--ig">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <h3>Auf Instagram</h3>
+          <p>Neue Stücke poste ich regelmäßig auf Instagram — dort siehst du als Erste was es Neues gibt, bevor es auf den Markt kommt. Schreib mir einfach eine DM für Anfragen.</p>
+          <a
+            href="https://www.instagram.com/sunnyartis_schmuck/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-instagram"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @sunny_artis folgen
+          </a>
+        </div>
+
+        <!-- Sonderanfertigung -->
+        <div class="kaufen-card">
+          <div class="kaufen-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Auf Anfrage</h3>
+          <p>Du wünschst dir ein ganz bestimmtes Stück — bestimmte Farben, ein besonderes Material oder ein persönliches Motiv? Ich fertige Schmuck auch individuell auf Bestellung an.</p>
+          <a href={`${base}/kontakt`} class="btn btn-accent">Anfrage stellen</a>
+        </div>
+
+      </div>
     </div>
   </section>
+
 </Layout>
 
-<style>
-  .page-header-section { padding-bottom: 2rem; }
-
-  .section-tag {
-    font-family: var(--font-title);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-teal);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-desc {
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    color: var(--color-text-muted);
-  }
-
-  .filter-wrapper {
-    gap: 12px;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-
-  .filter-btn {
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-muted);
-    padding: 9px 22px;
-    border-radius: 30px;
-    font-family: var(--font-title);
-    font-weight: 500;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-  }
-
-  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
-  .filter-btn.active {
-    background-color: var(--color-teal);
-    border-color: var(--color-teal);
-    color: white;
-  }
-
-  .schmuck-preview {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .schmuck-shine {
-    position: absolute;
-    top: -30%;
-    left: -30%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
-    border-radius: 50%;
-  }
-
-  .bg-resin-blue { background: radial-gradient(ellipse at 30% 30%, #e3f2fd, #1565c0); }
-  .bg-resin-gold { background: radial-gradient(ellipse at 30% 30%, #fffde7, #f9a825, #e65100); }
-  .bg-polymer { background: radial-gradient(ellipse at 30% 30%, #fce4ec, #ad1457); }
-  .bg-ocean { background: radial-gradient(ellipse at 30% 30%, #e0f7fa, #006064); }
-  .bg-pastel { background: radial-gradient(ellipse at 30% 30%, #f8bbd0, #f48fb1, #ce93d8); }
-  .bg-ginkgo { background: radial-gradient(ellipse at 30% 30%, #c8e6c9, #052035); }
-
-  .card-badge { position: absolute; top: 12px; right: 12px; z-index: 2; }
-  .unikat-label { font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
-  .schmuck-card.hidden { display: none; }
-
-  /* Handwerk section */
-  .align-center-grid { align-items: center; }
-  .handwerk-grid { gap: 60px; }
-
-  @media (max-width: 768px) { .handwerk-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-  .handwerk-grid h2 { font-size: 1.9rem; margin-bottom: 1rem; }
-  .handwerk-grid p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem; }
-
-  .handwerk-list {
-    list-style: none;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .handwerk-list li {
-    color: var(--color-text-muted);
-    padding-left: 1.5rem;
-    position: relative;
-    font-size: 0.95rem;
-  }
-
-  .handwerk-list li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    color: var(--color-teal);
-    font-size: 0.8rem;
-  }
-
-  /* Handwerk visual */
-  .handwerk-visual {
-    position: relative;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hv-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 3px solid;
-  }
-
-  .hv-1 {
-    width: 240px; height: 240px;
-    background: radial-gradient(ellipse, #e3f2fd, #1565c0);
-    border-color: rgba(1,170,193,0.3);
-    box-shadow: 0 8px 32px rgba(1,170,193,0.2);
-  }
-
-  .hv-2 {
-    width: 160px; height: 160px;
-    background: radial-gradient(ellipse, #fffde7, #f9a825);
-    border-color: rgba(249,168,37,0.4);
-    box-shadow: 0 4px 16px rgba(249,168,37,0.2);
-    top: 20%; right: 15%;
-  }
-
-  .hv-3 {
-    width: 100px; height: 100px;
-    background: radial-gradient(ellipse, #fce4ec, #ad1457);
-    border-color: rgba(173,20,87,0.3);
-    bottom: 15%; left: 20%;
-  }
-
-  /* Anfrage box */
-  .anfrage-box { padding: 4rem 3rem; }
-  .anfrage-content { max-width: 640px; }
-  .anfrage-content h2 { font-size: 2rem; margin-bottom: 1rem; }
-  .anfrage-content p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1rem; }
-  .anfrage-content p:last-of-type { margin-bottom: 2rem; }
-</style>
-
 <script>
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.schmuck-card');
+  const btns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.schmuck-item');
 
-  filterBtns.forEach(btn => {
+  btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       const f = btn.getAttribute('data-filter');
-      cards.forEach(card => {
-        const m = card.getAttribute('data-material');
-        card.classList.toggle('hidden', f !== 'all' && m !== f);
+      items.forEach(item => {
+        const show = f === 'all' || item.getAttribute('data-kategorie') === f;
+        (item as HTMLElement).style.display = show ? 'block' : 'none';
       });
     });
   });
 </script>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-section {
+    padding: 6rem 0 4rem;
+    background: linear-gradient(135deg, #f7fdfe 0%, #edf8fa 50%, #e0f4f7 100%);
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-text { max-width: 580px; }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    color: var(--color-navy);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-end;
+  }
+
+  .hero-badge {
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-tuerkis);
+    background: rgba(2, 116, 150, 0.08);
+    border: 1px solid rgba(2, 116, 150, 0.2);
+    padding: 6px 18px;
+    border-radius: 30px;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; }
+    .hero-badges { flex-direction: row; align-items: flex-start; }
+    .hero-title { font-size: 2.4rem; }
+  }
+
+  /* ── Galerie ─────────────────────────────────────────── */
+  .galerie-section { background: var(--color-bg-light); }
+
+  .galerie-header { margin-bottom: 2rem; }
+
+  .galerie-desc {
+    max-width: 580px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+    font-size: 0.97rem;
+  }
+
+  .filter-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 7px 22px;
+    font-family: var(--font-title);
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-white);
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+  .filter-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .filter-btn.active {
+    background: var(--color-tuerkis);
+    border-color: var(--color-tuerkis);
+    color: white;
+  }
+
+  .schmuck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .schmuck-item { border-radius: 14px; overflow: hidden; }
+
+  .schmuck-img-wrapper {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--color-bg-white);
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+  }
+
+  .schmuck-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .schmuck-img-wrapper:hover img { transform: scale(1.06); }
+
+  .schmuck-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5,32,53,0.6) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 14px;
+    gap: 4px;
+  }
+  .schmuck-img-wrapper:hover .schmuck-overlay { opacity: 1; }
+
+  .schmuck-overlay-kategorie {
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .schmuck-overlay-unikat {
+    font-family: var(--font-title);
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+  }
+
+  /* ── Videos ─────────────────────────────────────────── */
+  .video-section { background: var(--color-bg-white); }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .video-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    aspect-ratio: 9/16;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Wo kaufen ───────────────────────────────────────── */
+  .kaufen-section { background: var(--color-bg-light); }
+
+  .kaufen-title { margin-bottom: 2.5rem; }
+
+  .kaufen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .kaufen-card {
+    background: var(--color-bg-white);
+    border-radius: 20px;
+    padding: 2rem 2rem 2.5rem;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .kaufen-card--instagram {
+    background: linear-gradient(135deg, #fdf6ff 0%, #f0f4ff 100%);
+    border-color: rgba(131, 58, 180, 0.15);
+  }
+
+  .kaufen-icon {
+    width: 56px; height: 56px;
+    background: rgba(2, 116, 150, 0.08);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-tuerkis);
+    margin-bottom: 0.5rem;
+  }
+
+  .kaufen-icon--ig {
+    background: linear-gradient(135deg, rgba(131,58,180,0.1), rgba(252,175,69,0.1));
+    color: #833ab4;
+  }
+
+  .kaufen-card h3 {
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    margin: 0;
+  }
+
+  .kaufen-card p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .markt-liste {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0.5rem 0;
+  }
+
+  .markt-liste li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0.6rem 0.8rem;
+    background: var(--color-bg-light);
+    border-radius: 10px;
+    border-left: 3px solid var(--color-teal);
+  }
+
+  .markt-datum {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-navy);
+  }
+
+  .markt-name {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+
+  .keine-termine {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    background: var(--color-bg-light);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    margin: 0.25rem 0;
+  }
+
+  .btn-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: white;
+    font-weight: 600;
+    padding: 11px 24px;
+    border-radius: 30px;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  .btn-instagram:hover { opacity: 0.88; transform: translateY(-2px); color: white; }
+
+  .kaufen-card .btn-accent { align-self: flex-start; margin-top: auto; }
+
+  @media (max-width: 600px) {
+    .kaufen-card { padding: 1.5rem; }
+  }
+</style>
