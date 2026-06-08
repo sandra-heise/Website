@@ -180,7 +180,7 @@ const animationen = [
               <span>✓ Zahlung erst nach Zufriedenheit</span>
               <span>✓ Individuelle Motive & Größen möglich</span>
             </div>
-            <a href={`${base}/portraets`} class="btn btn-accent">Porträt anfragen</a>
+            <a href={`${base}/kontakt`} class="btn btn-accent">Porträt anfragen</a>
           </div>
           <figure class="portraet-hauptbild">
             <img src={`${base}/portraets/produkte-auftraege.png`} alt="Porträt handgezeichnetes Mädchen umringt von Blumen" loading="lazy" />
@@ -637,14 +637,29 @@ const animationen = [
   const btns = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
   const panels = document.querySelectorAll('.tab-panel');
 
+  function activateTab(tabId: string) {
+    const btn = document.querySelector<HTMLButtonElement>(`.tab-btn[data-tab="${tabId}"]`);
+    if (!btn) return;
+    btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.getElementById(tabId)?.classList.add('active');
+  }
+
   btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-      panels.forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-      document.getElementById(btn.dataset.tab!)?.classList.add('active');
-    });
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab!));
+  });
+
+  // Hash-basierter Tab-Wechsel (z.B. /portfolio#portraets)
+  const hash = window.location.hash.slice(1);
+  if (hash) {
+    activateTab(hash);
+    document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  window.addEventListener('hashchange', () => {
+    const h = window.location.hash.slice(1);
+    if (h) activateTab(h);
   });
 
   // Lightbox

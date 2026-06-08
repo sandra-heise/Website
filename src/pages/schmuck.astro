@@ -10,21 +10,21 @@ const canonicalUrl = `${SITE}/schmuck`;
 // kategorie: "Armbänder" | "Ohrringe" | "Ketten" | "Sets"
 const schmuckItems = [
   // Armbänder
-  { id: 1,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-1.jpg` },
-  { id: 2,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-2.jpg` },
-  { id: 3,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-3.jpg` },
+  { id: 1,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-1.jpg`, alt: "Handgemachtes Armband mit türkisfarbenen Kristallsteinen in blütenförmiger Hämatit-Perlenfassung und silbernem Karabinerverschluss – Unikat von Sunny Artis" },
+  { id: 2,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-2.jpg`, alt: "Feines Armband aus hellblauen und rauchgrauen Kristallperlen mit verziertem Silber-Toggleverschluss in Schmuckschatulle – handgemachtes Unikat von Sunny Artis" },
+  { id: 3,  kategorie: "Armbänder", title: "Armband",        bild: `/schmuck/armband-3.jpg`, alt: "Elastisches Armband aus grauen Labradorit-Perlen mit schwarzen Lavastein-Perlen und silbernen Strasskappen – handgemachtes Unikat von Sunny Artis" },
   // Ohrringe
-  { id: 4,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-1.jpg` },
-  { id: 5,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-2.jpg` },
-  { id: 6,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-3.jpg` },
+  { id: 4,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-1.jpg`, alt: "Resin-Hängeohrringe: schwarze runde Stecker mit Goldflitter und rosé-glitzernde runde Anhänger mit bronzefarbenem Stern-Charm – handgemachtes Unikat von Sunny Artis" },
+  { id: 5,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-2.jpg`, alt: "Runde Polymer-Clay-Stecker in Dunkelblau mit Kupferblattgold-Einschlüssen in drei Größen – handgemachte Unikate von Sunny Artis" },
+  { id: 6,  kategorie: "Ohrringe",  title: "Ohrringe",       bild: `/schmuck/ohrringe-3.jpg`, alt: "Hängeohrringe aus dunkelblauem Polymer Clay in Halbmondform mit silbernen Feder- und Pfeil-Charms – handgemachtes Unikat von Sunny Artis" },
   // Ketten
-  { id: 7,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-1.jpg` },
-  { id: 8,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-2.jpg` },
-  { id: 9,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-3.jpg` },
+  { id: 7,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-1.jpg`, alt: "Silberne Halsketten mit quadratischem Resin-Anhänger in Hellgrau und eingearbeitetem Herz-EKG-Motiv in Dunkelblau – handgemachte Unikate von Sunny Artis" },
+  { id: 8,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-2.jpg`, alt: "Goldene Halskette mit Hunde-Silhouetten-Anhänger aus dunkelbraunem Resin in vergoldetem Metallrahmen mit Goldflitter – handgemachtes Unikat von Sunny Artis" },
+  { id: 9,  kategorie: "Ketten",    title: "Kette",          bild: `/schmuck/kette-3.jpg`, alt: "Steampunk-Kette mit bronzenem Anker-Anhänger und rundem Resin-Cabochon in Gold-Glitter mit eingearbeitetem Zahnrad-Motiv – handgemachtes Unikat von Sunny Artis" },
   // Sets
-  { id: 10, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-1.jpg` },
-  { id: 11, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-2.jpg` },
-  { id: 12, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-3.jpg` },
+  { id: 10, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-1.jpg`, alt: "Resin-Schmuck-Set in Rosé-Gold mit Blumenmotiv: Tropfen-Ohrhänger, runder Anhänger und bronzefarbene Kette mit Flügel-Charm – handgemachtes Unikat von Sunny Artis" },
+  { id: 11, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-2.jpg`, alt: "Steampunk-Schmuck-Set in Dunkelrot-Bronze mit Zahnrad-Motiven: runder Ketten-Anhänger und passende Ohrhänger – handgemachtes Unikat von Sunny Artis" },
+  { id: 12, kategorie: "Sets",      title: "Schmuck-Set",    bild: `/schmuck/set-3.jpg`, alt: "Dreiteiliges Schmuck-Set aus hellblauen Perlen mit silbernen Filigrankappen: Armband, Ohrringe und Kette mit Perlen-Cluster-Anhänger – handgemachtes Unikat von Sunny Artis" },
 ];
 
 // ── Videos ──────────────────────────────────────────────────────
@@ -38,9 +38,27 @@ const videos = [
 
 // ── Markttermine ─────────────────────────────────────────────────
 // Einfach hier aktualisieren, erscheinen automatisch auf der Seite.
+// startDate/endDate im Format YYYY-MM-DD für Event-Schema (Google Rich Results).
 const markttermine = [
-  { datum: "Sa 16. & So 17. Januar 2027", name: "Kreativmarkt Magdeburg", ort: "Messe Magdeburg" },
+  { datum: "Sa 16. & So 17. Januar 2027", name: "Kreativmarkt Magdeburg", ort: "Messe Magdeburg", stadt: "Magdeburg", startDate: "2027-01-16", endDate: "2027-01-17" },
 ];
+
+const eventLD = markttermine.map(m => ({
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": m.name,
+  "startDate": m.startDate,
+  "endDate": m.endDate,
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": m.ort,
+    "address": { "@type": "PostalAddress", "addressLocality": m.stadt, "addressCountry": "DE" }
+  },
+  "performer": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+  "offers": { "@type": "Offer", "availability": "https://schema.org/InStoreOnly", "url": canonicalUrl }
+}));
 
 const kategorien = ["Alle", "Armbänder", "Ohrringe", "Ketten", "Sets"];
 const ogImage = `${SITE}/schmuck/armband-1.jpg`;
@@ -53,7 +71,8 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
   ogImage={ogImage}
 >
   <meta name="keywords" content="handgemachter Schmuck, Unikat Schmuck, Armbänder handmade, Ohrringe handgemacht, Ketten Unikat, Schmuck Set, Sandra Heise Schmuck, Sunny Artis Schmuck, Schmuck Magdeburg" slot="head" />
-  <meta property="og:type" content="website" slot="head" />
+  <meta property="og:image:width" content="1200" slot="head" />
+  <meta property="og:image:height" content="630" slot="head" />
 
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -62,8 +81,8 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
     "description": "Handgefertigter Unikat-Schmuck von Sandra Heise: Armbänder, Ohrringe, Ketten und Sets. Kein Stück wie das andere.",
     "url": canonicalUrl,
     "inLanguage": "de",
-    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
-    "publisher": { "@type": "Organization", "name": "Sunny Artis", "url": SITE }
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE, "sameAs": ["https://www.instagram.com/sunnyartis_schmuck/"] },
+    "publisher": { "@type": "Organization", "name": "Sunny Artis", "url": SITE, "sameAs": ["https://www.instagram.com/sunnyartis_schmuck/"] }
   })} />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -94,12 +113,15 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
       }
     ]
   })} />
+  {eventLD.length > 0 && (
+    <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(eventLD.length === 1 ? eventLD[0] : eventLD)} />
+  )}
 
   <!-- Hero -->
   <section class="hero-section">
     <div class="container hero-inner">
       <div class="hero-text">
-        <h1 class="hero-title">Handgemachter<br/>Schmuck</h1>
+        <h1 class="hero-title">Handgemachter Schmuck</h1>
         <p class="hero-desc">
           Jedes Stück entsteht in Handarbeit — von der ersten Form bis zum letzten Verschluss. Kein Stück gleicht dem anderen. Armbänder, Ohrringe, Ketten und Sets als echte Unikate.
         </p>
@@ -138,20 +160,23 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
       <!-- Bildergrid -->
       <div class="schmuck-grid" id="schmuckGrid">
         {schmuckItems.map((item, i) => (
-          <div class="schmuck-item" data-kategorie={item.kategorie}>
+          <figure class="schmuck-item" data-kategorie={item.kategorie}>
             <div class="schmuck-img-wrapper">
               <img
                 src={`${base}${item.bild}`}
-                alt={`${item.title} – handgemachtes Unikat von Sunny Artis`}
+                alt={item.alt}
+                width="600"
+                height="600"
                 loading={i < 6 ? "eager" : "lazy"}
                 fetchpriority={i < 3 ? "high" : "auto"}
               />
-              <div class="schmuck-overlay">
+              <div class="schmuck-overlay" aria-hidden="true">
                 <span class="schmuck-overlay-kategorie">{item.kategorie}</span>
                 <span class="schmuck-overlay-unikat">Unikat</span>
               </div>
             </div>
-          </div>
+            <figcaption class="sr-only">{item.alt}</figcaption>
+          </figure>
         ))}
       </div>
     </div>
@@ -175,7 +200,7 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
                 muted
                 loop
                 playsinline
-                preload="auto"
+                preload="none"
                 aria-label={v.title}
               ></video>
             </div>
@@ -226,7 +251,7 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
             class="btn btn-instagram"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            @sunny_artis folgen
+            @sunnyartis_schmuck folgen
           </a>
         </div>
 

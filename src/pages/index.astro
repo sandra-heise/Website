@@ -1,196 +1,335 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = "https://www.sunnyartis.de";
+
+const featured = {
+  title: "Blütengeist – Ausdruck einer Seele",
+  technik: "Öl auf Leinwand · 80 × 80 cm",
+  preis: "275,00 €",
+  image: `${base}/gemaelde/blutengeist.jpg`,
+  alt: "Blütengeist – Ölgemälde Frauenporträt umrahmt von Lilien, von Sandra Heise",
+  etsy: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen",
+};
+
+const nebenGemaelde = [
+  {
+    title: "Silent Crown",
+    technik: "Öl auf Leinwand · 80 × 80 cm",
+    preis: "525,00 €",
+    image: `${base}/gemaelde/silent-crown.jpg`,
+    alt: "Silent Crown – Ölgemälde Frauenporträt mit goldener Krone und geschlossenen Augen, von Sandra Heise",
+    etsy: "",
+    bald: true,
+  },
+  {
+    title: "Vergängliche Stärke",
+    technik: "Acryl & Blattgold · 40 × 50 cm",
+    preis: "95,00 €",
+    image: `${base}/gemaelde/vergaengliche-staerke.jpg`,
+    alt: "Vergängliche Stärke – Acrylgemälde Männerporträt mit Blattgold auf Schwarz-Weiß, von Sandra Heise",
+    etsy: "https://www.etsy.com/de/listing/4354656293/acryl-gemalde-original-vergangliche",
+    bald: false,
+  },
+  {
+    title: "Vergängliche Stärke 2",
+    technik: "Acryl & Blattgold · 40 × 50 cm",
+    preis: "95,00 €",
+    image: `${base}/gemaelde/vergaengliche-staerke-2.jpg`,
+    alt: "Vergängliche Stärke 2 – zweites Acrylgemälde der Serie mit Blattgold, von Sandra Heise",
+    etsy: "https://www.etsy.com/de/listing/4354656511/acryl-gemalde-original-vergangliche",
+    bald: false,
+  },
+];
+
+const malbuecher = [
+  {
+    title: "Fantasie in Farbe",
+    subtitle: "Für Teenager & Mädchen",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/fantasie-in-farbe-teenager.jpg`,
+    etsy: "https://www.etsy.com/de/listing/1437110610/malbuch-fur-teenager-25-fantasievolle",
+    amazon: "https://amzn.eu/d/0fHK8OFe",
+  },
+  {
+    title: "Fantasie in Farbe 2",
+    subtitle: "Band 2 der Reihe",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/fantasie-in-farbe-2.jpg`,
+    etsy: "https://www.etsy.com/de/listing/1784178213/malbuch-fur-teenager-jungs-und-madchen",
+    amazon: "https://amzn.eu/d/08cUPLaU",
+  },
+  {
+    title: "Malbuch Magie",
+    subtitle: "Mandalas & Symbole",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/malbuch-magie.jpg`,
+    etsy: "https://www.etsy.com/de/listing/4375183327/magisches-malbuch-fantasie-in-farbe",
+    amazon: "https://amzn.eu/d/0ip0GGNt",
+  },
+  {
+    title: "Tiere & Fabelwesen",
+    subtitle: "Einhörner & Drachen",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/tiere-fabelwesen.jpg`,
+    etsy: "https://www.etsy.com/de/listing/1843977329/malbuch-fur-teenager-jungs-madchen",
+    amazon: "https://amzn.eu/d/0hlSpSif",
+  },
+  {
+    title: "Mensch & Anime",
+    subtitle: "Menschen & Anime-Figuren",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/mensch-anime.jpg`,
+    etsy: "https://www.etsy.com/de/listing/1727809252/malbuch-fur-teenager-junge-madchen",
+    amazon: "https://amzn.eu/d/01Q9CMiw",
+  },
+];
+
+const weiteres = [
+  {
+    title: "Ausmalleinwände",
+    beschreibung: "Vorgestaltete Leinwände — mit deinen Farben zum Leben erweckt.",
+    image: `${base}/blog/ausmalen-leinwand-hero.jpg`,
+    href: `${base}/malen#leinwaende`,
+    cta: "Leinwände ansehen",
+  },
+  {
+    title: "Portraitaufträge",
+    beschreibung: "Dein individuelles Porträt nach Foto — in Bleistift oder Aquarell.",
+    image: `${base}/portraets/produkte-auftraege.png`,
+    href: `${base}/portfolio#portraets`,
+    cta: "Aufträge ansehen",
+  },
+  {
+    title: "Handgemachter Schmuck",
+    beschreibung: "Unikate aus Epoxidharz und Polymer Clay — auf Anfrage bestellbar.",
+    image: `${base}/schmuck/set-3.jpg`,
+    href: `${base}/schmuck`,
+    cta: "Schmuck entdecken",
+  }
+];
 ---
 
-<Layout title="Sunny Artis - Kunst, Gemälde & kreative Produkte von Sandra Heise">
+<Layout
+  title="Sunny Artis – Handgemalte Gemälde & Kreativprodukte von Sandra Heise"
+  description="Original-Gemälde in Öl und Acryl, handgezeichnete Malbücher und Kreativprodukte von Sandra Heise aus Magdeburg. Jedes Werk ein Unikat — bei Etsy und Amazon erhältlich."
+  canonical={`${SITE}/`}
+>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Sunny Artis",
+    "url": SITE,
+    "description": "Handgemalte Originalgemälde und Kreativprodukte von Sandra Heise aus Magdeburg.",
+    "author": {
+      "@type": "Person",
+      "name": "Sandra Heise",
+      "url": SITE,
+      "sameAs": [
+        "https://www.etsy.com/shop/SunnyArtis",
+        "https://www.instagram.com/sunnyartis_schmuck/"
+      ]
+    }
+  })} />
 
-  <!-- Hero -->
-  <section class="hero-section flex-center">
-    <div class="container hero-container">
-      <div class="hero-content">
+  <!-- ── Hero ──────────────────────────────────────────── -->
+  <section class="hero-section">
+    <div class="container hero-inner">
+      <div class="hero-text">
         <span class="hero-tagline">KUNSTWERKSTATT AUS MAGDEBURG</span>
-        <h1>Kreative Kunst aus Leidenschaft</h1>
-        <p class="hero-text">
-          Willkommen bei Sunny Artis! Ich bin Sandra Heise — Malerin, Bastlerin und Schmuckmacherin. Hier findest du Original-Gemälde, Kreativprodukte, Plotterdateien, handgemachten Schmuck und vieles mehr.
+        <h1>Handgemalte Unikate & Kreativprodukte</h1>
+        <p class="hero-desc">
+          Original-Gemälde in Öl und Acryl, selbst gestaltete Malbücher und mehr — aus echter Leidenschaft für alles Kreative.
         </p>
         <div class="hero-actions">
-          <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-partner">
-            <span>Etsy Shop besuchen</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Gemälde auf Etsy ↗
           </a>
-          <a href={`${base}/portfolio`} class="btn btn-secondary">Portfolio ansehen</a>
+          <a href="#malbucher" class="btn btn-secondary">Malbücher entdecken ↓</a>
         </div>
       </div>
-      <div class="hero-cards">
-        <div class="hero-blob"></div>
-        <div class="illus-card illus-1">🎨 Original Gemälde</div>
-        <div class="illus-card illus-2">✂️ Plotterdateien</div>
-        <div class="illus-card illus-3">✨ Handmade Schmuck</div>
-        <div class="illus-card illus-4">📚 Malbücher & Leinwände</div>
+      <div class="hero-visual">
+        <img
+          src={`${base}/gemaelde/farbenfroh.jpg`}
+          alt="Farbenfroh – farbenreiches Ölgemälde von Sandra Heise, fotografiert im Wohnzimmerkontext"
+          width="680"
+          height="720"
+          fetchpriority="high"
+          loading="eager"
+        />
       </div>
     </div>
   </section>
 
-  <!-- Bereiche-Übersicht -->
-  <section class="section bereiche-section bg-light">
+  <!-- ── Gemälde Showcase ──────────────────────────────── -->
+  <section class="section gemaelde-section">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag">WAS ICH MACHE</span>
-        <h2 class="center-title">Meine Kreativbereiche</h2>
+      <div class="section-intro text-center">
+        <span class="section-tag">ORIGINAL-GEMÄLDE</span>
+        <h2>Handgemalte Unikate</h2>
+        <p class="section-intro-desc">Öl auf Leinwand, Acryl mit Strukturpaste oder Blattgold — jedes Bild entsteht von Hand und ist ein Einzelstück. Direkt auf Etsy kaufen und nach Hause liefern lassen.</p>
       </div>
-      <div class="bereiche-grid">
 
-        <a href={`${base}/gemaelde`} class="bereich-card bereich-gemaelde">
-          <div class="bereich-icon">🖼️</div>
-          <h3>Gemälde</h3>
-          <p>Original-Gemälde in Acryl, Aquarell und Mischtechnik — alle käuflich auf Etsy.</p>
-          <span class="bereich-link">Gemälde entdecken →</span>
+      <div class="gemaelde-grid">
+        <!-- Featured: Blütengeist -->
+        <a
+          href={featured.etsy}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="gemaelde-card gemaelde-card--featured"
+        >
+          <div class="gemaelde-img">
+            <img
+              src={featured.image}
+              alt={featured.alt}
+              width="600"
+              height="700"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div class="gemaelde-hover-label">Auf Etsy ansehen ↗</div>
+          </div>
+          <div class="gemaelde-info">
+            <span class="gemaelde-technik">{featured.technik}</span>
+            <h3 class="gemaelde-title">{featured.title}</h3>
+            <span class="gemaelde-preis">{featured.preis}</span>
+          </div>
         </a>
 
-        <a href={`${base}/malen`} class="bereich-card bereich-malen">
-          <div class="bereich-icon">🎨</div>
-          <h3>Malen & Kreativprodukte</h3>
-          <p>Malbücher und Leinwände für eigene Projekte — plus Tipps und Blog-Beiträge.</p>
-          <span class="bereich-link">Zum Malbereich →</span>
-        </a>
+        <!-- Rechte Spalte -->
+        <div class="gemaelde-right-col">
 
-        <a href={`${base}/basteln`} class="bereich-card bereich-basteln">
-          <div class="bereich-icon">✂️</div>
-          <h3>Basteln & Plotter</h3>
-          <p>SVG-Plotterdateien, Bastelprojekte, Materialempfehlungen und kostenlose Downloads.</p>
-          <span class="bereich-link">Zum Bastelbereich →</span>
-        </a>
+          <!-- Silent Crown (bald erhältlich) -->
+          <div class="gemaelde-card gemaelde-card--soon">
+            <div class="gemaelde-img">
+              <img
+                src={nebenGemaelde[0].image}
+                alt={nebenGemaelde[0].alt}
+                width="500"
+                height="500"
+                loading="lazy"
+              />
+              <span class="badge-soon">Bald erhältlich</span>
+            </div>
+            <div class="gemaelde-info">
+              <span class="gemaelde-technik">{nebenGemaelde[0].technik}</span>
+              <h3 class="gemaelde-title">{nebenGemaelde[0].title}</h3>
+              <span class="gemaelde-preis">{nebenGemaelde[0].preis}</span>
+            </div>
+          </div>
 
-        <a href={`${base}/schmuck`} class="bereich-card bereich-schmuck">
-          <div class="bereich-icon">💍</div>
-          <h3>Schmuck</h3>
-          <p>Handgefertigte Unikate aus Epoxidharz und Polymer Clay — auf Anfrage bestellbar.</p>
-          <span class="bereich-link">Schmuck ansehen →</span>
-        </a>
+          <!-- VS1 + VS2 nebeneinander -->
+          <div class="gemaelde-pair">
+            {nebenGemaelde.slice(1).map(g => (
+              <a
+                href={g.etsy}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="gemaelde-card gemaelde-card--mini"
+              >
+                <div class="gemaelde-img">
+                  <img src={g.image} alt={g.alt} width="300" height="350" loading="lazy" />
+                  <div class="gemaelde-hover-label">Auf Etsy ↗</div>
+                </div>
+                <div class="gemaelde-info">
+                  <span class="gemaelde-technik">{g.technik}</span>
+                  <h3 class="gemaelde-title">{g.title}</h3>
+                  <span class="gemaelde-preis">{g.preis}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
 
-        <a href={`${base}/portfolio`} class="bereich-card bereich-portfolio">
-          <div class="bereich-icon">📸</div>
-          <h3>Portfolio</h3>
-          <p>Alle Werke auf einen Blick: Gemälde, Porträts, Schmuck, Bastelprojekte und Videos.</p>
-          <span class="bereich-link">Portfolio öffnen →</span>
-        </a>
-
-        <a href={`${base}/kontakt`} class="bereich-card bereich-kontakt">
-          <div class="bereich-icon">✉️</div>
-          <h3>Auftragsarbeiten</h3>
-          <p>Individuelles Porträt, Wunschgemälde oder Schmuckstück — schreib mir einfach!</p>
-          <span class="bereich-link">Anfrage stellen →</span>
-        </a>
-
+      <div class="section-footer text-center">
+        <a href={`${base}/gemaelde`} class="btn btn-outline-dark">Alle Gemälde ansehen →</a>
       </div>
     </div>
   </section>
 
-  <!-- Gemälde Teaser -->
-  <section class="section teaser-section">
-    <div class="container grid-2 align-center-grid">
-      <div class="teaser-visual">
-        <div class="gemaelde-frame">
-          <div class="gemaelde-inner bg-sunset"></div>
-        </div>
-      </div>
-      <div class="teaser-text">
-        <span class="section-tag">ORIGINAL-KUNSTWERKE</span>
-        <h2>Gemälde für dein Zuhause</h2>
-        <p>
-          Handgemalte Originale auf Leinwand und Papier — in Acryl, Aquarell und Mischtechnik. Jedes Bild ist ein Unikat und wird sicher verpackt zu dir geliefert.
-        </p>
-        <div class="teaser-actions">
-          <a href={`${base}/gemaelde`} class="btn btn-primary">Alle Gemälde ansehen</a>
-          <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Etsy Shop</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Malbücher & Leinwände Teaser -->
-  <section class="section teaser-section bg-light">
-    <div class="container grid-2 align-center-grid">
-      <div class="teaser-text">
+  <!-- ── Malbücher ─────────────────────────────────────── -->
+  <section class="section malbucher-section bg-light" id="malbucher">
+    <div class="container">
+      <div class="section-intro text-center">
         <span class="section-tag">KREATIVPRODUKTE</span>
-        <h2>Malbücher & Leinwände</h2>
-        <p>
-          Perfekt für kreative Auszeiten: Meine handgezeichneten Malbücher und vorgestalteten Leinwände warten darauf, von dir mit Farbe gefüllt zu werden.
-        </p>
-        <div class="teaser-actions">
-          <a href={`${base}/malen`} class="btn btn-primary">Zum Malbereich</a>
-          <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759325" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Malbücher auf Etsy</a>
-        </div>
+        <h2>Malbücher für kreative Auszeiten</h2>
+        <p class="section-intro-desc">Handgezeichnete Motive zum Ausmalen — für Kinder, Teenager und Erwachsene. Bei Amazon und Etsy erhältlich.</p>
       </div>
-      <div class="teaser-visual">
-        <div class="visual-stack-mini">
-          <div class="vsm-card vsm-1">Mandala Träume</div>
-          <div class="vsm-card vsm-2">Florales Ausmalbuch</div>
-          <div class="vsm-card vsm-3">Leinwand-Set</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Basteln Teaser -->
-  <section class="section teaser-section">
-    <div class="container grid-2 align-center-grid">
-      <div class="teaser-visual">
-        <div class="plotter-visual-mini">
-          <div class="pvm-card pvm-1">SVG</div>
-          <div class="pvm-card pvm-2">Vinyl</div>
-          <div class="pvm-card pvm-3">Textil</div>
-          <div class="pvm-card pvm-4">Papier</div>
-        </div>
-      </div>
-      <div class="teaser-text">
-        <span class="section-tag">BASTELN & PLOTTER</span>
-        <h2>Plotterdateien & Bastelprojekte</h2>
-        <p>
-          SVG-Dateien für Schneideplotter, Bastelanleitungen, Materialempfehlungen und kostenlose Downloads. Alles für kreative Bastler.
-        </p>
-        <div class="teaser-actions">
-          <a href={`${base}/basteln`} class="btn btn-primary">Zum Bastelbereich</a>
-          <a href="https://www.etsy.com/shop/SunnyArtis?section_id=45759329" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Dateien auf Etsy</a>
-        </div>
+      <div class="mb-scroll">
+        {malbuecher.map((m, i) => (
+          <article class="mb-card">
+            <div class="mb-cover">
+              <img
+                src={m.image}
+                alt={`${m.title} – ${m.subtitle} – Malbuch von Sandra Heise`}
+                width="300"
+                height="420"
+                loading={i < 2 ? "eager" : "lazy"}
+              />
+            </div>
+            <div class="mb-info">
+              <p class="mb-subtitle">{m.subtitle}</p>
+              <h3 class="mb-title">{m.title}</h3>
+              <p class="mb-preis">{m.preis}</p>
+              <div class="mb-actions">
+                <a href={m.amazon} target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
+                  Amazon
+                </a>
+                <a href={m.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-etsy">
+                  Etsy
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Schmuck Teaser -->
-  <section class="section teaser-section bg-light">
+  <!-- ── Über mich ─────────────────────────────────────── -->
+  <section class="section ueber-section">
+    <div class="container ueber-inner">
+      <div class="ueber-visual">
+        <img
+          src={`${base}/portraets/selbstportrait.jpg`}
+          alt="Aquarell-Selbstporträt von Sandra Heise – Malerin und Künstlerin aus Magdeburg"
+          width="360"
+          height="440"
+          loading="lazy"
+        />
+      </div>
+      <div class="ueber-text">
+        <span class="section-tag">HINTER DER KUNST</span>
+        <h2>Hallo, ich bin Sandra</h2>
+        <p>
+          Kunst ist mein Hobby — und es macht mich glücklich. Ich bilde mich ständig weiter, probiere gerne Neues aus und lasse mich von allem Kreativen begeistern. Ob Malerei, Malbücher, Schmuck oder Basteln: Nicht spezialisiert zu sein ist meine Stärke. Jedes Projekt ist ein neues Experiment.
+        </p>
+        <a href={`${base}/kontakt`} class="btn btn-secondary">Kontakt aufnehmen →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Weitere Bereiche ──────────────────────────────── -->
+  <section class="section weiteres-section bg-light">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag">HANDARBEIT</span>
-        <h2 class="center-title">Handgefertigter Unikatschmuck</h2>
-        <p class="section-desc">Jedes Schmuckstück ein Einzelstück — aus Epoxidharz mit echten Blüten und Polymer Clay in modernen Formen.</p>
+      <div class="section-intro text-center">
+        <span class="section-tag">MEHR ENTDECKEN</span>
+        <h2>Weitere Angebote</h2>
       </div>
-      <div class="grid-3 schmuck-mini-grid">
-        <div class="card schmuck-mini-card">
-          <div class="smc-preview bg-resin-blue"></div>
-          <div class="card-content tc">
-            <h3>Harz-Schmuck</h3>
-            <p class="card-text">Mit gepressten Blüten und Goldpigmenten.</p>
-          </div>
-        </div>
-        <div class="card schmuck-mini-card">
-          <div class="smc-preview bg-polymer"></div>
-          <div class="card-content tc">
-            <h3>Polymer-Ohrringe</h3>
-            <p class="card-text">Modern, leicht, handgeformt.</p>
-          </div>
-        </div>
-        <div class="card schmuck-mini-card">
-          <div class="smc-preview bg-ocean"></div>
-          <div class="card-content tc">
-            <h3>Ketten & Anhänger</h3>
-            <p class="card-text">Filigrane Designs mit Naturmaterialien.</p>
-          </div>
-        </div>
-      </div>
-      <div class="text-center" style="margin-top: 2.5rem;">
-        <a href={`${base}/schmuck`} class="btn btn-outline-dark">Mehr Schmuck ansehen</a>
+      <div class="weiteres-grid">
+        {weiteres.map(w => (
+          <a href={w.href} class="weiteres-card">
+            <div class="weiteres-img">
+              <img src={w.image} alt={w.title} width="400" height="280" loading="lazy" />
+            </div>
+            <div class="weiteres-info">
+              <h3>{w.title}</h3>
+              <p>{w.beschreibung}</p>
+              <span class="weiteres-cta">{w.cta} →</span>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -198,249 +337,479 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </Layout>
 
 <style>
-  /* Hero */
+  /* ── Hero ─────────────────────────────────────────────── */
   .hero-section {
-    min-height: calc(85vh - 90px);
-    background: radial-gradient(circle at 80% 20%, rgba(186, 214, 218, 0.3) 0%, transparent 60%),
-                radial-gradient(circle at 10% 80%, rgba(251, 205, 10, 0.1) 0%, transparent 50%);
-    padding: 4rem 0;
+    padding: 5rem 0 4rem;
+    background: linear-gradient(135deg, #fafeff 0%, #f0fafb 60%, #e6f5f8 100%);
+    overflow: hidden;
   }
 
-  .hero-container {
+  .hero-inner {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 60px;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
-  }
-
-  @media (max-width: 991px) {
-    .hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-    .hero-actions { justify-content: center; }
   }
 
   .hero-tagline {
     font-family: var(--font-title);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--color-teal);
     letter-spacing: 0.15em;
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
-  .hero-content h1 { font-size: 3rem; line-height: 1.15; margin-bottom: 1.5rem; }
-
-  @media (max-width: 768px) { .hero-content h1 { font-size: 2.25rem; } }
-
-  .hero-text {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-    margin-bottom: 2.5rem;
-    max-width: 560px;
-  }
-
-  @media (max-width: 991px) { .hero-text { margin-left: auto; margin-right: auto; } }
-
-  .hero-actions { display: flex; gap: 20px; flex-wrap: wrap; }
-
-  .btn-icon { margin-left: 8px; transition: transform var(--transition-fast); }
-  .btn:hover .btn-icon { transform: translate(2px, -2px); }
-
-  .hero-cards {
-    position: relative;
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @media (max-width: 991px) { .hero-cards { height: 280px; } }
-
-  .hero-blob {
-    position: absolute;
-    width: 300px; height: 300px;
-    background-color: var(--color-soft-blue);
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    filter: blur(10px);
-    opacity: 0.5;
-    animation: blob-animate 8s infinite ease-in-out;
-    z-index: 1;
-  }
-
-  .illus-card {
-    position: absolute;
-    padding: 13px 20px;
-    background-color: var(--color-bg-white);
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
-    font-family: var(--font-title);
-    font-weight: 500;
-    font-size: 0.9rem;
+  .hero-text h1 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.15;
     color: var(--color-navy);
-    border: 1px solid var(--color-border);
-    z-index: 2;
-    transition: transform var(--transition-normal);
-    white-space: nowrap;
+    margin-bottom: 1.25rem;
   }
 
-  .illus-card:hover { transform: scale(1.05) !important; }
-
-  .illus-1 { top: 10%; left: 5%; transform: rotate(-6deg); border-left: 4px solid var(--color-teal); }
-  .illus-2 { top: 40%; right: 5%; transform: rotate(4deg); border-left: 4px solid var(--color-yellow); }
-  .illus-3 { top: 65%; left: 10%; transform: rotate(-3deg); border-left: 4px solid var(--color-soft-blue); }
-  .illus-4 { top: 20%; right: 10%; transform: rotate(2deg); border-left: 4px solid #f48fb1; }
-
-  @keyframes blob-animate {
-    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-    50% { border-radius: 60% 40% 50% 70% / 50% 60% 40% 60%; }
+  .hero-desc {
+    font-size: 1.08rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 2.25rem;
+    max-width: 460px;
   }
 
-  /* Section header */
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(5, 32, 53, 0.18);
+    max-height: 560px;
+  }
+
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transform: scale(1.09);
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2.5rem;
+    }
+    .hero-desc { margin: 0 auto 2rem; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { max-width: 480px; margin: 0 auto; max-height: 380px; }
+  }
+
+  /* ── Section gemeinsam ──────────────────────────────── */
   .section-tag {
     font-family: var(--font-title);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--color-teal);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
-  .section-desc {
-    max-width: 600px;
-    margin: 0 auto 3rem;
+  .section-intro { margin-bottom: 2.75rem; }
+  .section-intro h2 { margin-bottom: 0.75rem; }
+  .section-intro-desc {
+    max-width: 580px;
+    margin: 0 auto;
     color: var(--color-text-muted);
+    font-size: 0.97rem;
+    line-height: 1.7;
   }
 
-  /* Bereiche Grid */
-  .bereiche-grid {
+  .section-footer { margin-top: 2.5rem; }
+
+  /* ── Gemälde Grid ───────────────────────────────────── */
+  .gemaelde-section { background: var(--color-bg-white); }
+
+  .gemaelde-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 1rem;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 16px;
   }
 
-  @media (max-width: 991px) { .bereiche-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 576px) { .bereiche-grid { grid-template-columns: 1fr; } }
-
-  .bereich-card {
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 28px 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: all var(--transition-normal);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-top: 4px solid transparent;
+  .gemaelde-right-col {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 16px;
   }
 
-  .bereich-gemaelde { border-top-color: #ef6c00; }
-  .bereich-malen { border-top-color: var(--color-teal); }
-  .bereich-basteln { border-top-color: #fff59d; border-top-color: #f9a825; }
-  .bereich-schmuck { border-top-color: #ad1457; }
-  .bereich-portfolio { border-top-color: var(--color-navy); }
-  .bereich-kontakt { border-top-color: #a5d6a7; }
-
-  .bereich-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .bereich-icon { font-size: 2rem; }
-  .bereich-card h3 { font-size: 1.1rem; margin: 0; }
-  .bereich-card p { color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0; flex: 1; }
-  .bereich-link { font-family: var(--font-title); font-size: 0.85rem; font-weight: 600; color: var(--color-teal); }
-
-  /* Teaser sections */
-  .align-center-grid { align-items: center; }
-
-  .teaser-text h2 { font-size: 1.9rem; margin-bottom: 1rem; }
-  .teaser-text p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 2rem; max-width: 500px; }
-  .teaser-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-  /* Gemälde frame */
-  .gemaelde-frame {
-    width: 300px;
-    height: 360px;
-    border: 10px solid var(--color-navy);
-    border-radius: 4px;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    margin: 0 auto;
-  }
-
-  .gemaelde-inner { width: 100%; height: 100%; }
-  .bg-sunset { background: linear-gradient(145deg, #fff3e0, #ff8a65, #c62828); }
-
-  /* Visual stack mini */
-  .visual-stack-mini {
-    position: relative;
-    width: 260px;
-    height: 260px;
-    margin: 0 auto;
-  }
-
-  .vsm-card {
-    position: absolute;
-    width: 190px;
-    height: 220px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-title);
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--color-navy);
-    box-shadow: var(--shadow-md);
-  }
-
-  .vsm-1 { background: linear-gradient(135deg, #e3f2fd, #90caf9); top: 0; left: 0; transform: rotate(-7deg); z-index: 1; }
-  .vsm-2 { background: linear-gradient(135deg, #f1f8e9, #a5d6a7); top: 20px; left: 25px; transform: rotate(-1deg); z-index: 2; }
-  .vsm-3 { background: linear-gradient(135deg, #fce4ec, #f48fb1); top: 40px; left: 50px; transform: rotate(5deg); z-index: 3; }
-
-  /* Plotter visual mini */
-  .plotter-visual-mini {
+  .gemaelde-pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    max-width: 260px;
-    margin: 0 auto;
   }
 
-  .pvm-card {
-    height: 110px;
-    border-radius: 10px;
+  .gemaelde-card {
+    background: var(--color-bg-white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  a.gemaelde-card:hover {
+    box-shadow: 0 12px 40px rgba(5, 32, 53, 0.14);
+    transform: translateY(-3px);
+  }
+
+  .gemaelde-card--soon {
+    cursor: default;
+    opacity: 0.9;
+  }
+
+  .gemaelde-img {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .gemaelde-card--featured .gemaelde-img { aspect-ratio: 4/5; }
+  .gemaelde-card--soon .gemaelde-img { aspect-ratio: 4/3; }
+  .gemaelde-card--mini .gemaelde-img { aspect-ratio: 1; }
+
+  .gemaelde-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  a.gemaelde-card:hover .gemaelde-img img { transform: scale(1.04); }
+
+  .gemaelde-hover-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(5, 32, 53, 0.72);
+    color: white;
+    text-align: center;
+    padding: 10px;
     font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+  }
+
+  a.gemaelde-card:hover .gemaelde-hover-label { transform: translateY(0); }
+
+  .badge-soon {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(5, 32, 53, 0.82);
+    color: white;
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  .gemaelde-info {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .gemaelde-technik {
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .gemaelde-title {
+    font-size: 1rem;
     font-weight: 700;
-    font-size: 0.9rem;
     color: var(--color-navy);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .gemaelde-card--mini .gemaelde-title { font-size: 0.88rem; }
+
+  .gemaelde-preis {
+    font-family: var(--font-title);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-tuerkis);
+  }
+
+  @media (max-width: 860px) {
+    .gemaelde-grid { grid-template-columns: 1fr; }
+    .gemaelde-card--featured .gemaelde-img { aspect-ratio: 4/3; }
+    .gemaelde-right-col { grid-template-rows: auto; }
+  }
+
+  @media (max-width: 480px) {
+    .gemaelde-pair { grid-template-columns: 1fr; }
+  }
+
+  /* ── Malbücher ──────────────────────────────────────── */
+  .mb-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .mb-scroll::-webkit-scrollbar { height: 5px; }
+  .mb-scroll::-webkit-scrollbar-track { background: transparent; }
+  .mb-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+  .mb-card {
+    flex: 0 0 210px;
+    scroll-snap-align: start;
+    background: var(--color-bg-white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
   }
 
-  .pvm-1 { background: linear-gradient(135deg, #fffde7, #fff59d); }
-  .pvm-2 { background: linear-gradient(135deg, #fce4ec, #f48fb1); }
-  .pvm-3 { background: linear-gradient(135deg, #e3f2fd, #90caf9); }
-  .pvm-4 { background: linear-gradient(135deg, #f1f8e9, #a5d6a7); }
-
-  /* Schmuck mini */
-  .smc-preview {
-    height: 160px;
-    border-radius: 8px 8px 0 0;
+  .mb-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
   }
 
-  .bg-resin-blue { background: radial-gradient(ellipse at 30% 30%, #e3f2fd, #1565c0); }
-  .bg-polymer { background: radial-gradient(ellipse at 30% 30%, #fce4ec, #ad1457); }
-  .bg-ocean { background: radial-gradient(ellipse at 30% 30%, #e0f7fa, #006064); }
+  .mb-cover {
+    aspect-ratio: 5/7;
+    overflow: hidden;
+    background: var(--color-bg-light);
+    flex-shrink: 0;
+  }
 
-  .schmuck-mini-card { overflow: hidden; }
-  .tc { text-align: center; }
-  .tc h3 { font-size: 1rem; margin-bottom: 4px; }
+  .mb-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  .mb-card:hover .mb-cover img { transform: scale(1.04); }
+
+  .mb-info {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+  }
+
+  .mb-subtitle {
+    font-family: var(--font-title);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .mb-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .mb-preis {
+    font-family: var(--font-title);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-tuerkis);
+    margin: 4px 0 0;
+  }
+
+  .mb-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .btn-amazon {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: #FF9900;
+    color: #111;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-amazon:hover { opacity: 0.85; }
+
+  .btn-etsy {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: #F56400;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-etsy:hover { opacity: 0.85; }
+
+  /* ── Über mich ──────────────────────────────────────── */
+  .ueber-section { background: var(--color-bg-white); }
+
+  .ueber-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .ueber-visual {
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .ueber-visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(5, 32, 53, 0.12);
+    border: 1px solid var(--color-border);
+  }
+
+  .ueber-text h2 { font-size: 2rem; margin-bottom: 1rem; }
+
+  .ueber-text p {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    max-width: 520px;
+  }
+
+  @media (max-width: 768px) {
+    .ueber-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+    }
+    .ueber-visual { width: 200px; margin: 0 auto; }
+    .ueber-text p { margin-left: auto; margin-right: auto; }
+  }
+
+  /* ── Weitere Bereiche ───────────────────────────────── */
+  .weiteres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .weiteres-card {
+    background: var(--color-bg-white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .weiteres-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .weiteres-img {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--color-bg-light);
+  }
+
+  .weiteres-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  .weiteres-card:hover .weiteres-img img { transform: scale(1.05); }
+
+  .weiteres-info {
+    padding: 18px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+  }
+
+  .weiteres-info h3 {
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    margin: 0;
+  }
+
+  .weiteres-info p {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .weiteres-cta {
+    font-family: var(--font-title);
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .weiteres-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .weiteres-grid { grid-template-columns: 1fr; }
+  }
 </style>
