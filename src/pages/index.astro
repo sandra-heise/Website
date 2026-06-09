@@ -184,8 +184,7 @@ const weiteres = [
               alt={featured.alt}
               width="600"
               height="700"
-              loading="eager"
-              fetchpriority="high"
+              loading="lazy"
             />
             <div class="gemaelde-hover-label">Auf Etsy ansehen ↗</div>
           </div>
@@ -215,6 +214,7 @@ const weiteres = [
               <span class="gemaelde-technik">{nebenGemaelde[0].technik}</span>
               <h3 class="gemaelde-title">{nebenGemaelde[0].title}</h3>
               <span class="gemaelde-preis">{nebenGemaelde[0].preis}</span>
+              <a href={`${base}/kontakt`} class="soon-notify">Benachrichtigen lassen →</a>
             </div>
           </div>
 
@@ -257,7 +257,7 @@ const weiteres = [
         <p class="section-intro-desc">Handgezeichnete Motive zum Ausmalen — für Kinder, Teenager und Erwachsene. Bei Amazon und Etsy erhältlich.</p>
       </div>
       <div class="mb-scroll">
-        {malbuecher.map((m, i) => (
+        {malbuecher.map((m) => (
           <article class="mb-card">
             <div class="mb-cover">
               <img
@@ -265,7 +265,7 @@ const weiteres = [
                 alt={`${m.title} – ${m.subtitle} – Malbuch von Sandra Heise`}
                 width="300"
                 height="420"
-                loading={i < 2 ? "eager" : "lazy"}
+                loading="lazy"
               />
             </div>
             <div class="mb-info">
@@ -513,6 +513,20 @@ const weiteres = [
 
   a.gemaelde-card:hover .gemaelde-hover-label { transform: translateY(0); }
 
+  .soon-notify {
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-teal);
+    text-decoration: none;
+    margin-top: 6px;
+    display: inline-block;
+  }
+
+  .soon-notify:hover {
+    text-decoration: underline;
+  }
+
   .badge-soon {
     position: absolute;
     top: 12px; right: 12px;
@@ -626,12 +640,17 @@ const weiteres = [
   }
 
   .mb-subtitle {
+    display: inline-block;
     font-family: var(--font-title);
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.03em;
-    margin: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    background: color-mix(in srgb, var(--color-teal) 12%, transparent);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin: 0 0 2px;
   }
 
   .mb-title {
