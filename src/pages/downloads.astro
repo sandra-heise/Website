@@ -6,6 +6,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
 const canonicalUrl = `${SITE}/downloads`;
 
+// Helfer: verwende absolute URLs direkt, ansonsten mit base prefixen
+const imageFor = (p: any) => p && (/^https?:\/\//.test(p) ? p : `${base}${p}`);
+
 // Bestseller zuerst, dann Rest in Originalreihenfolge
 const sorted = [...FREE_DOWNLOADS].sort((a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0));
 
@@ -110,11 +113,11 @@ const faqLd = {
   <section class="section page-header-section">
     <div class="container text-center">
       <span class="section-tag">GRATIS</span>
-      <h1 class="center-title">Kostenlose Plotterdateien</h1>
+      <h1 class="center-title">Kostenlose Plotterdateien & Ausmalbilder</h1>
       <p class="section-desc">
-        Handverlesene Dateien zum sofortigen Download — kostenlos, ohne Anmeldung. Einfach herunterladen, in dein Schneideprogramm laden und loslegen.
+        Handverlesene Dateien zum sofortigen Download — kostenlose SVG-Plotterdateien und druckbare Ausmalbilder. Einfach herunterladen, in dein Schneidesoftware laden oder ausdrucken und mit Prismacolor- oder Acrylstiften ausmalen.
       </p>
-      <p class="section-format-hint">Alle Dateien enthalten: SVG · PNG · DXF · JPG</p>
+      <p class="section-format-hint">Formate: SVG · PNG · DXF · JPG · PDF (Ausmalbilder als PDF/JPG)</p>
     </div>
   </section>
 
@@ -139,7 +142,7 @@ const faqLd = {
           <article class="card download-card" data-category={d.kategorie}>
             <div class="card-img-wrapper">
               {d.vorschau
-                ? <img src={`${base}${d.vorschau}`} alt={`${d.title} – kostenlose Plotterdatei als SVG, DXF, PNG`} loading={i < 6 ? "eager" : "lazy"} fetchpriority={i < 3 ? "high" : "auto"} />
+                ? <img src={imageFor(d.vorschau)} alt={`${d.title} – kostenlose Plotterdatei als SVG, DXF, PNG`} loading={i < 6 ? "eager" : "lazy"} fetchpriority={i < 3 ? "high" : "auto"} />
                 : <div class="download-placeholder"><span>{d.kategorie}</span></div>
               }
               {d.bestseller && <span class="badge badge-bestseller">Bestseller</span>}
