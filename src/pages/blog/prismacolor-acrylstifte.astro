@@ -4,30 +4,81 @@ import Layout from '../../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
 const canonicalUrl = `${SITE}/blog/prismacolor-acrylstifte`;
-const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
-
+const ogImage = `${SITE}/blog/prisma_color (1).jpg`;
 ---
 
 <Layout
-  title="Prismacolor vs. Acrylstifte — Welche Stifte eignen sich fürs Ausmalen? | Sunny Artis"
-  description="Praktische Tipps und ein Vergleich: Prismacolor und Acrylstifte — wie sie sich für Ausmalbilder eignen und wie du das Beste aus beiden herausholst."
+  title="Prismacolor Stifte – satte Farben, weiche Übergänge und meine ehrliche Meinung | Sunny Artis"
+  description="Ich habe die Prismacolor Stifte ausgiebig getestet: kräftige deckende Farben, sanfte Farbverläufe und das Verblenden mit Weiß. Hier teile ich meine Erfahrungen."
   ogImage={ogImage}
   canonical={canonicalUrl}
 >
-  <meta name="keywords" content="Prismacolor, Acrylstifte, Ausmalen, Stifte Vergleich, Coloring" slot="head" />
-  <meta property="article:published_time" content="2026-06-15" slot="head" />
+  <meta name="keywords" content="Prismacolor Stifte, Buntstifte, Farbstifte, Farben verblenden, deckende Buntstifte, Prismacolor Premier, Stifte Erfahrungsbericht" slot="head" />
+  <meta property="article:published_time" content="2026-06-22" slot="head" />
   <meta property="article:author" content="Sandra Heise" slot="head" />
   <meta property="article:section" content="Material & Techniken" slot="head" />
+  <meta property="article:tag" content="Stifte" slot="head" />
+  <meta property="article:tag" content="Buntstifte" slot="head" />
+  <meta property="article:tag" content="Farben mischen" slot="head" />
   <meta property="og:type" content="article" slot="head" />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Prismacolor Stifte – satte Farben, weiche Übergänge und meine ehrliche Meinung",
+    "description": "Ich habe die Prismacolor Stifte ausgiebig getestet: kräftige deckende Farben, sanfte Farbverläufe und das Verblenden mit Weiß.",
+    "image": ogImage,
+    "datePublished": "2026-06-22",
+    "dateModified": "2026-06-22",
+    "keywords": "Prismacolor, Buntstifte, Farben verblenden, Farbverläufe, deckend",
+    "inLanguage": "de",
+    "url": canonicalUrl,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+    "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE, "sameAs": ["https://www.instagram.com/sunny_artis/", "https://www.youtube.com/@SunnyArtis"] },
+    "publisher": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog` }
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Sind Prismacolor Stifte wirklich deckend?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja — Prismacolor Stifte haben eine wachsbasierte Mine, die sehr viel Pigment enthält. Mit ein bisschen Druck lassen sich damit satten, fast deckende Flächen erzeugen, die normale Buntstifte nicht erreichen." }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann man Prismacolor Stifte gut verblenden?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolut. Das Verblenden ist eine der größten Stärken von Prismacolor. Farbe in Farbe oder mit dem weißen Stift lassen sich sehr weiche Übergänge erzeugen – ohne Stumpfer oder Lösungsmittel." }
+      },
+      {
+        "@type": "Question",
+        "name": "Wofür eignen sich Prismacolor Stifte am besten?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Für alles, wo satte Farben und weiche Übergänge gefragt sind: Portraits, botanische Zeichnungen, Ausmalbilder und farbige Illustrationen. Auch auf gefärbtem Papier machen sie eine tolle Figur." }
+      }
+    ]
+  })} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog` },
+      { "@type": "ListItem", "position": 3, "name": "Prismacolor Stifte", "item": canonicalUrl }
+    ]
+  })} />
 
   <section class="article-hero">
     <div class="container">
       <div class="article-meta">
-        <a href={`${base}/blog`} class="back-link">← Zurück zum Blog</a>
+        <a href={`${base}/blog`} class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Zurück zum Blog
+        </a>
         <span class="article-category">Material & Techniken</span>
       </div>
-      <h1 class="article-title">Prismacolor vs. Acrylstifte — Welche Stifte eignen sich fürs Ausmalen?</h1>
-      <p class="article-date">15. Juni 2026 · von Sandra Heise</p>
+      <h1 class="article-title">Prismacolor Stifte – satte Farben, weiche Übergänge und meine ehrliche Meinung</h1>
+      <p class="article-date">22. Juni 2026 · von Sandra Heise</p>
     </div>
   </section>
 
@@ -35,40 +86,130 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
     <div class="container article-container">
 
       <figure class="article-figure article-figure--top">
-        <img src={`${base}/blog/ausmalen-leinwand-hero.jpg`} alt="Prismacolor und Acrylstifte nebeneinander" loading="eager" fetchpriority="high" />
+        <img src={`${base}/blog/prisma_color (1).jpg`} alt="Prismacolor Stifte und Zeichnung von Sandra Heise" fetchpriority="high" loading="eager" />
       </figure>
 
       <p>
-        Viele fragen mich, welche Stifte sich am besten für Ausmalbilder eignen. Zwei Favoriten von mir sind die klassischen Prismacolor-Polychromos (bzw. Prismacolor Colored Pencils) und wasserbasierte Acrylstifte. Beide haben Stärken — hier erkläre ich Unterschiede, Einsatzbereiche und praktische Tipps.
+        Wenn ich ein neues Stiftsystem in die Hand nehme, bin ich ehrlich gesagt immer ein bisschen skeptisch. Klingt das nach dir? Ich hatte so viele Stifte, die auf der Verpackung toll aussahen und dann beim ersten Strich enttäuschten. Bei den Prismacolor Stiften war es ganz anders — und ich möchte dir erzählen warum.
       </p>
 
-      <h2>Kurzvergleich</h2>
-      <ul>
-        <li><strong>Prismacolor:</strong> Weiche, pigmentstarke Farbstifte, ideal für feine Schattierungen und sanfte Farbverläufe.</li>
-        <li><strong>Acrylstifte:</strong> Deckender, kräftiger Farbauftrag, gut für glatte Flächen und kräftige Akzente; meist wasserbasiert und übermalbar.</li>
-      </ul>
+      <div class="material-box">
+        <h3>Die Stifte im Überblick</h3>
+        <ul>
+          <li><strong>Typ:</strong> Wachsbasierte Farbstifte mit extra weicher Mine</li>
+          <li><strong>Besonderheit:</strong> Außergewöhnlich hohe Pigmentdichte — sehr satte, deckende Farben</li>
+          <li><strong>Stärke:</strong> Sanftes Verblenden direkt auf dem Papier, auch ohne Hilfsmittel</li>
+          <li><strong>Tipp:</strong> Weißen Stift immer griffbereit halten — er ist beim Verblenden unverzichtbar</li>
+        </ul>
+        <p class="material-link">
+          Die Stifte die ich benutze: <a href="https://amzn.to/4w3p5fZ" target="_blank" rel="noopener noreferrer sponsored">Prismacolor Stifte bei Amazon ansehen →</a>
+        </p>
+      </div>
 
-      <h2>Wann welchen Stift verwenden?</h2>
+      <h2>Was mich sofort überzeugt hat: die Farben</h2>
       <p>
-        Verwende Prismacolor, wenn du feine Details und sanfte Übergänge brauchst — z. B. bei Porträts oder feinen Blumenmustern. Acrylstifte sind perfekt, wenn du kräftige, deckende Farben möchtest oder auf dunklem Papier arbeitest.
+        Der erste Moment, wenn du einen Prismacolor Stift auf Papier setzt, ist einfach magisch. Die Farben kommen <em>sofort</em> kräftig und satt raus — kein zaghaftes Andeuten, kein mehrfaches Überfahren bis endlich etwas zu sehen ist. Das liegt an der wachsbasierten, sehr weichen Mine, die viel mehr Pigment auf das Papier bringt als normale Buntstifte.
+      </p>
+      <p>
+        Gerade dunkle Töne wie Tiefblau, Weinrot oder Tannengrün haben eine Leuchtkraft, die ich bisher nur von Aquarellfarben oder Markern kannte. Helle Töne sind dabei genauso deckend — Gelb zum Beispiel wirkt wirklich wie Gelb, nicht wie eine blasse Andeutung davon.
       </p>
 
-      <h2>Tipps für Ausmalbilder</h2>
-      <ol>
-        <li>Arbeite in Schichten: Beginne mit hellen Farben und baue Tiefen mit dunkleren Farbtönen auf.</li>
-        <li>Verblenden: Bei Prismacolor hilft ein Papierwischer oder ein Blender-Stift für weiche Übergänge.</li>
-        <li>Testen: Probiere Stifte immer erst an einem Rand oder Testblatt, vor allem bei überraschenden Papieren.</li>
-        <li>Combine: Nutze beide Stifte zusammen — Prismacolor für feine Schichten, Acrylstifte für Akzente und Highlights.</li>
-      </ol>
+      <div class="image-grid">
+        <figure>
+          <img src={`${base}/blog/prisma_color (2).jpg`} alt="Kräftige Farben mit Prismacolor Stiften" loading="lazy" />
+        </figure>
+        <figure>
+          <img src={`${base}/blog/prisma_color (3).jpg`} alt="Deckende Farbflächen mit Prismacolor" loading="lazy" />
+        </figure>
+      </div>
+
+      <h2>Übergänge verblenden – so einfach war das noch nie</h2>
+      <p>
+        Das ist für mich die größte Stärke dieser Stifte. Verblenden ist bei Prismacolor nicht Arbeit, es ist Freude. Du malst eine Farbe hin, setzt die zweite daneben — und dann malst du mit leichtem Druck über den Übergangsbereich. Die Wachsminen verschmelzen einfach miteinander. Kein harter Strich, kein sichtbarer Bruch. Einfach ein weicher, nahtloser Übergang.
+      </p>
+      <p>
+        Das funktioniert in beide Richtungen: von hell nach dunkel oder von warm nach kalt. Ich mache das zum Beispiel gerne bei Sonnenuntergängen — von einem satten Orange in ein tiefes Lila, mit Rosa dazwischen. Mit Prismacolor ist das in wenigen Minuten erledigt.
+      </p>
+
+      <figure class="article-figure">
+        <img src={`${base}/blog/prisma_color (4).jpg`} alt="Farbverläufe und Übergänge mit Prismacolor Stiften" loading="lazy" />
+        <figcaption>Sanfte Übergänge entstehen fast von alleine — die weiche Mine verschmilzt die Farben direkt auf dem Papier.</figcaption>
+      </figure>
+
+      <h2>Farbe in Farbe – so entsteht Tiefe</h2>
+      <p>
+        Eine Technik, die ich total liebe: mehrere Farben übereinander schichten, ohne dass sie matschig werden. Bei normalen Buntstiften hast du irgendwann das Gefühl, du malst auf Wachs — keine neue Farbe haftet mehr. Bei Prismacolor geht das viel weiter. Du kannst drei, vier Schichten übereinander legen und jede Schicht verändert den Gesamtton auf eine eigene Art.
+      </p>
+      <p>
+        Ein Grün wird durch eine Schicht Gelb wärmer und heller. Durch eine Schicht Blau kühler und tiefer. Das gibt deinen Bildern eine Tiefe und Lebendigkeit, die mit einer einzigen Farbe einfach nicht möglich ist. Ich fange mittlerweile fast immer mit mehreren Farben an, selbst bei Flächen, die eigentlich nur eine Farbe haben sollen.
+      </p>
+
+      <div class="image-grid">
+        <figure>
+          <img src={`${base}/blog/prisma_color (5).jpg`} alt="Farbe in Farbe Technik mit Prismacolor" loading="lazy" />
+        </figure>
+        <figure>
+          <img src={`${base}/blog/prisma_color (6).jpg`} alt="Schichten und Mischtechniken mit Prismacolor Stiften" loading="lazy" />
+        </figure>
+      </div>
+
+      <h2>Mit Weiß verblenden – der geheime Trick</h2>
+      <p>
+        Den weißen Prismacolor Stift immer griffbereit zu haben ist eines der besten Tipps, die ich dir geben kann. Weiß bei diesen Stiften ist nicht nur eine weitere Farbe — er ist ein Werkzeug. Wenn du mit dem weißen Stift über eine bunte Fläche fährst, passieren zwei Dinge: Die Farbe wird heller und gleichzeitig glatter. Kleine Unebenheiten oder Striche verschwinden fast magisch.
+      </p>
+      <p>
+        Das funktioniert wunderbar, um sanfte Highlights zu setzen — auf einer Wange, auf einem Blütenblatt, auf Wasser. Aber du kannst ihn auch nutzen, um einen Farbübergang noch weicher zu machen. Einfach über die Grenze zwischen zwei Farben fahren, und schon wirkt der Übergang wie gemalt.
+      </p>
+
+      <figure class="article-figure">
+        <img src={`${base}/blog/prisma_color (7).jpg`} alt="Mit weißem Prismacolor Stift verblenden und Highlights setzen" loading="lazy" />
+        <figcaption>Der weiße Stift ist mehr als nur Weiß — er glättet, aufhellt und macht Übergänge noch weicher.</figcaption>
+      </figure>
+
+      <h2>Sieh selbst – meine Prismacolor Stifte in Aktion</h2>
+      <p>
+        Ich habe ein kurzes Video gemacht, in dem du sehen kannst, wie ich die Stifte einsetze — das Verblenden, das Schichten und das Arbeiten mit Weiß. Manchmal sagt ein Video mehr als tausend Worte.
+      </p>
+
+      <div class="video-wrap">
+        <video controls playsinline preload="none" poster={`${base}/blog/prisma_color (1).jpg`}>
+          <source src={`${base}/blog/prisma_color.MOV`} type="video/mp4" />
+          Dein Browser unterstützt kein eingebettetes Video.
+        </video>
+      </div>
+
+      <h2>Lohnen sich Prismacolor Stifte?</h2>
+      <p>
+        Sie sind kein Schnäppchen — das möchte ich ehrlich sagen. Aber sie sind jeden Cent wert, wenn du wirklich mit Buntstiften arbeiten möchtest. Die Qualität ist auf einem anderen Niveau als das, was du im Schreibwarenhandel um die Ecke bekommst.
+      </p>
+
+      <figure class="article-figure">
+        <img src={`${base}/blog/prisma_color (8).jpg`} alt="Fertige Zeichnung mit Prismacolor Stiften von Sandra Heise" loading="lazy" />
+        <figcaption>Das Ergebnis spricht für sich — satte, lebendige Farben mit tiefen Übergängen.</figcaption>
+      </figure>
+
+      <div class="motiv-box">
+        <h3>Das Motiv im Beitrag</h3>
+        <p>
+          Das Motiv, das ich hier mit den Prismacolor Stiften koloriert habe, stammt aus unserem Malbuch <strong>Special Mensch und Anime</strong>. Es steckt voller toller Motive — perfekt um neue Stifte, Farben und Techniken auszuprobieren.
+        </p>
+        <p>Wer mehr solche Motive möchte, schaut am besten hier vorbei:</p>
+        <div class="motiv-links">
+          <a href={`${base}/malen`} class="btn btn-accent">Malbücher entdecken</a>
+          <a href={`${base}/downloads`} class="btn btn-secondary">Kostenlose Ausmalbilder</a>
+        </div>
+      </div>
 
       <div class="fazit-box">
-        <p><strong>Fazit:</strong> Beide Stifte sind toll fürs Ausmalen. Welche du wählst, hängt vom gewünschten Look ab — weich und nuanciert (Prismacolor) oder kräftig und deckend (Acrylstift).</p>
+        <p><strong>Mein Fazit:</strong> Prismacolor Stifte sind für mich Lieblinge geworden. Kräftige, deckende Farben, wunderschöne Übergänge und das Verblenden mit Weiß machen sie zu einem echten Allrounder. Ob du Ausmalbilder kolorierst, illustrierst oder Portraits zeichnest — diese Stifte heben deine Arbeit auf ein neues Level.</p>
       </div>
 
       <div class="article-cta">
-        <p>Ich habe ein paar kostenlose Ausmalbilder vorbereitet — perfekt zum Ausprobieren deiner neuen Stifte:</p>
-        <a href={`${base}/downloads`} class="btn btn-accent">Kostenlose Ausmalbilder ansehen</a>
+        <p>Neugierig geworden? Hier sind die Stifte, die ich benutze:</p>
+        <a href="https://amzn.to/4w3p5fZ" target="_blank" rel="noopener noreferrer sponsored" class="btn btn-accent">Prismacolor Stifte bei Amazon ansehen →</a>
       </div>
+
+      <p class="affiliate-note">* Affiliate-Link: Wenn du über diesen Link kaufst, erhalte ich eine kleine Provision — für dich entstehen keine Mehrkosten. Ich empfehle nur Produkte, die ich selbst benutze und liebe.</p>
 
     </div>
   </article>
@@ -81,9 +222,51 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 </Layout>
 
 <style>
-  .article-hero { padding: 3.5rem 0 1.5rem; }
-  .article-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+  .article-hero { padding: 4rem 0 2.5rem; background: var(--color-bg-white); border-bottom: 1px solid var(--color-border); }
+  .article-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-family: var(--font-title); font-size: 0.88rem; font-weight: 600; color: var(--color-text-muted); transition: color var(--transition-fast); }
+  .back-link:hover { color: var(--color-teal); }
+  .article-category { font-family: var(--font-title); font-size: 0.78rem; font-weight: 700; color: var(--color-teal); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(1,170,193,0.1); padding: 3px 10px; border-radius: 20px; }
+  .article-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2; color: var(--color-navy); max-width: 820px; margin-bottom: 0.75rem; }
+  .article-date { font-family: var(--font-title); font-size: 0.88rem; color: var(--color-text-muted); }
+
+  .article-body { padding: 3.5rem 0 4rem; }
   .article-container { max-width: 740px; margin: 0 auto; }
-  .fazit-box { background: rgba(1,170,193,0.08); border-radius: 12px; padding: 1rem; margin: 1.5rem 0; }
-  .article-cta { margin-top: 1.5rem; display:flex; gap:1rem; align-items:center; }
+  .article-container p { font-size: 1.05rem; line-height: 1.85; color: var(--color-text); margin-bottom: 1.5rem; }
+  .article-container h2 { font-size: 1.5rem; color: var(--color-navy); margin: 2.5rem 0 1.25rem; }
+  .article-container a:not(.btn) { color: var(--color-teal); text-decoration: underline; text-underline-offset: 3px; }
+  .article-container a:not(.btn):hover { color: var(--color-navy); }
+
+  .article-figure { margin: 2rem 0 2.5rem; }
+  .article-figure--top img { width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-md); display: block; }
+  .article-figure img { width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-md); display: block; }
+  .article-figure figcaption { font-size: 0.85rem; color: var(--color-text-muted); text-align: center; margin-top: 0.6rem; font-style: italic; }
+
+  .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 2.5rem; }
+  .image-grid figure { margin: 0; }
+  .image-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; box-shadow: var(--shadow-sm); display: block; aspect-ratio: 4/3; }
+  @media (max-width: 480px) { .image-grid { grid-template-columns: 1fr; } }
+
+  .video-wrap { margin: 2rem 0 2.5rem; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); background: #000; }
+  .video-wrap video { width: 100%; display: block; max-height: 520px; }
+
+  .material-box { background: var(--color-bg-light); border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0 2.5rem; }
+  .material-box h3 { color: var(--color-navy); font-size: 1.05rem; margin: 0 0 0.75rem; }
+  .material-box ul { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .material-box li { font-size: 0.95rem; color: var(--color-text-muted); }
+  .material-link { font-size: 0.95rem; font-weight: 600; margin: 0 !important; }
+
+  .fazit-box { background: rgba(1,170,193,0.08); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; font-size: 1.05rem; line-height: 1.75; }
+
+  .article-cta { background: var(--color-bg-light); border-left: 4px solid var(--color-teal); border-radius: 0 12px 12px 0; padding: 1.5rem 2rem; margin-top: 2.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .article-cta p { margin: 0 !important; font-weight: 500; flex: 1; min-width: 200px; }
+
+  .motiv-box { background: var(--color-bg-light); border-radius: 12px; padding: 1.5rem 2rem; margin: 2.5rem 0; border-left: 4px solid var(--color-accent, #e88c2a); }
+  .motiv-box h3 { color: var(--color-navy); font-size: 1.1rem; margin: 0 0 0.75rem; }
+  .motiv-box p { font-size: 0.97rem !important; margin-bottom: 0.75rem !important; }
+  .motiv-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+  .affiliate-note { font-size: 0.8rem !important; color: var(--color-text-muted) !important; margin-top: 2rem !important; font-style: italic; }
+
+  .back-section { padding: 3rem 0; }
 </style>
