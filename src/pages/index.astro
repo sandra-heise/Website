@@ -60,6 +60,14 @@ const malbuecher = [
     amazon: "https://amzn.eu/d/08cUPLaU",
   },
   {
+    title: "Fantasie in Farbe 3",
+    subtitle: "Malbuch für Teenager",
+    preis: "ab 9,99 €",
+    image: `${base}/malbuecher/fantasie-in-farbe-3.jpg`,
+    etsy: "https://www.etsy.com/de/listing/4553108271/malbuch-fur-teenager-junge-madchen",
+    amazon: "https://www.amazon.de/dp/B0HBPGB3NB",
+  },
+  {
     title: "Malbuch Magie",
     subtitle: "Mandalas & Symbole",
     preis: "ab 9,99 €",
@@ -283,6 +291,9 @@ const weiteres = [
             </div>
           </article>
         ))}
+      </div>
+      <div class="text-center mb-more">
+        <a href={`${base}/malen#malbuecher`} class="btn btn-secondary">Alle Malbücher ansehen →</a>
       </div>
     </div>
   </section>
@@ -595,6 +606,8 @@ const weiteres = [
   .mb-scroll::-webkit-scrollbar { height: 5px; }
   .mb-scroll::-webkit-scrollbar-track { background: transparent; }
   .mb-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+  .mb-more { margin-top: 2rem; }
 
   .mb-card {
     flex: 0 0 210px;
