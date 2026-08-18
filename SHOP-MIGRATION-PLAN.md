@@ -131,6 +131,52 @@ Falls nach dem Cutover etwas nicht passt:
 
 ---
 
+## Anhang: Alte Shopify-Betriebsdoku — was sich durch den Umzug ändert
+
+Abgleich der bisherigen internen Notion/Miro-Doku zum Shopify-Betrieb mit dem aktuellen Stand nach dem Umzug (18.08.2026):
+
+**Domain**
+
+Domain-Registrar: GoDaddy (`https://www.godaddy.com/de-de`), registriert mit dem Google-Konto — unverändert.
+
+~~Shopify mit Drittanbieter-Domain verbinden Anleitung~~ — **obsolet**, Shopify-Shop ist abgeschaltet.
+
+**Neu seit 18.08.2026:** DNS/Nameserver laufen nicht mehr über GoDaddy, sondern über **Cloudflare** (Nameserver `adaline.ns.cloudflare.com` / `lennox.ns.cloudflare.com`). Die Domain zeigt auf die Astro-Website via GitHub Pages, nicht mehr auf Shopify (siehe Phase 2/3 oben).
+
+**Farbschema**
+
+(keine Beschreibung) — unverändert, nicht migrationsrelevant.
+
+**Menü infos und Miroboard**
+
+Miro-Boards unverändert erreichbar. **Zu prüfen:** Die dort geplante Menüstruktur sollte mit der aktuellen Navigation abgeglichen werden — die neue Seite hat kein „Portraits"/„Galerie" mehr als eigene Menüpunkte, das ist jetzt in **„Portfolio"** (mit Tabs) zusammengefasst. Aktuelle Nav: Startseite, Gemälde, Malen, Portfolio, Basteln, Schmuck, Downloads, Blog, Kontakt, Etsy Shop (extern).
+
+**Cookiebot Infos (CCM19)** — **obsolet**
+
+~~Angemeldet auf cloud.ccm19.de, Script in theme.liquid eingebaut, Cookie-Auflistung automatisch auf Datenschutzseite~~
+
+Die neue Astro-Seite braucht **kein CCM19/Cookiebanner**: Sie setzt laut Datenschutzerklärung (`src/pages/datenschutz.astro`) selbst keine Cookies und nutzt keine Tracking-Tools — es gibt keinen Consent-pflichtigen Dienst mehr, den CCM19 verwalten müsste (theme.liquid existiert als Shopify-Konzept ohnehin nicht mehr). **Empfehlung:** CCM19-Abo prüfen und ggf. kündigen, falls kein künftiges Tracking/Ads geplant ist.
+
+⚠️ Inkonsistenz gefunden: `datenschutz.astro` erwähnt weiter unten noch **Google AdSense** — das widerspricht der Aussage weiter oben „ohne Tracking-Tools". Falls kein AdSense (mehr) genutzt wird, sollte der Absatz entfernt werden (noch offen).
+
+**Digitale Produkte** — **obsolet, komplett ersetzt**
+
+~~Verkauf digitaler Produkte über die App „Digital Downloads": stellt Downloadlink per E-Mail bereit~~
+
+Entfällt komplett — keine Shopify-App mehr nötig. Kostenlose Dateien liegen direkt auf **Cloudflare R2** und werden ohne E-Mail-Umweg per Direktlink zum Download angeboten (siehe `README.md`/`CLAUDE.md`, Abschnitt „Kostenlose Plotterdateien").
+
+**Kostenlose Downloads** — **obsolet, komplett ersetzt**
+
+~~Theme-Vorlage „kostenlose-Dateien" + Metafield „downloadURL" + selbstgeschriebener Button-Block~~
+
+Ersetzt durch: Eintrag in `src/config/downloads.ts` (Titel, Beschreibung, R2-URL, Format, Kategorie, optional Blog-Link + Vorschaubild) → erscheint automatisch auf `/downloads`. Kein Theme/Metafield-Konzept mehr, da kein Shopify.
+
+**Testbestellungen** — **obsolet**
+
+Entfällt — die neue Seite hat keinen Checkout/Warenkorb mehr, es gibt nichts zu bestellen.
+
+---
+
 ## Anhang: Plan B — Cloudflare Worker statt Bulk Redirects
 
 Nur nötig, falls das Cloudflare-Plan-Limit für Bulk Redirects (Abschnitt 2) nicht ausreicht — aktuell **nicht der Fall** (10.000 Items verfügbar, nur 1468 benötigt). Grundidee: ein Worker liest eine Mapping-Tabelle und redirected selbst, ohne Limit durch den Bulk-Redirect-Feature-Tier.
