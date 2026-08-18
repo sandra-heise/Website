@@ -8,9 +8,9 @@ Im Repo liegen bereits drei CSV-Dateien aus einer früheren Session:
 
 | Datei | Inhalt | Status |
 |---|---|---|
-| `shopify-redirects-export-original.csv` | Rohexport der Shopify-eigenen Redirects (484 Zeilen) | Quellmaterial, nicht mehr direkt gebraucht |
-| `shopify-alte-urls.csv` | Liste alter Shop-URLs, `ziel_neue_seite` meist leer (nur 23/259 befüllt) | Entwurf, überholt |
-| `cloudflare-bulk-redirects.csv` | **Fertige, importfähige Cloudflare-Bulk-Redirect-Liste**: 734 eindeutige alte URLs × 2 (mit/ohne `www`) = 1468 Zeilen, Format `source,target,301,,,,` (passt exakt zum Cloudflare-CSV-Import-Schema) | **Fertig, Fehler in Abschnitt 1 bereits behoben** |
+| `redirects/shopify-redirects-export-original.csv` | Rohexport der Shopify-eigenen Redirects (484 Zeilen) | Quellmaterial, nicht mehr direkt gebraucht |
+| `redirects/shopify-alte-urls.csv` | Liste alter Shop-URLs, `ziel_neue_seite` meist leer (nur 23/259 befüllt) | Entwurf, überholt |
+| `redirects/cloudflare-bulk-redirects.csv` | **Fertige, importfähige Cloudflare-Bulk-Redirect-Liste**: 734 eindeutige alte URLs × 2 (mit/ohne `www`) = 1468 Zeilen, Format `source,target,301,,,,` (passt exakt zum Cloudflare-CSV-Import-Schema) | **Fertig, Fehler in Abschnitt 1 bereits behoben** |
 
 → Die eigentliche Migrationsarbeit (alte URL → sinnvolle neue Kategorie: `/schmuck`, `/gemaelde`, `/malen`, `/downloads`, `/basteln`, `/` usw.) ist bereits gemacht.
 
@@ -26,13 +26,13 @@ Beim Gegencheck der CSV gegen die aktuelle Seitenstruktur zwei defekte Redirect-
 - Stichprobe aller übrigen Redirect-Ziele gegen die vorhandenen Routen abgeglichen — keine weiteren toten Ziele gefunden
 
 **Action Items:**
-- [x] `cloudflare-bulk-redirects.csv` korrigiert (4 Zeilen)
+- [x] `redirects/cloudflare-bulk-redirects.csv` korrigiert (4 Zeilen)
 - [x] `src/pages/404.astro` korrigiert
 - [x] Restliche Ziele stichprobenartig/vollständig gegen `src/pages/` geprüft
 
 ## 2. Offene Entscheidungen
 
-- [x] **Cloudflare-Plan geprüft:** Dashboard zeigt 5 Listen / 10.000 Items zur Verfügung, 0 aktuell genutzt. Die 1468 Zeilen aus `cloudflare-bulk-redirects.csv` passen also problemlos in eine einzige Liste — Plan B (Worker, siehe Anhang) wird **nicht** benötigt.
+- [x] **Cloudflare-Plan geprüft:** Dashboard zeigt 5 Listen / 10.000 Items zur Verfügung, 0 aktuell genutzt. Die 1468 Zeilen aus `redirects/cloudflare-bulk-redirects.csv` passen also problemlos in eine einzige Liste — Plan B (Worker, siehe Anhang) wird **nicht** benötigt.
 - [x] **Wie lange soll Shopify parallel laufen?** Abo läuft **Ende November 2026** automatisch aus — kein manuelles Kündigen nötig. Das ergibt ca. 3,5 Monate Puffer ab heute (17.08.2026). Empfehlung: Go-Live nicht erst kurz vor Ablauf ansetzen, sondern mit min. 2–3 Wochen Puffer davor (z. B. Anfang/Mitte November), damit bei Problemen mit den Redirects noch Zeit zum Nachjustieren bleibt, während der Shopify-Shop als Referenz/Fallback noch erreichbar ist. Vor Ablauf außerdem prüfen, ob aus dem Shopify-Adminbereich noch Daten gesichert werden müssen (Bestellhistorie, Kundendaten, Produktbilder) — nach dem 30.11. sind diese vermutlich nicht mehr abrufbar.
 - [x] **Wo liegt die Domain aktuell?** Bei **GoDaddy** — noch nicht bei Cloudflare. Es existiert zwar schon ein Cloudflare-Account (siehe Abschnitt 2, Bulk-Redirects-Limit), aber `sunnyartis.de` ist dort noch keine Zone. → **Neue Phase 2 unten** kümmert sich darum, die Domain zunächst zu Cloudflare zu holen (Nameserver-Wechsel bei GoDaddy), bevor die eigentlichen DNS-/Redirect-Schritte greifen können.
 - [x] **Google Ads / Shopping-Feed?** Läuft aktuell über Shopify-Apps (Google-Sales-Channel-App + verknüpfte Merchant-Center/Ads-Kampagnen). Das betrifft die Migration direkt:
@@ -55,39 +55,43 @@ Beim Gegencheck der CSV gegen die aktuelle Seitenstruktur zwei defekte Redirect-
 
 Das ist der Schritt mit der längsten Vorlaufzeit (Nameserver-Propagation kann einige Stunden dauern) — am besten früh im Zeitplan anpacken, unabhängig vom eigentlichen Go-Live-Termin.
 
-- [ ] **Vorher sichern:** Aktuelle DNS-Einträge bei GoDaddy dokumentieren/exportieren (Screenshot oder Export der DNS-Zone) — als Rückfallebene, falls beim Umzug etwas verloren geht. E-Mail läuft über `sunnyartis@gmx.de` (extern, nicht auf der Domain gehostet) — daher kein MX-Risiko zu erwarten, trotzdem einmal kurz gegenprüfen, ob unter `sunnyartis.de` noch andere Dienste per DNS liegen (z. B. Domain-Verifizierungen für Google/Meta, Subdomains).
-- [ ] In Cloudflare: **„Add a Site"** → `sunnyartis.de` eingeben → Plan wählen (Free reicht für DNS + Bulk Redirects mit dem vorhandenen Kontingent) → Cloudflare scannt automatisch die bestehenden DNS-Records von GoDaddy
-- [ ] Gescannte Records gegen die GoDaddy-Sicherung gegenprüfen — nichts Wichtiges fehlt
-- [ ] Cloudflare zeigt zwei zugewiesene Nameserver (z. B. `xxx.ns.cloudflare.com`, `yyy.ns.cloudflare.com`) an
-- [ ] Bei **GoDaddy** → Domain-Einstellungen → Nameserver → auf „Benutzerdefinierte Nameserver" umstellen → die beiden Cloudflare-Nameserver eintragen
-- [ ] Warten, bis Cloudflare die Zone als **„Active"** meldet (Bestätigungsmail von Cloudflare) — kann von wenigen Minuten bis zu 24 Std. dauern
-- [ ] Danach in Cloudflare gegenprüfen: löst die Domain weiterhin wie vorher auf (zeigt also erstmal noch auf Shopify), bevor irgendwelche Records geändert werden — der Nameserver-Wechsel selbst soll noch **keine** sichtbare Änderung verursachen
+- [x] **Vorher sichern:** DNS-Scan-Ergebnis von Cloudflare dokumentiert (Screenshot). Gefundene Records:
+  - `A sunnyartis.de → 23.227.38.32` (Proxied) — aktuelle Shopify-Verknüpfung, bleibt bis Phase 3 unverändert
+  - `CNAME www → sunnyartis.de` (Proxied) — zeigt über den A-Record ebenfalls auf Shopify, bleibt bis Phase 3 unverändert
+  - `TXT sunnyartis.de → "google-site-ver..."` — Google-Search-Console-Verifizierung, **muss erhalten bleiben**
+  - `CNAME _domainconnect → _domainconnect.g...` — GoDaddy-eigener Domain-Connect-Mechanismus, wird nach dem Nameserver-Wechsel funktionslos, kann später gelöscht werden (nicht dringend) 
+- [x] In Cloudflare: Domain onboarded (heißt inzwischen „Onboard a domain" statt „Add a Site", unter **Domains** im Dashboard) → `sunnyartis.de` eingegeben → Cloudflare hat automatisch die bestehenden DNS-Records von GoDaddy gescannt
+- [x] Gescannte Records gegengeprüft (siehe oben) — nichts Wichtiges fehlt, TXT-Verifizierung ist da
+- [x] Cloudflare zeigt zwei zugewiesene Nameserver an: `adaline.ns.cloudflare.com`, `lennox.ns.cloudflare.com`
+- [x] Bei **GoDaddy** → Nameserver auf die beiden Cloudflare-Nameserver umgestellt, Cloudflare als "aktualisiert" bestätigt
+- [x] **Propagation abgeschlossen:** Per DNS-Check bestätigt — `sunnyartis.de` und `www.sunnyartis.de` lösen jetzt über Cloudflares Nameserver auf (`adaline`/`lennox.ns.cloudflare.com`), Antworten kommen von Cloudflares Proxy-IPs (`104.21.x`, `172.67.x`)
+- [x] Gegengeprüft: Domain löst weiterhin wie vorher auf — Shopify ist über die Domain nach wie vor erreichbar, keine sichtbare Änderung durch den Nameserver-Wechsel selbst
+
+**Phase 2 abgeschlossen** ✅ — Zone ist aktiv bei Cloudflare, der A-Record/CNAME zeigen aber noch unverändert auf Shopify. Weiter mit Phase 3.
 
 Erst wenn die Zone in Cloudflare aktiv ist, ergeben die folgenden DNS-Schritte (Phase 3) Sinn.
 
 ## 5. Phase 3 — DNS & GitHub Pages
 
-- [ ] **GitHub Repo-Settings** → Settings → Pages → Custom domain: `www.sunnyartis.de` eintragen (GitHub prüft automatisch per DNS, kann ein paar Minuten dauern)
-- [ ] **Cloudflare DNS:**
-  - `CNAME www → sandra-heise.github.io` — Proxy-Status: **Proxied (orange Wolke)**
-  - Für die nackte Domain `sunnyartis.de` (Apex) einen A-Record auf die GitHub-Pages-IPs anlegen (damit die Domain überhaupt auflöst, bevor die Redirect Rule greift):
-    ```
-    185.199.108.153
-    185.199.109.153
-    185.199.110.153
-    185.199.111.153
-    ```
-    Proxy-Status ebenfalls **Proxied** — dadurch übernimmt Cloudflare den Request, bevor er den GitHub-Server überhaupt erreicht.
-  - Alte, jetzt nicht mehr benötigte Records, die auf Shopify zeigten (z. B. alte A/CNAME-Records für Shopify-Hosting), entfernen bzw. durch die obigen ersetzen
-- [ ] Eine einzelne **Redirect Rule** (nicht Bulk) anlegen: `sunnyartis.de/*` → `https://www.sunnyartis.de/$1` (301) — sorgt dafür, dass die Apex-Domain immer auf `www` zeigt, bevor die restlichen Redirects greifen
-- [ ] In GitHub Pages Settings **„Enforce HTTPS"** aktivieren, sobald das Zertifikat für `www.sunnyartis.de` ausgestellt ist (kann bei aktivem Proxy etwas dauern; falls es hängt, testweise kurz auf „DNS only" (graue Wolke) stellen bis das Zertifikat da ist, danach wieder proxied schalten)
-- [ ] SSL/TLS-Modus in Cloudflare auf **Full (Strict)** stellen, sobald das GitHub-Zertifikat aktiv ist
+- [x] **GitHub Repo-Settings** → Settings → Pages → Custom domain: `www.sunnyartis.de` eingetragen, DNS check successful
+- [x] Zertifikat ausgestellt, **„Enforce HTTPS"** aktiviert
+- [x] Code-Fix unterwegs entdeckt: der Phase-1-Commit (base `/`, CNAME, Sitemap) war committet, aber nicht gepusht — dadurch lief die Seite unter der neuen Domain noch mit dem alten Build (`base: '/Website/'`), daher fehlten alle Styles. Gepusht (`8825f0e`), GitHub Actions hat neu deployt — Seite sieht jetzt korrekt aus.
+- [x] A-Records (185.199.108/109/110/111.153) + `www`-CNAME (`sandra-heise.github.io`) sind bereits angelegt (aus dem DNS-Umzug, siehe Phase 2)
+- [x] A-Records + `www`-CNAME zurück auf **Proxied (orange Wolke)** gestellt
+- [x] SSL/TLS-Modus in Cloudflare auf **Full (strict)** gestellt
+- [x] Apex-**Redirect Rule** `apex-to-www` angelegt und aktiv: „Hostname equals sunnyartis.de" → 301 auf `concat("https://www.sunnyartis.de", http.request.uri.path)`
+- [x] Von außen verifiziert (`curl`):
+  - `https://www.sunnyartis.de/` → `200 OK`, läuft proxied über Cloudflare (`Server: cloudflare`, `CF-RAY`-Header) zu GitHub Pages durch
+  - `http://sunnyartis.de/` → `301` direkt auf `https://www.sunnyartis.de/`
+
+**Phase 3 abgeschlossen** ✅ — die Domain läuft jetzt vollständig über die neue Astro-Seite. Weiter mit Phase 4 (alte Shop-URLs umleiten).
 
 ## 6. Phase 4 — Redirects einspielen
 
-- [ ] Korrigierte `cloudflare-bulk-redirects.csv` in Cloudflare importieren: **Rules → Redirect Rules → Bulk Redirects → Create list** (z. B. Name `shopify-migration`) → CSV importieren
-- [ ] Danach eine **Bulk Redirect Rule** erstellen, die diese Liste auf eingehende Requests für `sunnyartis.de` und `www.sunnyartis.de` anwendet ("When incoming requests match... → Then redirect using list")
-- [ ] **Catch-all für nicht erfasste URLs:** Die Liste deckt 734 konkrete alte URLs ab, aber Shopify hatte vermutlich weitere (z. B. `?variant=`-Parameter, gelöschte Produkte, `/cart`, `/account`, `/checkout`). Dafür zusätzlich generische Fallback-Regeln anlegen (falls nicht schon in der Liste enthalten):
+- [x] Korrigierte `redirects/cloudflare-bulk-redirects.csv` als Liste `shopify-migration` importiert
+- [x] Bulk Redirect Rule angelegt und aktiv (Hostname is in `sunnyartis.de`/`www.sunnyartis.de` → Redirect using list)
+- [x] Von außen verifiziert (`curl`): 4 Stichproben (Produkt→Schmuck, Produkt→Downloads über Apex-Redirect-Kette, Blog-Artikel, die zuvor gefixte `/pages/handgezeichnete-portraits`) — alle leiten korrekt weiter
+- [ ] **Zurückgestellt — Catch-all für nicht erfasste URLs:** Entscheidung vertagt auf nach der Beobachtungsphase (siehe Phase 6) — erst schauen, ob über Cloudflare Analytics/Search Console überhaupt 404-Treffer auf nicht abgedeckten alten URL-Mustern auftauchen, dann gezielt nachziehen statt vorab pauschal Regeln anzulegen. Falls doch nötig, generische Fallback-Regeln:
   - `/products/*` → `/` (falls nicht individuell gematcht)
   - `/collections/*` → `/`
   - `/cart*`, `/account*`, `/checkout*` → `/`
@@ -95,26 +99,27 @@ Erst wenn die Zone in Cloudflare aktiv ist, ergeben die folgenden DNS-Schritte (
 
   Bulk-Redirect-Listen matchen exakt (kein Wildcard), daher diese generischen Fälle als separate normale Redirect Rules mit Wildcard-Matching ergänzen, mit niedrigerer Priorität als die exakte Liste.
 
-## 7. Phase 5 — Go-Live (Cutover-Reihenfolge)
+## 7. Phase 5 — Go-Live (Cutover-Reihenfolge) ✅ erledigt
 
-Reihenfolge einhalten, um Downtime/Fehlleitungen zu vermeiden:
+Ist am 18.08.2026 in einem Rutsch durchgelaufen (schneller als ursprünglich mit "Puffer bis November" geplant — kein Problem, das gibt sogar mehr Sicherheitsabstand vor dem Shopify-Ablauf):
 
-0. [ ] **Vorher:** Google-Shopping-Kampagnen (bzw. die Shopify-Google-App) pausieren/deaktivieren, bevor die Redirects live gehen — sonst laufen Anzeigen mit toten/umgeleiteten Ziel-URLs weiter und verbrennen Budget, bis Google die Produkte wegen Redirect-Fehlern von selbst ablehnt
-1. [ ] Phase 1 (Code) ist deployt und live unter der GitHub-Pages-URL erreichbar
-2. [ ] Phase 2 (Domain-Umzug zu Cloudflare) abgeschlossen, Zone „Active"
-3. [ ] Phase 3 (DNS) eingerichtet, Custom Domain in GitHub bestätigt (grünes Häkchen in den Repo-Settings)
-4. [ ] Phase 4 (Redirects) importiert und aktiviert
-5. [ ] Stichprobe testen — 10–15 typische alte URLs (Produkt, Kollektion, Blog, Cart) mit `curl -I <url>` oder im Browser (Inkognito) prüfen, ob 301 auf die richtige neue Seite erfolgt
-6. [ ] Erst danach: In Shopify die Domain-Verknüpfung lösen bzw. den Shop offline schalten (Online Store → Domains) — die DNS liegt ja schon bei Cloudflare, daher betrifft das nur den Shopify-seitigen Status, nicht die Erreichbarkeit
-7. [ ] HTTPS-Zertifikat und Ladezeiten der neuen Domain nochmal final prüfen
+1. [x] Phase 1 (Code) deployt
+2. [x] Phase 2 (Domain-Umzug zu Cloudflare) abgeschlossen
+3. [x] Phase 3 (DNS) eingerichtet, Custom Domain bestätigt
+4. [x] Phase 4 (Redirects) importiert und aktiviert
+5. [x] Stichprobe getestet (`curl`) — alle Beispiel-URLs leiten korrekt
+6. [ ] In Shopify die Domain-Verknüpfung lösen bzw. den Shop offline schalten (Online Store → Domains) — optional/Aufräumarbeit, da die Domain technisch schon nicht mehr zu Shopify zeigt
+7. [x] HTTPS-Zertifikat geprüft (Full-Strict aktiv, Zertifikat gültig)
 
-## 8. Phase 6 — Nach dem Go-Live
+⚠️ **Nachträglich zu prüfen:** Schritt 0 aus der ursprünglichen Reihenfolge (Google-Shopping-Kampagnen *vor* dem Redirect-Go-Live pausieren) ist nicht mehr rechtzeitig passiert, da die Redirects schon live sind. Falls noch aktive Google-Shopping-Kampagnen über die Shopify-App laufen: jetzt zeitnah im Merchant Center nachschauen, ob Produkte wegen der Redirects abgelehnt werden, und ggf. pausieren (siehe Abschnitt 2, offene Entscheidung Etsy-Feed vs. einstellen).
 
-- [ ] **Google Search Console:** Property für `https://www.sunnyartis.de` hinzufügen/bestätigen, Sitemap einreichen (siehe Phase 1, sitemap-Integration), wichtigste Seiten per „URL-Prüfung" zur erneuten Indexierung anstoßen
+## 8. Phase 6 — Nach dem Go-Live ← **aktuelle Phase**
+
+- [ ] **Google Search Console:** Property für `https://www.sunnyartis.de` hinzufügen/bestätigen, Sitemap einreichen (`https://www.sunnyartis.de/sitemap-index.xml`), wichtigste Seiten per „URL-Prüfung" zur erneuten Indexierung anstoßen
 - [ ] Falls vorhanden: Google Business Profil / Social-Media-Bio-Links (Instagram, Etsy-Shop-Beschreibung etc.) von der alten Shop-URL auf `www.sunnyartis.de` aktualisieren
-- [ ] Redirects 1–2 Wochen beobachten (Cloudflare Analytics → Redirect Rules zeigt Trefferzahlen; Google Search Console → „Nicht gefunden (404)" auf neue 404-Treffer prüfen)
+- [ ] **Laufend (Entscheidung: ein paar Tage abwarten, Stand 18.08.2026):** Redirects beobachten — Cloudflare Analytics → Redirect Rules (Trefferzahlen der Bulk-Liste) und Google Search Console → „Seiten" → „Nicht gefunden (404)" prüfen. Ergebnis entscheidet, ob die zurückgestellten Catch-all-Regeln (Phase 4) noch nötig sind.
 - [ ] Shopify-Abo läuft Ende November 2026 automatisch aus (kein manuelles Kündigen nötig) — vorher Bestellhistorie/Kundendaten/Produktbilder aus dem Shopify-Adminbereich sichern, falls noch benötigt
-- [ ] `shopify-alte-urls.csv` und `shopify-redirects-export-original.csv` können danach archiviert/gelöscht werden — sie waren nur Rohmaterial für `cloudflare-bulk-redirects.csv`
+- [ ] `redirects/shopify-alte-urls.csv` und `redirects/shopify-redirects-export-original.csv` können danach archiviert/gelöscht werden — sie waren nur Rohmaterial für `redirects/cloudflare-bulk-redirects.csv`
 - [ ] `TODO.md`-Abschnitt „Shop-Umzug" als erledigt markieren bzw. entfernen
 
 ## Rollback-Plan
@@ -146,4 +151,4 @@ export default {
 };
 ```
 
-`redirects.json` lässt sich direkt aus `cloudflare-bulk-redirects.csv` generieren (Spalte 1 ohne Domain-Präfix als Key, Spalte 2 als Value). Kostenlos bis 100.000 Requests/Tag — für ein auslaufendes Shop-URL-Aufkommen mehr als ausreichend.
+`redirects.json` lässt sich direkt aus `redirects/cloudflare-bulk-redirects.csv` generieren (Spalte 1 ohne Domain-Präfix als Key, Spalte 2 als Value). Kostenlos bis 100.000 Requests/Tag — für ein auslaufendes Shop-URL-Aufkommen mehr als ausreichend.
