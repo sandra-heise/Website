@@ -279,7 +279,6 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Rosen.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    blogPost: "/blog/prismacolor-acrylstifte",
     vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Rosen.jpg",
   },
   {

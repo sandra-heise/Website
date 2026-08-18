@@ -1,13 +1,14 @@
 # Sunny Artis – Website
 
-Astro-Website für [Sunny Artis](https://sandra-heise.github.io/Website/), die Kunstwerkstatt von Sandra Heise.
+Astro-Website für [Sunny Artis](https://www.sunnyartis.de), die Kunstwerkstatt von Sandra Heise.
 
 ## Live-URL
 
-**[https://sandra-heise.github.io/Website/](https://sandra-heise.github.io/Website/)**  
-Ziel-Domain: `https://www.sunnyartis.de`
+**[https://www.sunnyartis.de](https://www.sunnyartis.de)**
 
-Das Deployment läuft automatisch via GitHub Actions auf GitHub Pages, sobald Änderungen auf den `master`-Branch gepusht werden.
+Die Seite lief ursprünglich unter GitHub Pages (`sandra-heise.github.io/Website/`) und wurde im August 2026 auf die eigene Domain umgezogen (vorher: Shopify-Shop unter derselben Domain). Details zum Umzug, DNS-Setup und den Redirects für alte Shop-URLs stehen in [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).
+
+DNS/Proxy läuft über **Cloudflare** (SSL: Full Strict), Hosting weiterhin über **GitHub Pages**. Das Deployment läuft automatisch via GitHub Actions auf GitHub Pages, sobald Änderungen auf den `master`-Branch gepusht werden.
 
 ---
 
@@ -18,14 +19,14 @@ npm install
 npm run dev
 ```
 
-Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` — wegen des konfigurierten Base-Pfads `/Website/`).
+Dev-Server startet unter **`localhost:4321`** (kein Unterpfad mehr — seit dem Domain-Umzug ist `base: '/'` konfiguriert).
 
 ## Befehle
 
 | Befehl | Aktion |
 | :--- | :--- |
 | `npm install` | Abhängigkeiten installieren |
-| `npm run dev` | Dev-Server → `localhost:4321/Website/` |
+| `npm run dev` | Dev-Server → `localhost:4321` |
 | `npm run build` | Produktions-Build nach `./dist/` |
 | `npm run preview` | Build lokal vorschauen |
 
@@ -39,7 +40,10 @@ Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` �
 │   ├── blog/           Bilder für Blog-Artikel
 │   ├── gemaelde/       Original-Gemälde Fotos
 │   ├── leinwaende/     Ausmalleinwand-Thumbnails (Querformat)
-│   └── malbuecher/     Malbuch-Cover und Inhaltsseiten
+│   ├── malbuecher/     Malbuch-Cover und Inhaltsseiten
+│   ├── CNAME           Custom-Domain-Datei für GitHub Pages (www.sunnyartis.de)
+│   └── robots.txt      Verweist auf die generierte Sitemap
+├── redirects/          CSV-Rohmaterial + fertige Cloudflare-Bulk-Redirect-Liste (Shopify-Umzug)
 ├── src/
 │   ├── components/     Header, Footer
 │   ├── config/
@@ -50,7 +54,7 @@ Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` �
 │   │   └── *.astro     Alle Hauptseiten
 │   ├── styles/         global.css
 │   └── utils/          assetPath.js
-└── astro.config.mjs    site + base konfiguriert
+└── astro.config.mjs    site + base + sitemap-Integration konfiguriert
 ```
 
 ---
@@ -62,8 +66,7 @@ Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` �
 | Startseite | `/` | Hero, Highlights, CTA |
 | Malbücher & Leinwände | `/malen` | 5 Malbücher + 2 Etsy-Kollektionen mit Collage |
 | Gemälde | `/gemaelde` | Original-Gemälde, statische Daten |
-| Galerie | `/galerie` | Bildergalerie |
-| Porträts | `/portraets` | Portrait-Aufträge |
+| Portfolio | `/portfolio` | Tabs für Porträts, Schmuck, Plotterdesigns u. a. (Anker z. B. `/portfolio#portraets`) |
 | Schmuck | `/schmuck` | Handgefertigter Schmuck |
 | Basteln | `/basteln` | Bastelprodukte |
 | **Downloads** | `/downloads` | Kostenlose Plotterdateien (R2) |
@@ -73,11 +76,12 @@ Dev-Server startet unter **`localhost:4321/Website/`** (nicht `localhost:4321` �
 | Blog – Das sind wir | `/blog/das-sind-wir` | |
 | Blog – Kreativmarkt | `/blog/kreativmarkt-magdeburg` | |
 | Blog – Federn zeichnen | `/blog/federn-zeichnen` | |
-| Über mich | `/ueber-mich` | |
-| Portfolio | `/portfolio` | |
+| Blog – Prismacolor-Stifte | `/blog/prismacolor-stifte` | |
 | Kontakt | `/kontakt` | Formspree-Formular |
 | Impressum | `/impressum` | |
 | Datenschutz | `/datenschutz` | |
+
+`/ueber-mich`, `/galerie` und `/portraets` existieren nicht mehr — Inhalte sind in `/portfolio` aufgegangen.
 
 ---
 
@@ -120,14 +124,13 @@ Dateien werden auf **Cloudflare R2** gehostet und sind öffentlich zugänglich.
 1. Neue Datei unter `src/pages/blog/mein-slug.astro` anlegen (Vorlage: `federn-zeichnen.astro`)
 2. Bilder nach `public/blog/` legen
 3. Eintrag in `src/pages/blog.astro` in der `blogPosts`-Liste oben ergänzen (neueste zuerst)
-4. Alle Bildpfade mit `${base}/blog/bild.jpg` — nie mit absolutem `/` (wegen Base-Pfad)
+4. Alle Bildpfade mit `${base}/blog/bild.jpg` referenzieren (siehe „Bilder" unten)
 
 ---
 
 ## Bilder
 
-Alle Bildpfade im Code **immer** mit `${base}/ordner/bild.jpg` referenzieren — nie mit `/ordner/bild.jpg`.  
-Grund: GitHub Pages liefert unter `/Website/`, ein einfaches `/` würde den Basepfad überspringen.
+Alle Bildpfade im Code mit `${base}/ordner/bild.jpg` referenzieren, nie mit absolutem `/ordner/bild.jpg` hart kodieren — `base` kommt aus `import.meta.env.BASE_URL`. Aktuell ist `base: '/'` konfiguriert, `${base}` löst also zu einem leeren String auf; das Pattern bleibt trotzdem Konvention im Code, falls der Base-Pfad sich je wieder ändert (z. B. Preview-Deployments).
 
 ---
 
@@ -144,6 +147,8 @@ Blog-Artikel zusätzlich:
 - `HowTo`-Schema für Schritt-für-Schritt-Anleitungen
 - `speakable` für KI/Voice-Search
 
+**Sitemap:** wird automatisch über `@astrojs/sitemap` erzeugt (`dist/sitemap-index.xml`), `public/robots.txt` verweist darauf. Die Integration ist bewusst auf `@astrojs/sitemap@3.2.1` gepinnt — neuere Versionen (3.3+) setzen Astro 5 voraus und brechen den Build unter unserem aktuellen Astro 4.16.
+
 ---
 
 ## Kontaktformular
@@ -156,7 +161,8 @@ Verarbeitet über **[Formspree](https://formspree.io)** — Konto: `sunnyartis@g
 
 - Repository: `sandra-heise/Website`
 - Branch: `master`
-- Plattform: GitHub Pages + GitHub Actions
-- `astro.config.mjs`: `site: 'https://sandra-heise.github.io/Website/'`, `base: '/Website/'`
+- Plattform: GitHub Pages (Custom Domain `www.sunnyartis.de`) hinter **Cloudflare** (DNS, Proxy, SSL Full Strict, Redirects für alte Shop-URLs)
+- `astro.config.mjs`: `site: 'https://www.sunnyartis.de/'`, `base: '/'`
+- `public/CNAME`: `www.sunnyartis.de` — wird bei jedem Deploy aus `public/` übernommen
 
-Sobald die Domain `sunnyartis.de` umgestellt wird: `SITE`-Variable in den `.astro`-Dateien von `https://www.sunnyartis.de` auf die neue Domain anpassen (canonical URLs).
+Alte Shopify-Shop-URLs werden über eine Cloudflare-Bulk-Redirect-Liste (`redirects/cloudflare-bulk-redirects.csv`) auf die passenden neuen Seiten umgeleitet. Details, offene Punkte und Monitoring-Hinweise: siehe [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).

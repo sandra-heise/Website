@@ -1,6 +1,6 @@
 # Sunny Artis – Website Dokumentation
 
-Astro-Website für Sandra Heise / Sunny Artis. Deployed auf GitHub Pages unter `https://sandra-heise.github.io/Website/` (Ziel: `https://www.sunnyartis.de`).
+Astro-Website für Sandra Heise / Sunny Artis. Live unter `https://www.sunnyartis.de` — Hosting via GitHub Pages, DNS/Proxy/SSL via Cloudflare. Vorher lief ein Shopify-Shop unter derselben Domain; der Umzug ist abgeschlossen, Details siehe [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).
 
 ## Build & Deploy
 
@@ -9,7 +9,9 @@ npm run build    # Baut nach /dist
 npm run dev      # Dev-Server auf localhost:4321
 ```
 
-GitHub Pages: jeder Push auf `master` deployt automatisch (falls GitHub Actions eingerichtet).
+Jeder Push auf `master` deployt automatisch via GitHub Actions auf GitHub Pages (`.github/workflows/gh-pages.yml`).
+
+`astro.config.mjs`: `site: 'https://www.sunnyartis.de/'`, `base: '/'` — Bildpfade trotzdem immer über `${base}/...` referenzieren (siehe „Bilder" unten), nicht hart auf `/` verlassen.
 
 ---
 
@@ -89,7 +91,7 @@ Alle Artikel liegen unter `src/pages/blog/`. Neue Artikel:
 | Leinwände | `public/leinwaende/` | Querformat-Thumbnails |
 | Blog | `public/blog/` | Hero + Artikel-Bilder |
 
-Alle Bildpfade im Code mit `${base}/ordner/bild.jpg` — nie mit absolutem `/` beginnen (wegen GitHub Pages Basepfad `/Website/`).
+Alle Bildpfade im Code mit `${base}/ordner/bild.jpg` — nie mit absolutem `/` beginnen. `base` ist aktuell `/` (löst also zu einem leeren String auf), das Pattern bleibt aber Konvention, falls sich der Base-Pfad je wieder ändert.
 
 ---
 
@@ -114,8 +116,7 @@ src/pages/
 ├── index.astro          Startseite
 ├── malen.astro          Malbücher + Ausmalleinwände
 ├── gemaelde.astro       Original-Gemälde
-├── galerie.astro        Galerie
-├── portraets.astro      Portrait-Aufträge
+├── portfolio.astro      Tabs: Porträts, Schmuck, Plotterdesigns u. a. (Anker z. B. /portfolio#portraets)
 ├── schmuck.astro        Schmuck
 ├── basteln.astro        Basteln
 ├── downloads.astro      Kostenlose Plotterdateien
@@ -125,9 +126,21 @@ src/pages/
 │   ├── halloween-laterne.astro
 │   ├── das-sind-wir.astro
 │   ├── kreativmarkt-magdeburg.astro
-│   └── federn-zeichnen.astro
-├── ueber-mich.astro
+│   ├── federn-zeichnen.astro
+│   └── prismacolor-stifte.astro
 ├── kontakt.astro
 ├── impressum.astro
 └── datenschutz.astro
 ```
+
+`ueber-mich.astro`, `galerie.astro` und `portraets.astro` existieren nicht (mehr) — nicht darauf verlinken.
+
+---
+
+## Shop-Umzug & Redirects (Shopify → Astro)
+
+Der Umzug von Shopify auf diese Seite ist abgeschlossen (Go-live 18.08.2026). Relevant für die laufende Arbeit:
+
+- `redirects/cloudflare-bulk-redirects.csv` — aktive Cloudflare-Bulk-Redirect-Liste für alte Shop-URLs. Bei neuen Alt-URL-Funden hier ergänzen und in Cloudflare (Bulk Redirects → Liste `shopify-migration`) neu importieren.
+- `redirects/shopify-alte-urls.csv`, `redirects/shopify-redirects-export-original.csv` — Rohmaterial, nur noch als Referenz.
+- Vollständiger Verlauf, offene Punkte (Catch-all-Regeln, Google-Ads-Feed, Shopify-Kündigungsdatum) und Monitoring-Hinweise: [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).
