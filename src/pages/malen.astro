@@ -66,7 +66,7 @@ const malbuecher = [
   {
     title: "Eine Welt voller Katzen",
     subtitle: "Für Teenager & Katzenfans",
-    preis: "ab 9,99€",
+    preis: "ab 7,99€",
     beschreibung: "25 witzige Katzenmotive in Alltagssituationen — vom Katzenkönig auf dem Thron bis zur Cyberpunk-Katze in der Stadt. Liebevoller Comic-Stil mit vielen Details.",
     image: `${base}/malbuecher/Malbuch-Katzen.jpg`,
     gradient: "bg-mb-7",
@@ -166,8 +166,8 @@ const jsonLd = {
           "inLanguage": "de",
           "url": b.etsy,
           "offers": [
-            { "@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.etsy, "seller": { "@type": "Organization", "name": "Etsy" } },
-            { "@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.amazon, "seller": { "@type": "Organization", "name": "Amazon" } }
+            { "@type": "Offer", "price": b.preis.match(/[\d,]+/)![0].replace(",", "."), "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.etsy, "seller": { "@type": "Organization", "name": "Etsy" } },
+            { "@type": "Offer", "price": b.preis.match(/[\d,]+/)![0].replace(",", "."), "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": b.amazon, "seller": { "@type": "Organization", "name": "Amazon" } }
           ]
         }
       })),
