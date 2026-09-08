@@ -72,7 +72,7 @@ export const FREE_DOWNLOADS: Download[] = [
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Halloween",
     bestseller: true,
-    vorschau: "/downloads/Thumbnail_halloweenCity_free.png",
+    vorschau: "/downloads/Thumbnail_halloweenCity_free.jpg",
   },
   {
     id: "0114HalloweenLaterne",
@@ -136,7 +136,7 @@ export const FREE_DOWNLOADS: Download[] = [
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Sonstiges",
     bestseller: true,
-    vorschau: "/downloads/herz_free.png",
+    vorschau: "/downloads/herz_free.jpg",
   },
     {
     id: "0073SilhoutteStern",
@@ -222,7 +222,7 @@ export const FREE_DOWNLOADS: Download[] = [
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Weihnachten",
     bestseller: true,
-    vorschau: "/downloads/thumbnail_wichtel.png",
+    vorschau: "/downloads/thumbnail_wichtel.jpg",
   },
 
   // Weitere Dateien hier eintragen — nach Kategorie gruppiert:

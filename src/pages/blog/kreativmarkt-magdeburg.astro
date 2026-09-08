@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
 const canonicalUrl = `${SITE}/blog/kreativmarkt-magdeburg`;
-const ogImage = `${SITE}/blog/kreativmarkt-hero.png`;
+const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
 ---
 
 <Layout
@@ -66,7 +66,7 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.png`;
     <div class="container article-container">
 
       <figure class="article-figure article-figure--top">
-        <img src={`${base}/blog/kreativmarkt-hero.png`} alt="Sunny Artis Stand auf dem Kreativmarkt Magdeburg 2024" fetchpriority="high" loading="eager" />
+        <img src={`${base}/blog/kreativmarkt-hero.jpg`} alt="Sunny Artis Stand auf dem Kreativmarkt Magdeburg 2024" fetchpriority="high" loading="eager" />
       </figure>
 
       <p>
