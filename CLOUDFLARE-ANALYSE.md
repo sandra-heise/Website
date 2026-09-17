@@ -8,7 +8,6 @@ Laufendes Dokument für Traffic-/Performance-/Security-Analysen von sunnyartis.d
 
 ### Hoch (jetzt angehen)
 
-- [ ] **Klick-Tracking auf Etsy-/Amazon-Links einbauen** — Entscheidung gefallen: Variante B (interne `/out/<slug>`-Redirect-Seiten, sichtbar in Analytics → Traffic).
 - [ ] **Auffällige Einzel-IPs prüfen** — IPs mit 500–700+ Anfragen/Tag identifizieren (Security → Events / Analytics → Traffic), bei Bedarf per Rate-Limiting-Regel einbremsen statt unkommentiert durchlaufen zu lassen.
 
 ### Mittel
@@ -33,6 +32,7 @@ Laufendes Dokument für Traffic-/Performance-/Security-Analysen von sunnyartis.d
 - [x] security.txt eingerichtet
 - [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert
 - [x] Cache Rule für HTML-Seiten angelegt (Caching → Cache Rules) + automatischer Cache-Purge nach jedem Deploy via GitHub Actions ([.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml))
+- [x] Klick-Tracking auf allen Etsy-/Amazon-Links via interne `/out/<slug>`-Redirects (siehe Nachtrag unten)
 
 ---
 
@@ -68,6 +68,14 @@ Core Web Vitals (echte Nutzerdaten): LCP 94% „Good", Ø Ladezeit ~1,15s. INP z
 **Vorfall:** Redirect-Loop zwischen einer Cloudflare-Redirect-Regel und der neuen GitHub-Pages-Apex-Konfiguration trat auf und wurde behoben — zeigt, dass Redirect-Logik über mehrere Systeme (Cloudflare, GitHub, DNS) aktuell nicht zentral dokumentiert ist (→ Maßnahme unter "Niedrig").
 
 **Nächste Schritte:** Klick-Tracking (Priorität 1), Einzel-IP-Check (Priorität 3) — siehe "Offene Maßnahmen" oben.
+
+### Nachtrag 17.09.2026 — Klick-Tracking (Variante B) umgesetzt
+
+Alle 32 externen Etsy-/Amazon-Ziele der Seite (Shop-Links, Etsy-Listings für Gemälde/Malbücher/Leinwände, Amazon-Kurzlinks in Malbuch-Karten, Basteln-Material und Blog-Materialtipps) laufen jetzt über interne `/out/<slug>`-Redirect-Seiten, bevor sie extern weiterleiten. Klicks sind dadurch als Requests unter `/out/*` in Analytics → Traffic sichtbar — kein neues Tool, kein Cookie-Consent nötig.
+
+Umsetzung: `src/config/outboundLinks.ts` (zentrale Liste), `src/utils/outboundLink.ts` (`outUrl()`-Helper, wirft beim Build einen Fehler, wenn ein neuer Link vergessen wird), `src/pages/out/[slug].astro` (Redirect-Seite). SEO abgesichert: Redirect-Seiten haben `noindex, nofollow` und sind über einen Filter im Sitemap-Plugin ([astro.config.mjs](astro.config.mjs)) explizit von der `sitemap.xml` ausgeschlossen — `robots.txt` bleibt bewusst offen für diese Pfade, da eine Sperre dort verhindern würde, dass Google das `noindex`-Tag überhaupt sieht.
+
+**Nächster Schritt zur Auswertung:** In Cloudflare unter Analytics → Traffic nach Pfad `/out/` filtern, um zu sehen, welche Etsy-/Amazon-Ziele tatsächlich geklickt werden.
 
 ### Nachtrag 17.09.2026 — Amazon-Link-Check per curl war ein Fehlalarm
 
