@@ -8,8 +8,7 @@ Laufendes Dokument für Traffic-/Performance-/Security-Analysen von sunnyartis.d
 
 ### Hoch (jetzt angehen)
 
-- [ ] **8 kaputte Amazon-Links reparieren** (siehe Fund unten, 17.09.2026) — alle "Bei Amazon ansehen"-Buttons für die Malbücher auf `/` und `/malen` zeigen auf 404. Aktiver Umsatzverlust, unabhängig vom Tracking. Braucht neue Links von Sandra (Amazon Associates SiteStripe).
-- [ ] **Klick-Tracking auf Etsy-/Amazon-Links einbauen** — Entscheidung gefallen: Variante B (interne `/out/<slug>`-Redirect-Seiten, sichtbar in Analytics → Traffic). Umsetzung pausiert bis die Amazon-Links (s.o.) korrigiert sind, damit nicht auf kaputte Ziele getrackt wird.
+- [ ] **Klick-Tracking auf Etsy-/Amazon-Links einbauen** — Entscheidung gefallen: Variante B (interne `/out/<slug>`-Redirect-Seiten, sichtbar in Analytics → Traffic).
 - [ ] **Auffällige Einzel-IPs prüfen** — IPs mit 500–700+ Anfragen/Tag identifizieren (Security → Events / Analytics → Traffic), bei Bedarf per Rate-Limiting-Regel einbremsen statt unkommentiert durchlaufen zu lassen.
 
 ### Mittel
@@ -70,9 +69,9 @@ Core Web Vitals (echte Nutzerdaten): LCP 94% „Good", Ø Ladezeit ~1,15s. INP z
 
 **Nächste Schritte:** Klick-Tracking (Priorität 1), Einzel-IP-Check (Priorität 3) — siehe "Offene Maßnahmen" oben.
 
-### Nachtrag 17.09.2026 — 8 kaputte Amazon-Links gefunden
+### Nachtrag 17.09.2026 — Amazon-Link-Check per curl war ein Fehlalarm
 
-Bei Vorbereitung des Klick-Tracking-Umbaus (Variante B, `/out/`-Redirects) alle externen Etsy-/Amazon-Links im Code gesichtet. Dabei alle 8 Amazon-Kurzlinks (`https://link.amazon/<code>`) in den Malbuch-Datensätzen ([index.astro](src/pages/index.astro), [malen.astro](src/pages/malen.astro)) per `curl` geprüft — **alle 8 liefern HTTP 404**. Domain `link.amazon` ist echte Amazon/CloudFront-Infrastruktur, die einzelnen Kurzlink-Codes sind aber abgelaufen oder nie korrekt erzeugt worden. Betroffen: alle 8 Malbuch-Titel (Fantasie in Farbe 1–3, Malbuch Magie, Tiere & Fabelwesen, Mensch & Anime, Eine Welt voller Katzen, Eine Welt voller Feen). Wartet auf korrigierte Links von Sandra, dann Fix + Klick-Tracking-Umbau in einem Schritt.
+Bei Vorbereitung des Klick-Tracking-Umbaus alle 8 Amazon-Kurzlinks (`https://link.amazon/<code>`) in den Malbuch-Datensätzen ([index.astro](src/pages/index.astro), [malen.astro](src/pages/malen.astro)) per `curl` geprüft — alle lieferten HTTP 404 (mit und ohne Sandbox, mit echter Amazon/CloudFront-Response). Sandra bestätigte, dass die Links im Browser normal funktionieren. Wahrscheinlichste Erklärung: Amazons Kurzlink-Dienst blockt Anfragen von Cloud-/Rechenzentrums-IPs (Scraper-Schutz) — automatisierte curl-Checks von einer Server-Umgebung aus sind für diesen speziellen Linktyp also kein verlässlicher Test. Kein Handlungsbedarf; Lehre für künftige Link-Checks: Amazon-Kurzlinks (`link.amazon`, `amzn.to`) nicht per automatisiertem Tool prüfen, sondern nur manuell/im Browser.
 
 ### Nachtrag 17.09.2026 — Cache Rule + Auto-Purge umgesetzt
 
