@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { outUrl } from '../utils/outboundLink';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const malbuecher = [
@@ -307,10 +308,10 @@ const faqLd = {
               <p class="card-text">{b.beschreibung}</p>
               <p class="mb-meta">50 Seiten · 25 Motive · 20 × 25 cm</p>
               <div class="mb-actions">
-                <a href={b.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
+                <a href={outUrl(b.etsy)} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
                   Etsy
                 </a>
-                <a href={b.amazon} target="_blank" rel="noopener noreferrer" class="btn btn-amazon btn-sm">
+                <a href={outUrl(b.amazon)} target="_blank" rel="noopener noreferrer" class="btn btn-amazon btn-sm">
                   Amazon
                 </a>
               </div>
@@ -426,7 +427,7 @@ const faqLd = {
                 <span class="lw-preis">{l.preis}</span>
               </div>
               <div class="card-footer">
-                <a href={l.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
+                <a href={outUrl(l.etsy)} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
                   Auf Etsy ansehen
                 </a>
               </div>

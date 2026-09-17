@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { outUrl } from '../../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
@@ -181,8 +182,8 @@ const schritte = [
             <strong>Optional</strong>
             <ul>
               <li><a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download>SVG-Plotterdatei (kostenlos)</a></li>
-              <li><a href="https://amzn.to/46bouxj" target="_blank" rel="noopener noreferrer sponsored">Bastelpapier (Amazon)</a></li>
-              <li><a href="https://amzn.to/4mRdVGS" target="_blank" rel="noopener noreferrer sponsored">Transparentpapier (Amazon)</a></li>
+              <li><a href={outUrl("https://amzn.to/46bouxj")} target="_blank" rel="noopener noreferrer sponsored">Bastelpapier (Amazon)</a></li>
+              <li><a href={outUrl("https://amzn.to/4mRdVGS")} target="_blank" rel="noopener noreferrer sponsored">Transparentpapier (Amazon)</a></li>
             </ul>
           </div>
         </div>

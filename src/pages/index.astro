@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { outUrl } from '../utils/outboundLink';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
 
@@ -166,7 +167,7 @@ const weiteres = [
           Original-Gemälde in Öl und Acryl, selbst gestaltete Malbücher und mehr — aus echter Leidenschaft für alles Kreative.
         </p>
         <div class="hero-actions">
-          <a href="https://www.etsy.com/shop/SunnyArtis" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <a href={outUrl("https://www.etsy.com/shop/SunnyArtis")} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             Gemälde auf Etsy ↗
           </a>
           <a href="#malbucher" class="btn btn-secondary">Malbücher entdecken ↓</a>
@@ -197,7 +198,7 @@ const weiteres = [
       <div class="gemaelde-grid">
         <!-- Featured: Blütengeist -->
         <a
-          href={featured.etsy}
+          href={outUrl(featured.etsy)}
           target="_blank"
           rel="noopener noreferrer"
           class="gemaelde-card gemaelde-card--featured"
@@ -246,7 +247,7 @@ const weiteres = [
           <div class="gemaelde-pair">
             {nebenGemaelde.slice(1).map(g => (
               <a
-                href={g.etsy}
+                href={outUrl(g.etsy)}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="gemaelde-card gemaelde-card--mini"
@@ -297,10 +298,10 @@ const weiteres = [
               <h3 class="mb-title">{m.title}</h3>
               <p class="mb-preis">{m.preis}</p>
               <div class="mb-actions">
-                <a href={m.amazon} target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
+                <a href={outUrl(m.amazon)} target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
                   Amazon
                 </a>
-                <a href={m.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-etsy">
+                <a href={outUrl(m.etsy)} target="_blank" rel="noopener noreferrer" class="btn btn-etsy">
                   Etsy
                 </a>
               </div>

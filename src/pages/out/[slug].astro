@@ -1,0 +1,29 @@
+---
+import { OUTBOUND_LINKS } from "../../config/outboundLinks";
+
+export function getStaticPaths() {
+  return OUTBOUND_LINKS.map((link) => ({
+    params: { slug: link.slug },
+    props: { url: link.url },
+  }));
+}
+
+const { url } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${url}`} />
+    <title>Weiterleitung …</title>
+    <script define:vars={{ url }}>
+      window.location.replace(url);
+    </script>
+  </head>
+  <body>
+    <p>Weiterleitung … <a href={url}>Hier klicken, falls die Weiterleitung nicht automatisch startet.</a></p>
+  </body>
+</html>

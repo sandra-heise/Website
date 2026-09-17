@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { outUrl } from '../../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
@@ -150,12 +151,12 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
       </figure>
 
       <p>
-        Schauen wir uns nur dieses Beispiel an (<a href="https://www.etsy.com/de/listing/1657906760/leinwande-mit-unterschiedlichen-motiven" target="_blank" rel="noopener noreferrer">Leinwand hier erhältlich</a>)! Stellen Sie sich vor, Sie malen die Haare einer Figur aus. Anstatt nur eine Farbe zu verwenden, können Sie verschiedene Blautöne miteinander kombinieren – von dunklen bis hin zu leuchtend hellen Tönen. Diese Technik verleiht dem Bild eine künstlerische Note und erinnert an Mandalas oder die kunstvollen Fenster in Kirchen, die durch ihre Farbvielfalt und Details beeindrucken.
+        Schauen wir uns nur dieses Beispiel an (<a href={outUrl("https://www.etsy.com/de/listing/1657906760/leinwande-mit-unterschiedlichen-motiven")} target="_blank" rel="noopener noreferrer">Leinwand hier erhältlich</a>)! Stellen Sie sich vor, Sie malen die Haare einer Figur aus. Anstatt nur eine Farbe zu verwenden, können Sie verschiedene Blautöne miteinander kombinieren – von dunklen bis hin zu leuchtend hellen Tönen. Diese Technik verleiht dem Bild eine künstlerische Note und erinnert an Mandalas oder die kunstvollen Fenster in Kirchen, die durch ihre Farbvielfalt und Details beeindrucken.
       </p>
 
       <h2>Die Kunst des Farbspiels</h2>
       <p>
-        Das Ausmalen dieser Leinwände ist eine wahre Freude für jeden, der gerne mit Farben experimentiert. Ich nutze hierfür gerne Acrylfarben wie <a href="https://amzn.to/47MSFx9" target="_blank" rel="noopener noreferrer sponsored">diese hier (Amazon-Link)</a>. Die Motive sind so gestaltet, dass sie förmlich dazu einladen, mit unterschiedlichen Farbnuancen zu spielen und neue Kombinationen auszuprobieren. Jedes Bild, das auf diese Weise entsteht, wird zu einem farbenfrohen Meisterwerk – einzigartig und voller persönlicher Kreativität.
+        Das Ausmalen dieser Leinwände ist eine wahre Freude für jeden, der gerne mit Farben experimentiert. Ich nutze hierfür gerne Acrylfarben wie <a href={outUrl("https://amzn.to/47MSFx9")} target="_blank" rel="noopener noreferrer sponsored">diese hier (Amazon-Link)</a>. Die Motive sind so gestaltet, dass sie förmlich dazu einladen, mit unterschiedlichen Farbnuancen zu spielen und neue Kombinationen auszuprobieren. Jedes Bild, das auf diese Weise entsteht, wird zu einem farbenfrohen Meisterwerk – einzigartig und voller persönlicher Kreativität.
       </p>
       <p>
         Im Gegensatz zum klassischen „Malen nach Zahlen", bei dem die Farben vorgegeben sind, können Sie hier völlig frei entscheiden, welche Farben Sie verwenden möchten. Diese Freiheit regt die Fantasie an und gibt Ihnen die Möglichkeit, ein Kunstwerk zu schaffen, das genau Ihren Vorstellungen entspricht. Am Ende sind Sie nicht nur stolz auf Ihre Kreativität, sondern halten auch ein Bild in den Händen, das genau die Farben enthält, die Sie lieben.

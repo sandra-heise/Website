@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { FREE_DOWNLOADS } from "../config/downloads";
+import { outUrl } from "../utils/outboundLink";
 
 const bestsellers = FREE_DOWNLOADS.filter(d => d.bestseller);
 
@@ -214,7 +215,7 @@ const amazonLinks = [
           Etsy-Shop als digitaler Sofortdownload verfügbar.
         </p>
         <a
-          href="https://www.etsy.com/shop/SunnyArtis?section_id=45759329"
+          href={outUrl("https://www.etsy.com/shop/SunnyArtis?section_id=45759329")}
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-partner btn-lg etsy-shop-btn"
@@ -399,7 +400,7 @@ const amazonLinks = [
                 </div>
                 <p class="card-text">{item.beschreibung}</p>
                 <a
-                  href={item.link}
+                  href={outUrl(item.link)}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   class="btn btn-outline-dark btn-sm align-self-start"

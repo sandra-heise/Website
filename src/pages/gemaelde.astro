@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { outUrl } from '../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -181,7 +182,7 @@ const jsonLd = {
                 {g.status === 'trocknung' ? (
                   <span class="btn btn-disabled btn-sm">Bald verfügbar</span>
                 ) : (
-                  <a href={g.etsy} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
+                  <a href={outUrl(g.etsy)} target="_blank" rel="noopener noreferrer" class="btn btn-partner btn-sm">
                     Auf Etsy ansehen
                   </a>
                 )}

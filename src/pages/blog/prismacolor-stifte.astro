@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { outUrl } from '../../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
@@ -102,7 +103,7 @@ const ogImage = `${SITE}/blog/prisma_color (1).jpg`;
           <li><strong>Tipp:</strong> Weißen Stift immer griffbereit halten — er ist beim Verblenden unverzichtbar</li>
         </ul>
         <p class="material-link">
-          Die Stifte die ich benutze: <a href="https://amzn.to/4w3p5fZ" target="_blank" rel="noopener noreferrer sponsored">Prismacolor Stifte bei Amazon ansehen →</a>
+          Die Stifte die ich benutze: <a href={outUrl("https://amzn.to/4w3p5fZ")} target="_blank" rel="noopener noreferrer sponsored">Prismacolor Stifte bei Amazon ansehen →</a>
         </p>
       </div>
 
@@ -206,7 +207,7 @@ const ogImage = `${SITE}/blog/prisma_color (1).jpg`;
 
       <div class="article-cta">
         <p>Neugierig geworden? Hier sind die Stifte, die ich benutze:</p>
-        <a href="https://amzn.to/4w3p5fZ" target="_blank" rel="noopener noreferrer sponsored" class="btn btn-accent">Prismacolor Stifte bei Amazon ansehen →</a>
+        <a href={outUrl("https://amzn.to/4w3p5fZ")} target="_blank" rel="noopener noreferrer sponsored" class="btn btn-accent">Prismacolor Stifte bei Amazon ansehen →</a>
       </div>
 
       <p class="affiliate-note">* Affiliate-Link: Wenn du über diesen Link kaufst, erhalte ich eine kleine Provision — für dich entstehen keine Mehrkosten. Ich empfehle nur Produkte, die ich selbst benutze und liebe.</p>
