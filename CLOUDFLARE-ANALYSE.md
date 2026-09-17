@@ -9,7 +9,6 @@ Laufendes Dokument für Traffic-/Performance-/Security-Analysen von sunnyartis.d
 ### Hoch (jetzt angehen)
 
 - [ ] **Klick-Tracking auf Etsy-/Amazon-Links einbauen** — UTM-Parameter auf allen Produkt-Links plus einfaches Analytics-Tool (Cloudflare Web Analytics Custom Events oder Zaraz). Ohne das ist der komplette Kauf-Trichter unsichtbar.
-- [ ] **Cache Rule für HTML-Seiten anlegen** — Cloudflare cached HTML standardmäßig nicht, nur Assets. Edge Cache TTL explizit für HTML setzen (Caching → Cache Rules), da die Seite komplett statisch ist (GitHub Pages, keine personalisierten Inhalte).
 - [ ] **Auffällige Einzel-IPs prüfen** — IPs mit 500–700+ Anfragen/Tag identifizieren (Security → Events / Analytics → Traffic), bei Bedarf per Rate-Limiting-Regel einbremsen statt unkommentiert durchlaufen zu lassen.
 
 ### Mittel
@@ -32,7 +31,8 @@ Laufendes Dokument für Traffic-/Performance-/Security-Analysen von sunnyartis.d
 - [x] SPF + DMARC (`p=reject`) eingerichtet — E-Mail-Spoofing unter der Domain verhindert
 - [x] Bot Fight Mode aktiviert
 - [x] security.txt eingerichtet
-- [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert (Grundlage steht, Wirkung siehe "Cache Rule für HTML" oben)
+- [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert
+- [x] Cache Rule für HTML-Seiten angelegt (Caching → Cache Rules) + automatischer Cache-Purge nach jedem Deploy via GitHub Actions ([.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml))
 
 ---
 
@@ -67,4 +67,8 @@ Core Web Vitals (echte Nutzerdaten): LCP 94% „Good", Ø Ladezeit ~1,15s. INP z
 
 **Vorfall:** Redirect-Loop zwischen einer Cloudflare-Redirect-Regel und der neuen GitHub-Pages-Apex-Konfiguration trat auf und wurde behoben — zeigt, dass Redirect-Logik über mehrere Systeme (Cloudflare, GitHub, DNS) aktuell nicht zentral dokumentiert ist (→ Maßnahme unter "Niedrig").
 
-**Nächste Schritte:** Klick-Tracking (Priorität 1), Cache Rule für HTML (Priorität 2), Einzel-IP-Check (Priorität 3) — siehe "Offene Maßnahmen" oben.
+**Nächste Schritte:** Klick-Tracking (Priorität 1), Einzel-IP-Check (Priorität 3) — siehe "Offene Maßnahmen" oben.
+
+### Nachtrag 17.09.2026 — Cache Rule + Auto-Purge umgesetzt
+
+Cache Rule für HTML-Seiten in Cloudflare angelegt und Auto-Purge-Schritt in den Deploy-Workflow eingebaut (Cloudflare API `purge_cache` nach jedem GitHub Pages Deploy). Erster Versuch schlug fehl (`zones//purge_cache`, 404) — Ursache: `CLOUDFLARE_ZONE_ID`/`CLOUDFLARE_API_TOKEN` waren als **Environment Secrets** statt **Repository Secrets** angelegt und dadurch für den Job unsichtbar. Nach Neuanlage als Repository Secrets lief der Workflow durch. Workflow hat jetzt zusätzlich eine explizite Prüfung, die bei leeren Secrets sofort mit klarer Fehlermeldung abbricht statt mit kryptischem curl-404.
