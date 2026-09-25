@@ -10,7 +10,6 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ### Hoch (jetzt angehen)
 
-- [ ] **Cache Rule „HTML Pages Cache" im Dashboard prüfen** — laut externem Check (25.09.2026) ist die Bedingung mit `or` verknüpft (`not ends_with ".jpg" or not ends_with ".png" …`) und damit immer wahr. Falls so: durch zwei Regeln ersetzen — Assets (`/_astro/*` + Bildendungen, Edge 1 Monat, Browser 1 Jahr bzw. 30 Tage) und HTML (Rest, Edge 2 Std., Browser: Origin respektieren). GitHub Pages schickt für alles nur `max-age=600`.
 - [ ] **Search Console auf Apex-Domain umstellen** — nach dem Deploy der Domain-/Schrägstrich-Korrektur (siehe Verlauf 25.09.2026) `https://sunnyartis.de/sitemap-index.xml` neu einreichen, am besten als Domain-Property.
 - [ ] **`/schmuck` braucht einen Online-Kaufweg** — Seite bietet nur Markt (nächster Termin Januar 2027), Instagram-DM und Kontaktformular. Wer heute kaufen will, kann es nicht. Entscheidung nötig: Schmuck auf Etsy einstellen, oder zumindest das Anfrageformular als klaren Haupt-CTA mit Preisrahmen nach oben ziehen.
 - [ ] **Erste Auswertung `/out/*`-Klicks + Abgleich mit Etsy-/Amazon-Statistik** — nach ~2 Wochen Laufzeit (ab Anfang Oktober 2026): Welche Produkte werden geklickt, welche verkauft? Ergebnis als Verlaufseintrag hier festhalten.
@@ -47,6 +46,7 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 - [x] Cache Rule für HTML-Seiten angelegt (Caching → Cache Rules) + automatischer Cache-Purge nach jedem Deploy via GitHub Actions ([.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml))
 - [x] Canonicals, Sitemap, robots.txt, og:url und JSON-LD auf `https://sunnyartis.de/` (ohne `www`) + alle internen Links mit Schrägstrich am Ende, `trailingSlash: 'always'` (25.09.2026)
 - [x] Standard-og:image für alle Seiten ohne eigenes Bild + `twitter:card` immer `summary_large_image` (25.09.2026)
+- [x] Zwei zusätzliche Cache Rules unter „HTML Pages Cache": **Astro-Assets** (`/_astro/*`, Edge 1 Monat, Browser 1 Jahr) und **Bilder** (jpg/jpeg/png/webp/avif/gif/svg/ico/woff2, Edge 1 Monat, Browser 7 Tage). Die alte Regel bleibt: Ihr `or`-Logikfehler ist harmlos, weil „alles cachebar" für die statische Seite passt; die späteren Regeln überschreiben sie für Assets. Live verifiziert 25.09.2026: Seiten `max-age=600`, Bilder `604800`, `/_astro/`-CSS `31536000`.
 - [x] Klick-Tracking auf allen Etsy-/Amazon-Links via interne `/out/<slug>`-Redirects (siehe Nachtrag unten)
 - [x] `/downloads` verweist auf Malbücher (`/malen#malbuecher`) und Etsy-Plotterdateien — Block „Mehr davon?" nach dem Download-Grid, Reihenfolge je nach aktivem Filter, plus „Mehr im Malbuch →" auf jeder Ausmalbild-Karte (25.09.2026)
 
