@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { FREE_DOWNLOADS } from '../config/downloads';
+import { outUrl } from '../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://www.sunnyartis.de";
@@ -14,6 +15,14 @@ const sorted = [...FREE_DOWNLOADS].sort((a, b) => (b.bestseller ? 1 : 0) - (a.be
 
 // Eindeutige Kategorien extrahieren (aus sortierter Liste)
 const categories = [...new Set(sorted.map(d => d.kategorie))];
+
+const AUSMALBILDER = "Ausmalbilder";
+
+const malbuchCovers = [
+  { src: `${base}/malbuecher/fantasie-in-farbe-teenager.jpg`, alt: "Malbuch Fantasie in Farbe von Sandra Heise" },
+  { src: `${base}/malbuecher/Malbuch-Katzen.jpg`, alt: "Malbuch Eine Welt voller Katzen von Sandra Heise" },
+  { src: `${base}/malbuecher/Mabuch-Feen.jpg`, alt: "Malbuch Eine Welt voller Feen von Sandra Heise" },
+];
 
 const ogImage = `${SITE}/blog/halloween-hero.jpg`;
 
@@ -156,9 +165,13 @@ const faqLd = {
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   Herunterladen
                 </a>
-                {d.blogPost && (
+                {d.blogPost ? (
                   <a href={`${base}${d.blogPost}`} class="anleitung-link">
                     Anleitung →
+                  </a>
+                ) : d.kategorie === AUSMALBILDER && (
+                  <a href={`${base}/malen#malbuecher`} class="anleitung-link">
+                    Mehr im Malbuch →
                   </a>
                 )}
               </div>
@@ -172,6 +185,39 @@ const faqLd = {
           Bald verfügbar — schau bald wieder rein!
         </p>
       )}
+    </div>
+  </section>
+
+  <!-- Weiter zu den Produkten -->
+  <section class="section mehr-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">MEHR DAVON?</span>
+        <h2 class="center-title">Wenn dir die Gratis-Motive gefallen</h2>
+        <p class="section-desc">Die kostenlosen Dateien sind nur ein kleiner Ausschnitt. Noch mehr Motive findest du in meinen Malbüchern und im Etsy-Shop.</p>
+      </div>
+      <div class="mehr-grid" id="mehr-grid">
+        <article class="mehr-card" data-mehr="malbuch">
+          <div class="mehr-covers">
+            {malbuchCovers.map(c => <img src={c.src} alt={c.alt} loading="lazy" />)}
+          </div>
+          <div class="mehr-content">
+            <h3>Handgezeichnete Malbücher</h3>
+            <p>Pro Buch 25 handgezeichnete Motive auf 50 Seiten, von Fantasy über Tiere bis Anime. Für Buntstifte und Filzstifte, erhältlich auf Etsy und Amazon.</p>
+            <a href={`${base}/malen#malbuecher`} class="btn btn-primary">Malbücher ansehen</a>
+          </div>
+        </article>
+        <article class="mehr-card" data-mehr="plotter">
+          <div class="mehr-covers mehr-covers--single">
+            <img src={`${base}/basteln/tshirtanker.jpg`} alt="Anker-Motiv auf T-Shirt, ausgeschnitten mit Plotterdatei von Sunny Artis" loading="lazy" />
+          </div>
+          <div class="mehr-content">
+            <h3>Plotterdateien im Etsy-Shop</h3>
+            <p>Weitere Motive für T-Shirts, Tassen und Deko als digitaler Sofortdownload: SVG, DXF und PNG, direkt bereit für deinen Plotter.</p>
+            <a href={outUrl("https://www.etsy.com/shop/SunnyArtis?section_id=45759329")} target="_blank" rel="noopener noreferrer" class="btn btn-partner">Plotterdateien auf Etsy</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -190,6 +236,7 @@ const faqLd = {
 
 <script>
   const buttons = document.querySelectorAll('.btn-filter');
+  const mehrGrid = document.getElementById('mehr-grid');
   const cards = document.querySelectorAll('.download-card');
 
   buttons.forEach(btn => {
@@ -199,6 +246,10 @@ const faqLd = {
       btn.setAttribute('aria-pressed', 'true');
 
       const selectedCat = btn.getAttribute('data-category');
+
+      // Passendes Produkt zuerst zeigen: Plotter-Kategorien → Etsy-Plotterdateien, sonst Malbücher
+      if (selectedCat === 'all' || selectedCat === 'Ausmalbilder') mehrGrid?.removeAttribute('data-first');
+      else mehrGrid?.setAttribute('data-first', 'plotter');
 
       cards.forEach(card => {
         const cardCat = card.getAttribute('data-category');
@@ -397,6 +448,74 @@ const faqLd = {
   }
 
   .anleitung-link:hover { color: var(--color-navy); }
+
+  /* Weiter zu den Produkten */
+  .mehr-section { background: var(--color-bg-white); padding-bottom: 1rem; }
+
+  .mehr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .mehr-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  #mehr-grid[data-first="plotter"] [data-mehr="plotter"] { order: -1; }
+
+  .mehr-covers {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.75rem;
+    height: 220px;
+    padding: 1.25rem 1.25rem 0;
+    overflow: hidden;
+  }
+
+  .mehr-covers img {
+    height: 100%;
+    width: auto;
+    max-width: 32%;
+    object-fit: cover;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 4px 14px rgba(5, 32, 53, 0.15);
+  }
+
+  .mehr-covers--single { padding: 0; }
+
+  .mehr-covers--single img {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .mehr-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem 1.75rem 1.75rem;
+    flex-grow: 1;
+  }
+
+  .mehr-content h3 { font-size: 1.15rem; color: var(--color-navy); margin: 0; }
+
+  .mehr-content p { color: var(--color-text-muted); line-height: 1.6; margin: 0; font-size: 0.92rem; flex-grow: 1; }
+
+  .mehr-content .btn { align-self: flex-start; }
+
+  @media (max-width: 700px) {
+    .mehr-grid { grid-template-columns: 1fr; }
+    .mehr-covers { height: 180px; }
+  }
 
   .hinweis-section { background: var(--color-bg-white); padding: 3rem 0 4rem; }
 
