@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import { outUrl } from '../../utils/outboundLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/blog/ausmalen-leinwand`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/blog/ausmalen-leinwand/`;
 const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 ---
 
@@ -61,7 +61,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
       "@type": "SpeakableSpecification",
       "cssSelector": [".article-title", ".article-container h2", ".article-container p"]
     },
-    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog` }
+    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog/` }
   })} />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -94,7 +94,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog/` },
       { "@type": "ListItem", "position": 3, "name": "Ausmalen auf Leinwand", "item": canonicalUrl }
     ]
   })} />
@@ -103,7 +103,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
   <section class="article-hero">
     <div class="container">
       <div class="article-meta">
-        <a href={`${base}/blog`} class="back-link">
+        <a href={`${base}/blog/`} class="back-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           Zurück zum Blog
         </a>
@@ -133,7 +133,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 
       <h2>Ein völlig neues Ausmalerlebnis</h2>
       <p>
-        Der größte Unterschied zwischen <a href={`${base}/malen#leinwaende`}>diesen Leinwänden</a> und traditionellen Malbüchern liegt in der verwendeten Technik und den Materialien. Während man in Malbüchern meist mit Buntstiften oder Filzstiften arbeitet, werden die vorgedruckten Motive auf Leinwänden in der Regel mit Acryl- oder Ölfarben ausgemalt. Das Malen mit Farben auf einer Leinwand bietet ein völlig anderes Ausmalerlebnis. Die Farben sind intensiver, die Textur der Leinwand verleiht dem Bild Tiefe, und die Möglichkeiten, Schattierungen und Nuancen zu erzeugen, sind nahezu unbegrenzt.
+        Der größte Unterschied zwischen <a href={`${base}/malen/#leinwaende`}>diesen Leinwänden</a> und traditionellen Malbüchern liegt in der verwendeten Technik und den Materialien. Während man in Malbüchern meist mit Buntstiften oder Filzstiften arbeitet, werden die vorgedruckten Motive auf Leinwänden in der Regel mit Acryl- oder Ölfarben ausgemalt. Das Malen mit Farben auf einer Leinwand bietet ein völlig anderes Ausmalerlebnis. Die Farben sind intensiver, die Textur der Leinwand verleiht dem Bild Tiefe, und die Möglichkeiten, Schattierungen und Nuancen zu erzeugen, sind nahezu unbegrenzt.
       </p>
 
       <h2>Geometrische Formen für künstlerische Vielfalt</h2>
@@ -178,7 +178,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 
       <div class="article-cta">
         <p>Neugierig geworden? Alle verfügbaren Ausmalleinwände findest du hier:</p>
-        <a href={`${base}/malen#leinwaende`} class="btn btn-accent">Leinwände ansehen</a>
+        <a href={`${base}/malen/#leinwaende`} class="btn btn-accent">Leinwände ansehen</a>
       </div>
 
     </div>
@@ -187,7 +187,7 @@ const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
   <!-- Zurück-Navigation -->
   <section class="section back-section bg-light">
     <div class="container text-center">
-      <a href={`${base}/blog`} class="btn btn-secondary">Weitere Blog-Artikel</a>
+      <a href={`${base}/blog/`} class="btn btn-secondary">Weitere Blog-Artikel</a>
     </div>
   </section>
 </Layout>

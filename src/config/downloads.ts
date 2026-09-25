@@ -81,7 +81,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip",
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Halloween",
-    blogPost: "/blog/halloween-laterne",
+    blogPost: "/blog/halloween-laterne/",
     vorschau: "/blog/halloween-hero.jpg",
   },
 

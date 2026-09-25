@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/schmuck`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/schmuck/`;
 
 // ── Schmuck-Galerie ──────────────────────────────────────────────
 // Bilder in public/schmuck/ ablegen, Pfade hier eintragen.
@@ -262,7 +262,7 @@ const ogImage = `${SITE}/schmuck/armband-1.jpg`;
           </div>
           <h3>Auf Anfrage</h3>
           <p>Du wünschst dir ein ganz bestimmtes Stück — bestimmte Farben, ein besonderes Material oder ein persönliches Motiv? Ich fertige Schmuck auch individuell auf Bestellung an.</p>
-          <a href={`${base}/kontakt`} class="btn btn-accent">Anfrage stellen</a>
+          <a href={`${base}/kontakt/`} class="btn btn-accent">Anfrage stellen</a>
         </div>
 
       </div>

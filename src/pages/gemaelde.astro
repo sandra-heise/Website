@@ -53,8 +53,8 @@ const GEMAELDE = [
 const gemaelde = [...MANUAL_GEMAELDE, ...GEMAELDE];
 const techniken = ['Alle', 'Öl', 'Acryl'];
 
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/gemaelde`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/gemaelde/`;
 const ogImage = `${SITE}/gemaelde/blutengeist.jpg`;
 
 function parsePreis(preis: string): string {
@@ -200,8 +200,8 @@ const jsonLd = {
       <h2 class="center-title">Neugierig geworden?</h2>
       <p class="section-desc">Schau dir mein gesamtes Portfolio an oder schreib mir — ich freue mich über jede Nachricht.</p>
       <div class="mehr-actions">
-        <a href={`${base}/portfolio`} class="btn btn-primary">Portfolio ansehen</a>
-        <a href={`${base}/kontakt`} class="btn btn-secondary">Kontakt aufnehmen</a>
+        <a href={`${base}/portfolio/`} class="btn btn-primary">Portfolio ansehen</a>
+        <a href={`${base}/kontakt/`} class="btn btn-secondary">Kontakt aufnehmen</a>
       </div>
     </div>
   </section>

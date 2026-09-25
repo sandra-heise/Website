@@ -5,13 +5,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
   { href: `${base}/`, label: 'Startseite' },
-  { href: `${base}/gemaelde`, label: 'Gemälde' },
-  { href: `${base}/malen`, label: 'Malen & Kreativprodukte' },
-  { href: `${base}/portfolio`, label: 'Portfolio' },
-  { href: `${base}/basteln`, label: 'Basteln & Plotter' },
-  { href: `${base}/schmuck`, label: 'Schmuck' },
-  { href: `${base}/blog`, label: 'Blog' },
-  { href: `${base}/kontakt`, label: 'Kontakt' },
+  { href: `${base}/gemaelde/`, label: 'Gemälde' },
+  { href: `${base}/malen/`, label: 'Malen & Kreativprodukte' },
+  { href: `${base}/portfolio/`, label: 'Portfolio' },
+  { href: `${base}/basteln/`, label: 'Basteln & Plotter' },
+  { href: `${base}/schmuck/`, label: 'Schmuck' },
+  { href: `${base}/blog/`, label: 'Blog' },
+  { href: `${base}/kontakt/`, label: 'Kontakt' },
 ];
 ---
 
@@ -187,8 +187,8 @@ const navLinks = [
         &copy; {year} Sunny Artis. Alle Rechte vorbehalten.
       </p>
       <ul class="legal-links">
-        <li><a href={`${base}/impressum`}>Impressum</a></li>
-        <li><a href={`${base}/datenschutz`}>Datenschutz</a></li>
+        <li><a href={`${base}/impressum/`}>Impressum</a></li>
+        <li><a href={`${base}/datenschutz/`}>Datenschutz</a></li>
       </ul>
     </div>
   </div>

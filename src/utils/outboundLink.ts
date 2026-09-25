@@ -13,5 +13,5 @@ export function outUrl(realUrl: string): string {
     throw new Error(`outUrl: keine outboundLinks.ts-Eintrag fuer "${realUrl}" - dort ergaenzen.`);
   }
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-  return `${base}/out/${slug}`;
+  return `${base}/out/${slug}/`;
 }

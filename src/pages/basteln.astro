@@ -6,8 +6,8 @@ import { outUrl } from "../utils/outboundLink";
 const bestsellers = FREE_DOWNLOADS.filter(d => d.bestseller);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/basteln`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/basteln/`;
 const ogImage = `${SITE}/basteln/tshirtanker.jpg`;
 
 // Featured Blog-Beiträge (Basteln & Plotten)
@@ -20,7 +20,7 @@ const featuredPosts = [
       "Mit dieser einfachen Plotteranleitung bastelst du deine eigene Halloween-Laterne — perfekt für herbstliche Abende. Inkl. aller Schritte mit Bildern.",
     image: `${base}/blog/halloween-hero.jpg`,
     gradientClass: "halloween-gradient",
-    href: `${base}/blog/halloween-laterne`,
+    href: `${base}/blog/halloween-laterne/`,
   },
   {
     title: "Ausmalen auf Leinwand: Mit Acrylfarben zum eigenen Kunstwerk",
@@ -30,7 +30,7 @@ const featuredPosts = [
       "Ausmalen auf Leinwand mit Acrylfarben und geometrischen Motiven ist weit mehr als ein Hobby — so entsteht aus einer vorgedruckten Leinwand ein echtes Kunstwerk.",
     image: `${base}/blog/ausmalen-leinwand-hero.jpg`,
     gradientClass: "leinwand-gradient",
-    href: `${base}/blog/ausmalen-leinwand`,
+    href: `${base}/blog/ausmalen-leinwand/`,
   },
   {
     title: "Federn zeichnen – Schritt-für-Schritt-Anleitung",
@@ -40,7 +40,7 @@ const featuredPosts = [
       "Lerne, wie du mit Bleistift und Kugelschreiber eine realistische Feder zeichnest — von der Skizze bis zum fertigen Detail. Eine einfache Anleitung für Einsteiger.",
     image: `${base}/blog/federn-zeichnen-hero.jpg`,
     gradientClass: "book-gradient",
-    href: `${base}/blog/federn-zeichnen`,
+    href: `${base}/blog/federn-zeichnen/`,
   },
 ];
 
@@ -300,7 +300,7 @@ const amazonLinks = [
           <span class="cta-kicker">Komplett gratis · Sofort verfügbar · Kein Konto</span>
           <h2 class="cta-headline">SVG · DXF · PNG · JPG —<br/>alle Formate, eine Datei.</h2>
           <p class="cta-body">Halloween, Weihnachten, Ostern, Herbst und mehr — die gesamte Bibliothek wartet auf dich.</p>
-          <a href={`${base}/downloads`} class="btn cta-btn">
+          <a href={`${base}/downloads/`} class="btn cta-btn">
             Alle Downloads ansehen
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>

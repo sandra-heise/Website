@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/kontakt`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/kontakt/`;
 ---
 
 <Layout
@@ -191,7 +191,7 @@ const canonicalUrl = `${SITE}/kontakt`;
               <label for="policy">
                 Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur
                 Beantwortung meiner Anfrage erhoben und verarbeitet werden. *
-                (Weitere Infos unter <a href={`${base}/datenschutz`} target="_blank"
+                (Weitere Infos unter <a href={`${base}/datenschutz/`} target="_blank"
                   >Datenschutz</a
                 >)
               </label>

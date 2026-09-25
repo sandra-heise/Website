@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { outUrl } from '../utils/outboundLink';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
+const SITE = "https://sunnyartis.de";
 
 const featured = {
   title: "Blütengeist – Ausdruck einer Seele",
@@ -115,21 +115,21 @@ const weiteres = [
     title: "Ausmalleinwände",
     beschreibung: "Vorgestaltete Leinwände — mit deinen Farben zum Leben erweckt.",
     image: `${base}/blog/ausmalen-leinwand-hero.jpg`,
-    href: `${base}/malen#leinwaende`,
+    href: `${base}/malen/#leinwaende`,
     cta: "Leinwände ansehen",
   },
   {
     title: "Portraitaufträge",
     beschreibung: "Dein individuelles Porträt nach Foto — in Bleistift oder Aquarell.",
     image: `${base}/portraets/produkte-auftraege.png`,
-    href: `${base}/portfolio#portraets`,
+    href: `${base}/portfolio/#portraets`,
     cta: "Aufträge ansehen",
   },
   {
     title: "Handgemachter Schmuck",
     beschreibung: "Unikate aus Epoxidharz und Polymer Clay — auf Anfrage bestellbar.",
     image: `${base}/schmuck/set-3.jpg`,
-    href: `${base}/schmuck`,
+    href: `${base}/schmuck/`,
     cta: "Schmuck entdecken",
   }
 ];
@@ -239,7 +239,7 @@ const weiteres = [
               <span class="gemaelde-technik">{nebenGemaelde[0].technik}</span>
               <h3 class="gemaelde-title">{nebenGemaelde[0].title}</h3>
               <span class="gemaelde-preis">{nebenGemaelde[0].preis}</span>
-              <a href={`${base}/kontakt`} class="soon-notify">Benachrichtigen lassen →</a>
+              <a href={`${base}/kontakt/`} class="soon-notify">Benachrichtigen lassen →</a>
             </div>
           </div>
 
@@ -268,7 +268,7 @@ const weiteres = [
       </div>
 
       <div class="section-footer text-center">
-        <a href={`${base}/gemaelde`} class="btn btn-outline-dark">Alle Gemälde ansehen →</a>
+        <a href={`${base}/gemaelde/`} class="btn btn-outline-dark">Alle Gemälde ansehen →</a>
       </div>
     </div>
   </section>
@@ -310,7 +310,7 @@ const weiteres = [
         ))}
       </div>
       <div class="text-center mb-more">
-        <a href={`${base}/malen#malbuecher`} class="btn btn-secondary">Alle Malbücher ansehen →</a>
+        <a href={`${base}/malen/#malbuecher`} class="btn btn-secondary">Alle Malbücher ansehen →</a>
       </div>
     </div>
   </section>
@@ -333,7 +333,7 @@ const weiteres = [
         <p>
           Kunst ist mein Hobby — und es macht mich glücklich. Ich bilde mich ständig weiter, probiere gerne Neues aus und lasse mich von allem Kreativen begeistern. Ob Malerei, Malbücher, Schmuck oder Basteln: Nicht spezialisiert zu sein ist meine Stärke. Jedes Projekt ist ein neues Experiment.
         </p>
-        <a href={`${base}/kontakt`} class="btn btn-secondary">Kontakt aufnehmen →</a>
+        <a href={`${base}/kontakt/`} class="btn btn-secondary">Kontakt aufnehmen →</a>
       </div>
     </div>
   </section>

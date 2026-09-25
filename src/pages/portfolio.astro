@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/portfolio`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/portfolio/`;
 const ogImage = `${SITE}/portraets/produkte-auftraege.png`;
 
 const blenderArbeiten = [
@@ -180,7 +180,7 @@ const animationen = [
               <span>✓ Zahlung erst nach Zufriedenheit</span>
               <span>✓ Individuelle Motive & Größen möglich</span>
             </div>
-            <a href={`${base}/kontakt`} class="btn btn-accent">Porträt anfragen</a>
+            <a href={`${base}/kontakt/`} class="btn btn-accent">Porträt anfragen</a>
           </div>
           <figure class="portraet-hauptbild">
             <img src={`${base}/portraets/produkte-auftraege.png`} alt="Porträt handgezeichnetes Mädchen umringt von Blumen" loading="lazy" />
@@ -246,8 +246,8 @@ const animationen = [
         <h2>Interesse an einer Zusammenarbeit?</h2>
         <p>Ob Auftragsgemälde, Porträt oder kreatives Projekt — schreib mir einfach.</p>
         <div class="cta-actions">
-          <a href={`${base}/kontakt`} class="btn btn-primary">Kontakt aufnehmen</a>
-          <a href={`${base}/gemaelde`} class="btn btn-secondary">Gemälde ansehen</a>
+          <a href={`${base}/kontakt/`} class="btn btn-primary">Kontakt aufnehmen</a>
+          <a href={`${base}/gemaelde/`} class="btn btn-secondary">Gemälde ansehen</a>
         </div>
       </div>
     </div>

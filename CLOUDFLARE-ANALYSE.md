@@ -10,6 +10,8 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ### Hoch (jetzt angehen)
 
+- [ ] **Cache Rule „HTML Pages Cache" im Dashboard prüfen** — laut externem Check (25.09.2026) ist die Bedingung mit `or` verknüpft (`not ends_with ".jpg" or not ends_with ".png" …`) und damit immer wahr. Falls so: durch zwei Regeln ersetzen — Assets (`/_astro/*` + Bildendungen, Edge 1 Monat, Browser 1 Jahr bzw. 30 Tage) und HTML (Rest, Edge 2 Std., Browser: Origin respektieren). GitHub Pages schickt für alles nur `max-age=600`.
+- [ ] **Search Console auf Apex-Domain umstellen** — nach dem Deploy der Domain-/Schrägstrich-Korrektur (siehe Verlauf 25.09.2026) `https://sunnyartis.de/sitemap-index.xml` neu einreichen, am besten als Domain-Property.
 - [ ] **`/schmuck` braucht einen Online-Kaufweg** — Seite bietet nur Markt (nächster Termin Januar 2027), Instagram-DM und Kontaktformular. Wer heute kaufen will, kann es nicht. Entscheidung nötig: Schmuck auf Etsy einstellen, oder zumindest das Anfrageformular als klaren Haupt-CTA mit Preisrahmen nach oben ziehen.
 - [ ] **Erste Auswertung `/out/*`-Klicks + Abgleich mit Etsy-/Amazon-Statistik** — nach ~2 Wochen Laufzeit (ab Anfang Oktober 2026): Welche Produkte werden geklickt, welche verkauft? Ergebnis als Verlaufseintrag hier festhalten.
 
@@ -22,6 +24,11 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ### Niedrig
 
+- [ ] **Bilder auf `astro:assets` (`<Picture>`, AVIF/WebP, `srcset`) umstellen** — größter Ladezeit-Hebel laut externem Check: `logo.png` 119 KB bei kleiner Anzeige, `blog/ausmalen-leinwand-hero.jpg` 484 KB, 18 Bilder in `public/` über 300 KB. Größerer Umbau (Bilder von `public/` nach `src/assets/`), Core Web Vitals sind aktuell aber schon gut → nach den Verkaufs-Punkten.
+- [ ] **Bild-Dateinamen aufräumen** — `Mabuch-Feen.jpg` (Tippfehler), `Malbuch-Katzen.jpg`, `prisma_color (1).jpg` (Leerzeichen in og:image-URL) umbenennen, kleingeschrieben mit Bindestrichen.
+- [ ] **Pinterest: Domain verifizieren + Rich Pins + Hochformat-Pins (2:3)** für Malbücher und `/downloads`.
+- [ ] **Schema erweitern** — Startseite: `Organization`/`Person` mit Logo und `sameAs`; `/gemaelde`: `Product` + `Offer` neben `VisualArtwork`.
+- [ ] **Eigenes og-Bild gestalten** — `public/og-default.jpg` ist ein automatischer 1200×630-Zuschnitt von `gemaelde/farbenfroh.jpg`; ein gestaltetes Bild mit Logo/Schriftzug wäre besser.
 - [ ] **Auffällige Einzel-IPs prüfen** — IPs mit 500–700+ Anfragen/Tag identifizieren (Security → Events / Analytics → Traffic), bei Bedarf per Rate-Limiting-Regel einbremsen. Herabgestuft von „Hoch": Bot Fight Mode ist aktiv, Seite ist statisch und gecacht — die Bots kosten weder Geld noch Verkäufe, verzerren nur die Rohzahlen.
 - [ ] **Redirect-Regeln zentral dokumentieren** (Cloudflare Redirect Rules + GitHub Pages Custom-Domain-Konfiguration) — nach dem Redirect-Loop-Vorfall vom 17.09.2026, damit künftige DNS-/Redirect-Änderungen nicht erneut kollidieren. Ggf. als eigener Abschnitt in [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md) oder hier im Verlauf festhalten, sobald die aktuelle Konfiguration klar ist.
 - [ ] **Polish / Bildoptimierung prüfen** (Pro-Plan nötig) — falls Ladezeit der Gemälde-Fotos weiter gedrückt werden soll. Aktuell nicht dringend, Core Web Vitals sind bereits gut.
@@ -38,6 +45,8 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 - [x] security.txt eingerichtet
 - [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert
 - [x] Cache Rule für HTML-Seiten angelegt (Caching → Cache Rules) + automatischer Cache-Purge nach jedem Deploy via GitHub Actions ([.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml))
+- [x] Canonicals, Sitemap, robots.txt, og:url und JSON-LD auf `https://sunnyartis.de/` (ohne `www`) + alle internen Links mit Schrägstrich am Ende, `trailingSlash: 'always'` (25.09.2026)
+- [x] Standard-og:image für alle Seiten ohne eigenes Bild + `twitter:card` immer `summary_large_image` (25.09.2026)
 - [x] Klick-Tracking auf allen Etsy-/Amazon-Links via interne `/out/<slug>`-Redirects (siehe Nachtrag unten)
 - [x] `/downloads` verweist auf Malbücher (`/malen#malbuecher`) und Etsy-Plotterdateien — Block „Mehr davon?" nach dem Download-Grid, Reihenfolge je nach aktivem Filter, plus „Mehr im Malbuch →" auf jeder Ausmalbild-Karte (25.09.2026)
 
@@ -107,3 +116,22 @@ Cache Rule für HTML-Seiten in Cloudflare angelegt und Auto-Purge-Schritt in den
 Die drei häufigsten Einstiegsseiten (`/downloads`, `/schmuck`, `/malen`) im Code darauf geprüft, ob Besucher von dort direkt zu einem Produkt kommen (Tabelle unter „Verkaufsfokus"). Ergebnis: Nur `/malen` führt sauber zu Etsy/Amazon. `/downloads` — laut Traffic die wichtigste Einstiegsseite — verweist nirgends auf die bezahlten Plotterdateien bei Etsy, obwohl dieser Shopbereich existiert und auf `/basteln` schon verlinkt ist. `/schmuck` hat gar keinen Online-Kaufweg.
 
 Daraus folgend „Offene Maßnahmen" umsortiert: Die zwei Einstiegsseiten-Lücken und die erste Auswertung der `/out/`-Klicks stehen jetzt oben. Der Einzel-IP-Check ist von „Hoch" auf „Niedrig" gerutscht, weil Bot-Traffic bei einer statischen, gecachten Seite mit aktivem Bot Fight Mode weder Kosten noch Verkaufsverluste verursacht. Neu aufgenommen: Download-Klicks messbar machen, englische Zielgruppe als eigener Punkt.
+
+### 25.09.2026 — Externer SEO-/Cloudflare-Check (Browser-Addon) ausgewertet
+
+Sandra hat Seite und Dashboard von einem Browser-Agenten prüfen lassen. Die Punkte habe ich per `curl` gegen die Live-Seite und den Code abgeglichen:
+
+**Bestätigt und im Code behoben:**
+- Canonicals, Sitemap, `robots.txt`, `og:url` und JSON-LD zeigten auf `https://www.sunnyartis.de/…`, obwohl `www` seit der Apex-Umstellung per 301 auf `https://sunnyartis.de/` umleitet. Canonicals zeigten zusätzlich ohne Schrägstrich (`/gemaelde`), GitHub Pages leitet aber auf `/gemaelde/` um → jede Canonical-URL lief über zwei Umleitungen. Auch alle internen Links und `/out/…`-Links liefen über den Schrägstrich-301. Korrigiert in 26 Dateien, `trailingSlash: 'always'` in [astro.config.mjs](astro.config.mjs), `outUrl()` hängt jetzt `/` an.
+- Startseite, `/kontakt`, Impressum, Datenschutz hatten kein `og:image` und `twitter:card=summary` → Layout nutzt jetzt `public/og-default.jpg` als Fallback.
+
+**Bestätigt, aber nur im Dashboard lösbar:** Cache-Rule-Logikfehler (→ Maßnahme „Hoch"), Search Console neu einreichen.
+
+**Nicht zutreffend:**
+- „Kein Tracking auf den `/out/`-Seiten gefunden, der Umweg bringt nichts" — das Tracking läuft bewusst ohne Skript über die Pfad-Auswertung in Cloudflare Analytics → Traffic (siehe Nachtrag 17.09.2026). Der eigentliche Zeitverlust war der Schrägstrich-301, der ist jetzt weg. `/out/`-Seiten bleiben deshalb.
+- „Cloudflare Web Analytics aktivieren" — ist aktiv: Cloudflare fügt `beacon.min.js` bei Browser-Anfragen automatisch ein (bei `curl` ohne Browser-Header nicht sichtbar, deshalb vermutlich übersehen).
+- „Smart Tiered Cache einschalten" — laut „Bereits erledigt" seit 17.09.2026 aktiv. Falls der Agent es im Dashboard als aus gesehen hat, bitte einmal nachsehen.
+
+**Übernommen als spätere Maßnahmen:** Bildoptimierung per `astro:assets`, Dateinamen, Pinterest, Schema-Erweiterung (alle unter „Niedrig", weil sie Verkäufe weniger direkt beeinflussen als die offenen Einstiegsseiten-Punkte).
+
+**Nach dem Deploy:** „Purge Everything" in Cloudflare, dann stichprobenartig `curl -sI https://sunnyartis.de/gemaelde/` (soll 200 liefern) und Canonical im Seitenquelltext prüfen.

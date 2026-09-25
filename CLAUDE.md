@@ -1,6 +1,6 @@
 # Sunny Artis – Website Dokumentation
 
-Astro-Website für Sandra Heise / Sunny Artis. Live unter `https://www.sunnyartis.de` — Hosting via GitHub Pages, DNS/Proxy/SSL via Cloudflare. Vorher lief ein Shopify-Shop unter derselben Domain; der Umzug ist abgeschlossen, Details siehe [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).
+Astro-Website für Sandra Heise / Sunny Artis. Live unter `https://sunnyartis.de` (`www.` leitet per 301 auf die Apex-Domain um) — Hosting via GitHub Pages, DNS/Proxy/SSL via Cloudflare. Vorher lief ein Shopify-Shop unter derselben Domain; der Umzug ist abgeschlossen, Details siehe [SHOP-MIGRATION-PLAN.md](SHOP-MIGRATION-PLAN.md).
 
 ## Build & Deploy
 
@@ -11,7 +11,9 @@ npm run dev      # Dev-Server auf localhost:4321
 
 Jeder Push auf `master` deployt automatisch via GitHub Actions auf GitHub Pages (`.github/workflows/gh-pages.yml`).
 
-`astro.config.mjs`: `site: 'https://www.sunnyartis.de/'`, `base: '/'` — Bildpfade trotzdem immer über `${base}/...` referenzieren (siehe „Bilder" unten), nicht hart auf `/` verlassen.
+`astro.config.mjs`: `site: 'https://sunnyartis.de/'`, `base: '/'`, `trailingSlash: 'always'` — Bildpfade trotzdem immer über `${base}/...` referenzieren (siehe „Bilder" unten), nicht hart auf `/` verlassen.
+
+**Interne Seitenlinks, Canonicals und JSON-LD-URLs immer mit Schrägstrich am Ende** (`${base}/malen/`, `${base}/malen/#malbuecher`, `https://sunnyartis.de/gemaelde/`). GitHub Pages leitet `/pfad` per 301 auf `/pfad/` um; ohne Schrägstrich kostet jeder Link einen Umweg und Canonicals zeigen auf eine Umleitung. Nie `www.sunnyartis.de` in URLs verwenden.
 
 ---
 
@@ -34,7 +36,7 @@ Jeder Push auf `master` deployt automatisch via GitHub Actions auf GitHub Pages 
   url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/dateiname.zip",
   format: "ZIP (SVG)",
   kategorie: "Halloween",          // frei wählbar
-  blogPost: "/blog/mein-artikel",  // optional – Link zur Anleitung
+  blogPost: "/blog/mein-artikel/", // optional – Link zur Anleitung
   vorschau: "/blog/mein-bild.jpg", // optional – Vorschaubild
 }
 ```
@@ -76,7 +78,7 @@ Alle Artikel liegen unter `src/pages/blog/`. Neue Artikel:
   category: "Kategorie",
   excerpt: "Kurzer Teaser...",
   image: `${base}/blog/bild.jpg`,   // oder gradientClass als Fallback
-  href: `${base}/blog/slug`,
+  href: `${base}/blog/slug/`,
 }
 ```
 
@@ -99,7 +101,8 @@ Alle Bildpfade im Code mit `${base}/ordner/bild.jpg` — nie mit absolutem `/` b
 
 Jede Seite bekommt:
 - `title` + `description` über das `Layout`-Prop
-- `canonical` auf `https://www.sunnyartis.de/pfad`
+- `canonical` auf `https://sunnyartis.de/pfad/`
+- `ogImage` optional — ohne Angabe nutzt das Layout `public/og-default.jpg` (1200×630)
 - JSON-LD per `<script is:inline type="application/ld+json" slot="head">`
 
 Blog-Artikel zusätzlich:

@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/blog/das-sind-wir`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/blog/das-sind-wir/`;
 const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
 ---
 
@@ -51,7 +51,7 @@ const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog/` },
       { "@type": "ListItem", "position": 3, "name": "Das sind wir", "item": canonicalUrl }
     ]
   })} />
@@ -59,7 +59,7 @@ const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
   <section class="article-hero">
     <div class="container">
       <div class="article-meta">
-        <a href={`${base}/blog`} class="back-link">
+        <a href={`${base}/blog/`} class="back-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           Zurück zum Blog
         </a>
@@ -95,12 +95,12 @@ const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
         Mit der Zeit erweiterte sich das Angebot: Handgefertigter Schmuck kam hinzu, die Arbeiten wurden auf Kreativmessen präsentiert und das Feedback der Menschen vor Ort zeigte uns, in welche Richtung wir wachsen wollten. Ein eigener Onlineshop machte es schließlich möglich, unsere Produkte nicht nur regional, sondern weltweit anzubieten.
       </p>
       <p>
-        Kreativmärkte wie der jährliche <a href={`${base}/blog/kreativmarkt-magdeburg`}>Kreativmarkt Magdeburg</a> sind für uns bis heute ein wichtiger Teil unserer Arbeit — weil wir dort direkt mit Menschen in Kontakt kommen, die unsere Produkte lieben.
+        Kreativmärkte wie der jährliche <a href={`${base}/blog/kreativmarkt-magdeburg/`}>Kreativmarkt Magdeburg</a> sind für uns bis heute ein wichtiger Teil unserer Arbeit — weil wir dort direkt mit Menschen in Kontakt kommen, die unsere Produkte lieben.
       </p>
 
       <h2>Kreative Motivation und besondere Ausmalprodukte</h2>
       <p>
-        Ein besonderes Herzstück unseres Sortiments sind die <a href={`${base}/malen#leinwaende`}>Ausmalleinwände</a> und <a href={`${base}/malen#malbuecher`}>Malbücher</a>. Die Idee dahinter: Kunst für alle zugänglich machen — unabhängig davon, ob jemand zeichnen kann oder nicht. Unsere Motive sind handgezeichnet, geometrisch durchdacht und laden dazu ein, mit Farben zu spielen und das eigene Kunstwerk zu erschaffen.
+        Ein besonderes Herzstück unseres Sortiments sind die <a href={`${base}/malen/#leinwaende`}>Ausmalleinwände</a> und <a href={`${base}/malen/#malbuecher`}>Malbücher</a>. Die Idee dahinter: Kunst für alle zugänglich machen — unabhängig davon, ob jemand zeichnen kann oder nicht. Unsere Motive sind handgezeichnet, geometrisch durchdacht und laden dazu ein, mit Farben zu spielen und das eigene Kunstwerk zu erschaffen.
       </p>
       <p>
         Was uns besonders am Herzen liegt: andere Menschen für das Malen zu begeistern. Jede Leinwand, jedes Malbuch ist eine Einladung, kreativ zu werden — ganz ohne Druck, ganz nach eigenem Tempo.
@@ -117,7 +117,7 @@ const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
 
       <div class="article-cta">
         <p>Neugierig auf unsere Produkte?</p>
-        <a href={`${base}/malen`} class="btn btn-accent">Ausmalprodukte ansehen</a>
+        <a href={`${base}/malen/`} class="btn btn-accent">Ausmalprodukte ansehen</a>
       </div>
 
     </div>
@@ -125,7 +125,7 @@ const ogImage = `${SITE}/blog/das-sind-wir-hero.jpg`;
 
   <section class="section back-section bg-light">
     <div class="container text-center">
-      <a href={`${base}/blog`} class="btn btn-secondary">Weitere Blog-Artikel</a>
+      <a href={`${base}/blog/`} class="btn btn-secondary">Weitere Blog-Artikel</a>
     </div>
   </section>
 </Layout>

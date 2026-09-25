@@ -141,8 +141,8 @@ function youtubeId(url: string): string {
 
 const shortsAktiv = shorts.filter(v => v.url && !v.url.startsWith("YOUTUBE"));
 
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/malen`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/malen/`;
 const ogImage = `${SITE}/blog/ausmalen-leinwand-hero.jpg`;
 
 const jsonLd = {
@@ -446,7 +446,7 @@ const faqLd = {
           <span class="section-tag">AUS DEM BLOG</span>
           <h2>Magie auf Leinwand: Kreatives Ausmalen von fantasievollen Motiven</h2>
           <p>Wie Acrylfarben, geometrische Muster und eine vorgedruckte Leinwand zusammen echte Kunst ergeben — und warum das viel mehr Spaß macht als ein Malbuch.</p>
-          <a href={`${base}/blog/ausmalen-leinwand`} class="btn btn-accent">Artikel lesen</a>
+          <a href={`${base}/blog/ausmalen-leinwand/`} class="btn btn-accent">Artikel lesen</a>
         </div>
         <div class="blog-tipp-images">
           <img src={`${base}/blog/ausmalen-leinwand-1.jpg`} alt="Ausgemalte Leinwand – Beispiel aus dem Blog" loading="lazy" />

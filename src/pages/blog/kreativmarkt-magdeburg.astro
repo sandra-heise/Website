@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE = "https://www.sunnyartis.de";
-const canonicalUrl = `${SITE}/blog/kreativmarkt-magdeburg`;
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/blog/kreativmarkt-magdeburg/`;
 const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
 ---
 
@@ -36,14 +36,14 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
     "publisher": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
     "about": { "@type": "Event", "name": "Kreativmarkt Magdeburg 2024", "location": { "@type": "Place", "name": "Magdeburg", "address": { "@type": "PostalAddress", "addressLocality": "Magdeburg", "addressCountry": "DE" } } },
     "speakable": { "@type": "SpeakableSpecification", "cssSelector": [".article-title", ".article-container h2", ".article-container p"] },
-    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog` }
+    "isPartOf": { "@type": "Blog", "name": "Sunny Artis Blog", "url": `${SITE}/blog/` }
   })} />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Startseite", "item": SITE },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE}/blog/` },
       { "@type": "ListItem", "position": 3, "name": "Kreativmarkt Magdeburg", "item": canonicalUrl }
     ]
   })} />
@@ -51,7 +51,7 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
   <section class="article-hero">
     <div class="container">
       <div class="article-meta">
-        <a href={`${base}/blog`} class="back-link">
+        <a href={`${base}/blog/`} class="back-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           Zurück zum Blog
         </a>
@@ -97,7 +97,7 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
 
       <h2>Austausch, Inspiration und Gemeinschaft</h2>
       <p>
-        Wir präsentierten unsere <a href={`${base}/malen#leinwaende`}>Ausmalleinwände</a>, <a href={`${base}/malen#malbuecher`}>Malbücher</a>, Schmuckstücke und Poster. Was aber noch mehr zählt als jeder Verkauf: der direkte Austausch mit Menschen, die unsere Produkte in die Hand nehmen, darüber staunen und Fragen stellen. Solche Begegnungen sind durch nichts zu ersetzen.
+        Wir präsentierten unsere <a href={`${base}/malen/#leinwaende`}>Ausmalleinwände</a>, <a href={`${base}/malen/#malbuecher`}>Malbücher</a>, Schmuckstücke und Poster. Was aber noch mehr zählt als jeder Verkauf: der direkte Austausch mit Menschen, die unsere Produkte in die Hand nehmen, darüber staunen und Fragen stellen. Solche Begegnungen sind durch nichts zu ersetzen.
       </p>
       <p>
         Wir haben außerdem viele andere kreative Aussteller kennengelernt, uns gegenseitig inspiriert und ein Stück dieser besonderen Energie mitgenommen, die nur auf solchen Märkten entsteht. Kreativität ist ansteckend — auf die schönste Art.
@@ -110,7 +110,7 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
 
       <div class="article-cta">
         <p>Unsere Produkte gibt es auch online:</p>
-        <a href={`${base}/malen`} class="btn btn-accent">Zum Shop</a>
+        <a href={`${base}/malen/`} class="btn btn-accent">Zum Shop</a>
       </div>
 
     </div>
@@ -118,7 +118,7 @@ const ogImage = `${SITE}/blog/kreativmarkt-hero.jpg`;
 
   <section class="section back-section bg-light">
     <div class="container text-center">
-      <a href={`${base}/blog`} class="btn btn-secondary">Weitere Blog-Artikel</a>
+      <a href={`${base}/blog/`} class="btn btn-secondary">Weitere Blog-Artikel</a>
     </div>
   </section>
 </Layout>
