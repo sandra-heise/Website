@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { outUrl } from '../../utils/outboundLink';
+import { dlUrl } from '../../utils/downloadLink';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://sunnyartis.de";
@@ -44,6 +45,7 @@ const schritte = [
     bilder: ["halloween-16.jpg", "halloween-17.jpg"],
   },
 ];
+const laterneDownload = dlUrl({ id: "0114HalloweenLaterne" });
 ---
 
 <Layout
@@ -181,7 +183,7 @@ const schritte = [
           <div>
             <strong>Optional</strong>
             <ul>
-              <li><a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download>SVG-Plotterdatei (kostenlos)</a></li>
+              <li><a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download data-dl={laterneDownload}>SVG-Plotterdatei (kostenlos)</a></li>
               <li><a href={outUrl("https://amzn.to/46bouxj")} target="_blank" rel="noopener noreferrer sponsored">Bastelpapier (Amazon)</a></li>
               <li><a href={outUrl("https://amzn.to/4mRdVGS")} target="_blank" rel="noopener noreferrer sponsored">Transparentpapier (Amazon)</a></li>
             </ul>
@@ -212,7 +214,7 @@ const schritte = [
 
       <div class="article-cta">
         <p>Die SVG-Plotterdatei gibt es kostenlos zum Download:</p>
-        <a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download class="btn btn-accent">
+        <a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_plotterdatei_0114HalloweenLaterne.zip" download data-dl={laterneDownload} class="btn btn-accent">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           Kostenlos herunterladen
         </a>

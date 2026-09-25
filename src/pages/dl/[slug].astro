@@ -1,0 +1,30 @@
+---
+import { FREE_DOWNLOADS } from "../../config/downloads";
+import { downloadSlug } from "../../utils/downloadLink";
+
+export function getStaticPaths() {
+  return FREE_DOWNLOADS.map((d) => ({
+    params: { slug: downloadSlug(d) },
+    props: { url: d.url, title: d.title },
+  }));
+}
+
+const { url, title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${url}`} />
+    <title>Download: {title} …</title>
+    <script define:vars={{ url }}>
+      window.location.replace(url);
+    </script>
+  </head>
+  <body>
+    <p>Download startet … <a href={url}>Hier klicken, falls der Download nicht automatisch startet.</a></p>
+  </body>
+</html>

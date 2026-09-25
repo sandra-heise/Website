@@ -11,12 +11,10 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 ### Hoch (jetzt angehen)
 
 - [ ] **Search Console auf Apex-Domain umstellen** — nach dem Deploy der Domain-/Schrägstrich-Korrektur (siehe Verlauf 25.09.2026) `https://sunnyartis.de/sitemap-index.xml` neu einreichen, am besten als Domain-Property.
-- [ ] **`/schmuck` braucht einen Online-Kaufweg** — Seite bietet nur Markt (nächster Termin Januar 2027), Instagram-DM und Kontaktformular. Wer heute kaufen will, kann es nicht. Entscheidung nötig: Schmuck auf Etsy einstellen, oder zumindest das Anfrageformular als klaren Haupt-CTA mit Preisrahmen nach oben ziehen.
-- [ ] **Erste Auswertung `/out/*`-Klicks + Abgleich mit Etsy-/Amazon-Statistik** — nach ~2 Wochen Laufzeit (ab Anfang Oktober 2026): Welche Produkte werden geklickt, welche verkauft? Ergebnis als Verlaufseintrag hier festhalten.
+- [ ] **Erste Auswertung `/out/*`- und `/dl/*`-Klicks + Abgleich mit Etsy-/Amazon-Statistik** — nach ~2 Wochen Laufzeit (ab Anfang Oktober 2026): Welche Produkte werden geklickt, welche verkauft, welche Gratis-Motive heruntergeladen — und führen Downloads zu Klicks auf Malbücher/Etsy-Plotterdateien? Ergebnis als Verlaufseintrag hier festhalten.
 
 ### Mittel
 
-- [ ] **Download-Klicks messbar machen** — die „Herunterladen"-Buttons auf `/downloads` verlinken direkt auf R2 und laufen nicht über `/out/`, tauchen also in Cloudflare Analytics der Domain nicht auf. Ohne Zahlen ist unklar, welche Gratis-Motive als Köder funktionieren.
 - [ ] **Mobile-Erlebnis auf echtem Gerät testen** — Zielgruppe kommt vermutlich über Pinterest/Instagram (mobil), Rohdaten zeigen aber nur ~6% Mobile-Traffic (teils bot-verzerrt, aber gegenchecken). Schwerpunkt: Sind Etsy-/Amazon-Buttons auf `/malen` und `/gemaelde` mobil ohne Scrollen auffindbar?
 - [ ] **Englische Zielgruppe bedienen** — USA ist in den echten Besuchen das größte Land, die Seite ist komplett deutsch (`lang="de"`). Erster Schritt ohne Umbau: englische Etsy-Listings/Tags prüfen; eine englische Seitenversion erst, wenn die `/out/`-Daten zeigen, dass US-Besucher tatsächlich klicken.
 - [ ] **INP-Ausreißer untersuchen** — insbesondere ob eingebettete Etsy-Widgets oder Drittanbieter-Skripte die Interaktivität bremsen.
@@ -47,6 +45,7 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 - [x] Canonicals, Sitemap, robots.txt, og:url und JSON-LD auf `https://sunnyartis.de/` (ohne `www`) + alle internen Links mit Schrägstrich am Ende, `trailingSlash: 'always'` (25.09.2026)
 - [x] Standard-og:image für alle Seiten ohne eigenes Bild + `twitter:card` immer `summary_large_image` (25.09.2026)
 - [x] Zwei zusätzliche Cache Rules unter „HTML Pages Cache": **Astro-Assets** (`/_astro/*`, Edge 1 Monat, Browser 1 Jahr) und **Bilder** (jpg/jpeg/png/webp/avif/gif/svg/ico/woff2, Edge 1 Monat, Browser 7 Tage). Die alte Regel bleibt: Ihr `or`-Logikfehler ist harmlos, weil „alles cachebar" für die statische Seite passt; die späteren Regeln überschreiben sie für Assets. Live verifiziert 25.09.2026: Seiten `max-age=600`, Bilder `604800`, `/_astro/`-CSS `31536000`.
+- [x] Download-Klicks zählbar: Gratis-Download-Buttons auf `/downloads`, `/basteln`, `/blog` und im Halloween-Laternen-Artikel schicken beim Klick eine Hintergrund-Anfrage an `/dl/<id>/` (Auswertung: Analytics → Traffic, Pfad `/dl/`). Datei lädt weiter direkt von R2, Besucher bleibt auf der Seite (25.09.2026)
 - [x] Klick-Tracking auf allen Etsy-/Amazon-Links via interne `/out/<slug>`-Redirects (siehe Nachtrag unten)
 - [x] `/downloads` verweist auf Malbücher (`/malen#malbuecher`) und Etsy-Plotterdateien — Block „Mehr davon?" nach dem Download-Grid, Reihenfolge je nach aktivem Filter, plus „Mehr im Malbuch →" auf jeder Ausmalbild-Karte (25.09.2026)
 
@@ -54,15 +53,16 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ## Verkaufsfokus – laufende Beobachtungen
 
-- Startseite ist nicht der Haupteingang — echte Besucher landen häufiger direkt auf `/downloads/`, `/schmuck/`, `/malen/`. Diese Unterseiten müssen jeweils für sich zum Kauf führen. Stand 25.09.2026:
+- Startseite ist nicht der Haupteingang — echte Besucher landen häufiger direkt auf `/downloads/`, `/schmuck/`, `/malen/`. Die Produkt-Seiten darunter (`/downloads/`, `/malen/`) müssen jeweils für sich zum Kauf führen, `/schmuck/` bewusst nicht (siehe unten). Stand 25.09.2026:
 
   | Einstiegsseite | Direkter Kauf-Link? | Bewertung |
   |---|---|---|
   | `/malen/` | Ja — Etsy + Amazon pro Malbuch, Etsy pro Leinwand, Preis sichtbar | gut |
   | `/downloads/` | Seit 25.09.2026 ja — Block zu Malbüchern + Etsy-Plotterdateien, Ausmalbild-Karten verlinken aufs Malbuch | behoben, Wirkung über `/out/etsy-shop-plotterdateien` bzw. Aufrufe von `/malen` beobachten |
-  | `/schmuck/` | Nein — nur Markt, Instagram-DM, Kontaktformular | kein Online-Kauf möglich |
+  | `/schmuck/` | Nein — bewusst so (siehe unten) | kein Verkaufsschwerpunkt |
 
   Der Etsy-Button im Header ist zwar auf jeder Seite da, aber unspezifisch (führt auf den ganzen Shop, nicht zum passenden Produkt).
+- **Schmuck ist bewusst kein Verkaufsschwerpunkt.** Über Etsy (hohe Einstellkosten) und den früheren Shopify-Shop kamen zwar Besucher, aber kaum Käufe. Die Galerie auf `/schmuck` zeigt nur einen kleinen Ausschnitt des Sortiments; verkauft wird vor allem auf Märkten, Anfragen laufen über das Kontaktformular. `/schmuck` deshalb bei Verkaufsoptimierungen **nicht** auf Kauf trimmen (keine Buttons pro Stück o. Ä.) — der Verkaufsfokus liegt auf Malbüchern, Leinwänden, Plotterdateien und Gemälden.
 - USA + Deutschland als Kernpublikum (passend zu Etsy) → englische Produktbeschreibungen/Etsy-SEO ernst nehmen, nicht nur deutschen Markt bedienen.
 - Kauf-Trichter: Klick-Tracking läuft seit 17.09.2026 (`/out/*`). Lücke bleibt zwischen Klick und Kauf — die Cloudflare-Klickzahlen müssen mit den Etsy-/Amazon-Verkaufsstatistiken abgeglichen werden, um zu verstehen was sich tatsächlich verkauft.
 - Bei ~16 echten Besuchen/Tag ist der größere Hebel für mehr Verkäufe eher mehr qualifizierter Traffic (Etsy-SEO, Pinterest, Social Media) und bessere Weiterleitung der vorhandenen Besucher zum Produkt als weitere Infrastruktur-Feinarbeit.
@@ -135,3 +135,11 @@ Sandra hat Seite und Dashboard von einem Browser-Agenten prüfen lassen. Die Pun
 **Übernommen als spätere Maßnahmen:** Bildoptimierung per `astro:assets`, Dateinamen, Pinterest, Schema-Erweiterung (alle unter „Niedrig", weil sie Verkäufe weniger direkt beeinflussen als die offenen Einstiegsseiten-Punkte).
 
 **Nach dem Deploy:** „Purge Everything" in Cloudflare, dann stichprobenartig `curl -sI https://sunnyartis.de/gemaelde/` (soll 200 liefern) und Canonical im Seitenquelltext prüfen.
+
+### 25.09.2026 — Schmuck aus dem Verkaufsfokus genommen
+
+Maßnahme „`/schmuck` braucht einen Online-Kaufweg" gestrichen. Ein bereits begonnener Umbau (Anfrage-Button pro Galerie-Stück, vorausgefülltes Kontaktformular, Anfrage-Karte als Hauptweg) wurde auf Sandras Hinweis verworfen, bevor er live ging: Schmuckverkauf steht seit dem Neuaufbau der Seite bewusst nicht im Vordergrund, die Galerie ist nur ein Ausschnitt, und frühere Online-Verkaufsversuche (Etsy, Shopify) haben sich nicht gelohnt. Begründung dauerhaft unter „Verkaufsfokus" festgehalten.
+
+### 25.09.2026 — Download-Klicks zählbar gemacht
+
+Gratis-Downloads liefen bisher direkt auf R2 und waren in den Cloudflare-Daten der Domain unsichtbar. Erster Ansatz (Link auf eine `/dl/<id>/`-Weiterleitungsseite wie bei `/out/`) verworfen: Beim Test blieb der Besucher nach dem Download auf der leeren Weiterleitungsseite stehen, weil ein Datei-Download die Seite nicht verlässt. Umgesetzt stattdessen: Link bleibt direkt auf R2 (`download`-Attribut), zusätzlich `data-dl`-Attribut; ein kleines Skript in [Layout.astro](src/layouts/Layout.astro) schickt beim Klick per `fetch(…, { keepalive: true })` eine Anfrage an `/dl/<id>/`. Die `/dl/`-Seiten existieren als echte Seiten (`noindex`, nicht in der Sitemap) und leiten bei direktem Aufruf auf die Datei weiter. Kein Cookie, kein Consent nötig. Hinweis für die Auswertung: Besucher mit abgeschaltetem JavaScript werden nicht gezählt, bekommen die Datei aber trotzdem.

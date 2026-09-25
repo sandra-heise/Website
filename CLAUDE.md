@@ -46,10 +46,15 @@ Jeder Push auf `master` deployt automatisch via GitHub Actions auf GitHub Pages 
 ### Download-Link im Blog einbetten
 
 ```astro
-<a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/dateiname.zip" download class="btn btn-accent">
+---
+import { dlUrl } from '../../utils/downloadLink';
+---
+<a href="https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/dateiname.zip" download data-dl={dlUrl({ id: "mein-motiv" })} class="btn btn-accent">
   Kostenlos herunterladen
 </a>
 ```
+
+`data-dl` sorgt dafür, dass der Klick gezählt wird: Ein Skript im Layout schickt beim Klick eine Hintergrund-Anfrage an `/dl/<id>/`, die in Cloudflare Analytics → Traffic (Pfad `/dl/`) auftaucht. Die Datei selbst lädt weiter direkt von R2. `dlUrl()` bricht den Build ab, wenn die `id` nicht in `downloads.ts` steht. Auf `/downloads`, `/basteln` und `/blog` passiert das automatisch für alle Einträge aus `downloads.ts`.
 
 ### Verfügbare Dateien
 
