@@ -10,7 +10,6 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ### Hoch (jetzt angehen)
 
-- [ ] **Search Console auf Apex-Domain umstellen** — nach dem Deploy der Domain-/Schrägstrich-Korrektur (siehe Verlauf 25.09.2026) `https://sunnyartis.de/sitemap-index.xml` neu einreichen, am besten als Domain-Property.
 - [ ] **Erste Auswertung `/out/*`- und `/dl/*`-Klicks + Abgleich mit Etsy-/Amazon-Statistik** — nach ~2 Wochen Laufzeit (ab Anfang Oktober 2026): Welche Produkte werden geklickt, welche verkauft, welche Gratis-Motive heruntergeladen — und führen Downloads zu Klicks auf Malbücher/Etsy-Plotterdateien? Ergebnis als Verlaufseintrag hier festhalten.
 
 ### Mittel
@@ -21,7 +20,7 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 
 ### Niedrig
 
-- [ ] **Bilder auf `astro:assets` (`<Picture>`, AVIF/WebP, `srcset`) umstellen** — größter Ladezeit-Hebel laut externem Check: `logo.png` 119 KB bei kleiner Anzeige, `blog/ausmalen-leinwand-hero.jpg` 484 KB, 18 Bilder in `public/` über 300 KB. Größerer Umbau (Bilder von `public/` nach `src/assets/`), Core Web Vitals sind aktuell aber schon gut → nach den Verkaufs-Punkten.
+- [ ] **Stufe 2 Bildoptimierung: `astro:assets` (`<Picture>`, AVIF/WebP, `srcset`)** — erst entscheiden, nachdem der Effekt von Stufe 1 (25.09.2026) in Web Analytics sichtbar ist (ab ~09.10.2026). Ausgangswert: LCP p75 = 3,9 s laut externem Check, Ziel < 2,5 s. Größerer Umbau (alle Bildpfade von `public/` nach `src/assets/`).
 - [ ] **Bild-Dateinamen aufräumen** — `Mabuch-Feen.jpg` (Tippfehler), `Malbuch-Katzen.jpg`, `prisma_color (1).jpg` (Leerzeichen in og:image-URL) umbenennen, kleingeschrieben mit Bindestrichen.
 - [ ] **Pinterest: Domain verifizieren + Rich Pins + Hochformat-Pins (2:3)** für Malbücher und `/downloads`.
 - [ ] **Schema erweitern** — Startseite: `Organization`/`Person` mit Logo und `sameAs`; `/gemaelde`: `Product` + `Offer` neben `VisualArtwork`.
@@ -40,12 +39,14 @@ Priorisiert nach Wirkung auf Verkäufe (seit 25.09.2026, siehe Verlauf). Infrast
 - [x] SPF + DMARC (`p=reject`) eingerichtet — E-Mail-Spoofing unter der Domain verhindert
 - [x] Bot Fight Mode aktiviert
 - [x] security.txt eingerichtet
-- [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert
+- [x] Tiered Cache (Smart Tiered Cache) + längeres Browser-Cache-TTL aktiviert (Tiered Cache am 25.09.2026 im Dashboard erneut bestätigt — Hinweis im externen Check war falsch)
 - [x] Cache Rule für HTML-Seiten angelegt (Caching → Cache Rules) + automatischer Cache-Purge nach jedem Deploy via GitHub Actions ([.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml))
 - [x] Canonicals, Sitemap, robots.txt, og:url und JSON-LD auf `https://sunnyartis.de/` (ohne `www`) + alle internen Links mit Schrägstrich am Ende, `trailingSlash: 'always'` (25.09.2026)
 - [x] Standard-og:image für alle Seiten ohne eigenes Bild + `twitter:card` immer `summary_large_image` (25.09.2026)
 - [x] Zwei zusätzliche Cache Rules unter „HTML Pages Cache": **Astro-Assets** (`/_astro/*`, Edge 1 Monat, Browser 1 Jahr) und **Bilder** (jpg/jpeg/png/webp/avif/gif/svg/ico/woff2, Edge 1 Monat, Browser 7 Tage). Die alte Regel bleibt: Ihr `or`-Logikfehler ist harmlos, weil „alles cachebar" für die statische Seite passt; die späteren Regeln überschreiben sie für Assets. Live verifiziert 25.09.2026: Seiten `max-age=600`, Bilder `604800`, `/_astro/`-CSS `31536000`.
 - [x] Download-Klicks zählbar: Gratis-Download-Buttons auf `/downloads`, `/basteln`, `/blog` und im Halloween-Laternen-Artikel schicken beim Klick eine Hintergrund-Anfrage an `/dl/<id>/` (Auswertung: Analytics → Traffic, Pfad `/dl/`). Datei lädt weiter direkt von R2, Besucher bleibt auf der Seite (25.09.2026)
+- [x] Search Console (Domain-Property `sunnyartis.de`, bestand schon): neue `https://sunnyartis.de/sitemap-index.xml` eingereicht, Status „Erfolgreich"; alte Shopify-`sitemap.xml` (484 Seiten, liefert jetzt 404) entfernt (25.09.2026). Nachprüfen ab ~02.10.2026: „Erkannte Seiten" der Unter-Sitemap sollte ~18 zeigen.
+- [x] **Bildoptimierung Stufe 1** (25.09.2026): 44 Bilder in `public/` per `npm run optimize-images` verkleinert (13,4 → 7,0 MB, Logo 116 → 12 KB); eigene 480-px-Vorschaubilder für die 7 Ausmalbilder auf `/downloads` statt der R2-Druckdateien (3,5 MB → 284 KB); `width`/`height` automatisch beim Build für alle lokalen Bilder (vorher fehlend auf `/gemaelde`, `/malen`, `/blog`, `/downloads`, `/basteln`); `/downloads` nur noch ein Bild mit hoher Priorität.
 - [x] Klick-Tracking auf allen Etsy-/Amazon-Links via interne `/out/<slug>`-Redirects (siehe Nachtrag unten)
 - [x] `/downloads` verweist auf Malbücher (`/malen#malbuecher`) und Etsy-Plotterdateien — Block „Mehr davon?" nach dem Download-Grid, Reihenfolge je nach aktivem Filter, plus „Mehr im Malbuch →" auf jeder Ausmalbild-Karte (25.09.2026)
 
@@ -143,3 +144,13 @@ Maßnahme „`/schmuck` braucht einen Online-Kaufweg" gestrichen. Ein bereits be
 ### 25.09.2026 — Download-Klicks zählbar gemacht
 
 Gratis-Downloads liefen bisher direkt auf R2 und waren in den Cloudflare-Daten der Domain unsichtbar. Erster Ansatz (Link auf eine `/dl/<id>/`-Weiterleitungsseite wie bei `/out/`) verworfen: Beim Test blieb der Besucher nach dem Download auf der leeren Weiterleitungsseite stehen, weil ein Datei-Download die Seite nicht verlässt. Umgesetzt stattdessen: Link bleibt direkt auf R2 (`download`-Attribut), zusätzlich `data-dl`-Attribut; ein kleines Skript in [Layout.astro](src/layouts/Layout.astro) schickt beim Klick per `fetch(…, { keepalive: true })` eine Anfrage an `/dl/<id>/`. Die `/dl/`-Seiten existieren als echte Seiten (`noindex`, nicht in der Sitemap) und leiten bei direktem Aufruf auf die Datei weiter. Kein Cookie, kein Consent nötig. Hinweis für die Auswertung: Besucher mit abgeschaltetem JavaScript werden nicht gezählt, bekommen die Datei aber trotzdem.
+
+### 25.09.2026 — Zweiter externer Check + Bildoptimierung Stufe 1
+
+Zweiter Durchlauf des Browser-Addons bestätigt: Domain, Schrägstrich, Sitemap/robots, Cache-Regeln (HIT, 7 Tage / 1 Jahr), og:image und Schema sind sauber. Offen laut Check: Bilder (kein WebP/`srcset`, fehlende Maße → Layout-Springen bei `.gemaelde-right-col` und `.downloads-section` in Web Analytics, LCP p75 3,9 s), Dateinamen, Pinterest-Verifizierung, `/out/`-Zwischenseite.
+
+Eigene Messung ergab einen größeren Brocken als im Check genannt: `/downloads` nutzte für die 7 Ausmalbild-Karten die kompletten Druckdateien von R2 (400–620 KB pro Bild) als Vorschau.
+
+Umgesetzt als Stufe 1 (siehe „Bereits erledigt"). Geprüft: 376 Bildanzeigen auf 16 Seiten (Handy + Desktop) ohne Verzerrung. Gemessene Bilddaten beim Öffnen einer Seite auf dem Handy, live alt → neu: `/gemaelde` 736 → 196 KB, `/blog/halloween-laterne` 795 → 281 KB, `/blog` 490 → 161 KB, `/malen` 508 → 363 KB, `/downloads` 261 → 107 KB, Startseite unverändert ~292 KB. Großer Teil des Effekts kommt daher, dass `loading="lazy"` jetzt greift — ohne Maße hatten Bilder vor dem Laden Höhe 0 und lagen damit alle „im sichtbaren Bereich".
+
+Bewusst nicht gemacht: Dateinamen umbenennen (würde evtl. bestehende Pinterest-Pins brechen, geringer Nutzen), `fetchpriority` auf `/schmuck` (3 Bilder mit hoher Priorität, Schmuck-Seite nur nach Rückfrage ändern), Pinterest-Verifizierung (Code aus Sandras Pinterest-Konto nötig), `/out/` als Bulk Redirects (niedrige Priorität).

@@ -152,7 +152,7 @@ const faqLd = {
           <article class="card download-card" data-category={d.kategorie}>
             <div class="card-img-wrapper">
               {d.vorschau
-                ? <img src={imageFor(d.vorschau)} alt={`${d.title} – kostenlose Plotterdatei als SVG, DXF, PNG`} loading={i < 6 ? "eager" : "lazy"} fetchpriority={i < 3 ? "high" : "auto"} />
+                ? <img src={imageFor(d.vorschau)} alt={`${d.title} – kostenlose Plotterdatei als SVG, DXF, PNG`} loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} />
                 : <div class="download-placeholder"><span>{d.kategorie}</span></div>
               }
               {d.bestseller && <span class="badge badge-bestseller">Bestseller</span>}

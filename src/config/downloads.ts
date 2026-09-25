@@ -11,7 +11,7 @@ export interface Download {
   kategorie: string;
   bestseller?: boolean;
   blogPost?: string; // relativer Pfad, z. B. "/blog/halloween-laterne"
-  vorschau?: string; // relativer Pfad zum Vorschaubild, z. B. "/blog/halloween-hero.jpg"
+  vorschau?: string; // relativer Pfad zu einem kleinen Vorschaubild (~480 px breit), z. B. "/downloads/muttertag.jpg" – nicht die Druckdatei selbst
 }
 
 export const FREE_DOWNLOADS: Download[] = [
@@ -243,7 +243,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Faultier.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Faultier.jpg",
+    vorschau: "/downloads/ausmalbild-faultier.jpg",
   },
   {
     id: "A002_Fische",
@@ -252,7 +252,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Fische.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Fische.jpg",
+    vorschau: "/downloads/ausmalbild-fische.jpg",
   },
   {
     id: "A003_FrauAufBlume",
@@ -261,7 +261,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Frau%20auf%20Blume.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Frau%20auf%20Blume.jpg",
+    vorschau: "/downloads/ausmalbild-frau-auf-blume.jpg",
   },
   {
     id: "A004_Gesicht",
@@ -270,7 +270,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Gesicht.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Gesicht.jpg",
+    vorschau: "/downloads/ausmalbild-gesicht.jpg",
   },
   {
     id: "A005_Rosen",
@@ -279,7 +279,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Rosen.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Rosen.jpg",
+    vorschau: "/downloads/ausmalbild-rosen.jpg",
   },
   {
     id: "A006_Sanduhr",
@@ -288,7 +288,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Sanduhr.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Sanduhr.jpg",
+    vorschau: "/downloads/ausmalbild-sanduhr.jpg",
   },
   {
     id: "A007_Schirm",
@@ -297,6 +297,6 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Schirm.jpg",
     format: "JPG (druckbar)",
     kategorie: "Ausmalbilder",
-    vorschau: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/Schirm.jpg",
+    vorschau: "/downloads/ausmalbild-schirm.jpg",
   },
 ];

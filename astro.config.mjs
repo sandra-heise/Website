@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import imageDimensions from './src/integrations/imageDimensions.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,5 +13,6 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.includes('/out/') && !page.includes('/dl/'),
     }),
+    imageDimensions(),
   ],
 });

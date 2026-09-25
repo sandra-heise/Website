@@ -11,10 +11,12 @@ interface Props {
   canonical?: string;
 }
 
+const DEFAULT_OG_IMAGE = "https://sunnyartis.de/og-default.jpg";
+
 const {
   title = "Sunny Artis - Kunstwerkstatt & Kreativbedarf",
   description = "Willkommen in der Kunstwerkstatt von Sandra Heise. Entdecke handgefertigten Schmuck, gezeichnete Porträts nach Foto und kreative Malprodukte wie Malbücher und Leinwände.",
-  ogImage = "https://sunnyartis.de/og-default.jpg",
+  ogImage = DEFAULT_OG_IMAGE,
   canonical,
 } = Astro.props;
 
@@ -41,6 +43,8 @@ const ogImageType = /\.png$/i.test(ogImage) ? "image/png" : "image/jpeg";
     <meta property="og:url" content={canonical ?? "https://sunnyartis.de/"} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content={ogImageType} />
+    {ogImage === DEFAULT_OG_IMAGE && <meta property="og:image:width" content="1200" />}
+    {ogImage === DEFAULT_OG_IMAGE && <meta property="og:image:height" content="630" />}
     <meta property="og:image:alt" content={title} />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

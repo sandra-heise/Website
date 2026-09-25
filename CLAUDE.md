@@ -100,6 +100,14 @@ Alle Artikel liegen unter `src/pages/blog/`. Neue Artikel:
 
 Alle Bildpfade im Code mit `${base}/ordner/bild.jpg` — nie mit absolutem `/` beginnen. `base` ist aktuell `/` (löst also zu einem leeren String auf), das Pattern bleibt aber Konvention, falls sich der Base-Pfad je wieder ändert.
 
+**Neue Bilder:** Nach dem Ablegen in `public/` einmal `npm run optimize-images` ausführen ([scripts/optimize-images.mjs](scripts/optimize-images.mjs)). Das Skript verkleinert Bilder über 1400 px bzw. über 200 KB an Ort und Stelle (Dateiname bleibt gleich, bereits optimierte werden übersprungen); `-- --dry` zeigt vorher nur an, was passieren würde.
+
+**Bildmaße:** `width`/`height` müssen nicht von Hand gesetzt werden — [src/integrations/imageDimensions.mjs](src/integrations/imageDimensions.mjs) ergänzt sie beim Build für alle lokalen `<img>` ohne Maße (gegen Springen beim Laden). Nur im fertigen Build aktiv, nicht im Dev-Server.
+
+**Ladepriorität:** `fetchpriority="high"` / `loading="eager"` nur für das eine große Bild oben auf der Seite, alle anderen `loading="lazy"`.
+
+**Download-Vorschaubilder** (`vorschau` in `downloads.ts`): immer ein kleines Bild (~480 px breit) in `public/downloads/` — nie die Druckdatei von R2 selbst, die ist 400–600 KB groß.
+
 ---
 
 ## SEO & Structured Data
