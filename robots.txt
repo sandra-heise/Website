@@ -1,3 +1,29 @@
+# Sunny Artis - robots.txt
+# Haltung (Stand 22.10.2026): Kein KI-Training mit Inhalten und Bildern dieser Seite.
+# Suchmaschinen und KI-Suchen/-Assistenten (z. B. OAI-SearchBot, ChatGPT-User,
+# Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User) sind erlaubt.
+
+# KI-Training-Crawler
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: Meta-ExternalAgent
+User-agent: FacebookBot
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: Timpibot
+User-agent: omgili
+Disallow: /
+
+# Alle anderen (Suchmaschinen, KI-Suche)
 User-agent: *
 Allow: /
 
