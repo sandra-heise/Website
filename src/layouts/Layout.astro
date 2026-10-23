@@ -21,6 +21,12 @@ const {
 } = Astro.props;
 
 const ogImageType = /\.png$/i.test(ogImage) ? "image/png" : "image/jpeg";
+
+// Seiten wie Blogartikel (article) oder Portfolio (profile) setzen og:type selbst per slot="head".
+// Dann hier kein eigenes og:type ausgeben – sonst steht es doppelt im HTML und
+// Pinterest/Facebook werten das erste ("website") aus. Wichtig für Artikel-Rich-Pins.
+const headSlot = Astro.slots.has('head') ? await Astro.slots.render('head') : '';
+const pageSetsOgType = /property="og:type"/.test(headSlot);
 ---
 
 <!doctype html>
@@ -35,7 +41,7 @@ const ogImageType = /\.png$/i.test(ogImage) ? "image/png" : "image/jpeg";
     <meta name="robots" content="index, follow" />
     {canonical && <link rel="canonical" href={canonical} />}
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    {!pageSetsOgType && <meta property="og:type" content="website" />}
     <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -52,7 +58,7 @@ const ogImageType = /\.png$/i.test(ogImage) ? "image/png" : "image/jpeg";
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <!-- Seitenspezifische Tags (z.B. JSON-LD) -->
-    <slot name="head" />
+    <Fragment set:html={headSlot} />
   </head>
   <body>
     <Header />
