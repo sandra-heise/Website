@@ -1,0 +1,298 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { FREE_DOWNLOADS } from '../../config/downloads';
+import { outUrl } from '../../utils/outboundLink';
+import { dlUrl } from '../../utils/downloadLink';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = "https://sunnyartis.de";
+const canonicalUrl = `${SITE}/downloads/weihnachtswichtel/`;
+const ogImage = `${SITE}/downloads/thumbnail_wichtel.jpg`;
+
+const wichtel = FREE_DOWNLOADS.find((d) => d.id === "0107wichtel")!;
+
+const MEGA_BUNDLE_URL = "https://sunnyartis.etsy.com/listing/4589624412";
+
+// Weitere Weihnachts-Freebies als Querverweis
+const weitereWeihnacht = FREE_DOWNLOADS.filter((d) => d.kategorie === "Weihnachten" && d.id !== wichtel.id).slice(0, 4);
+
+const faq = [
+  {
+    frage: "Ist die Wichtel-Plotterdatei wirklich kostenlos?",
+    antwort: "Ja. Der Download ist gratis und ohne Anmeldung oder E-Mail-Adresse möglich. Die Datei ist für den privaten, nicht-kommerziellen Gebrauch freigegeben.",
+  },
+  {
+    frage: "Welche Formate sind enthalten?",
+    antwort: "Das ZIP-Archiv enthält SVG (für Cricut, Silhouette, Brother & Co.), DXF (für ältere Plotter-Programme), PNG und JPG.",
+  },
+  {
+    frage: "Mit welchem Plotter funktioniert die Datei?",
+    antwort: "Mit allen gängigen Schneideplottern: Cricut Design Space, Silhouette Studio, Brother Canvas Workspace oder Inkscape lesen die SVG-Datei direkt ein.",
+  },
+  {
+    frage: "Worauf kann ich den Weihnachtswichtel plotten?",
+    antwort: "Zum Beispiel auf Flexfolie für Kissen, Taschen und T-Shirts, auf Vinyl für Fenster, Tassen und Glas oder aus Papier und Karton für Weihnachtskarten und Geschenkanhänger.",
+  },
+  {
+    frage: "Gibt es mehr Weihnachtsmotive?",
+    antwort: "Ja. Im Weihnachts Mega Bundle auf Etsy findest du viele weitere Weihnachtsmotive als Plotterdatei im Paket.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Weihnachtswichtel – kostenlose Plotterdatei",
+  "description": "Kostenlose Plotterdatei Weihnachtswichtel: drei Wichtel mit Tannenbaum und „Merry Christmas“-Schriftzug als SVG, DXF, PNG und JPG.",
+  "url": canonicalUrl,
+  "inLanguage": "de",
+  "image": ogImage,
+  "author": { "@type": "Person", "name": "Sandra Heise", "url": SITE },
+  "publisher": { "@type": "Organization", "name": "Sunny Artis", "url": SITE },
+  "mainEntity": {
+    "@type": "DigitalDocument",
+    "name": "Weihnachtswichtel Plotterdatei",
+    "description": "Drei Wichtel mit Geschenksack, Tannenbaum mit Stern und Schriftzug „Merry Christmas“.",
+    "encodingFormat": "application/zip",
+    "keywords": "Plotterdatei, Weihnachten, Wichtel, SVG, DXF, PNG, kostenlos, Freebie",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+    "url": wichtel.url,
+    "image": ogImage,
+    "author": { "@type": "Person", "name": "Sandra Heise" }
+  }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f) => ({
+    "@type": "Question",
+    "name": f.frage,
+    "acceptedAnswer": { "@type": "Answer", "text": f.antwort }
+  }))
+};
+---
+
+<Layout
+  title="Weihnachtswichtel Plotterdatei kostenlos – SVG, DXF, PNG | Sunny Artis"
+  description="Kostenlose Plotterdatei Weihnachtswichtel: drei Wichtel mit Tannenbaum und „Merry Christmas“ als SVG, DXF, PNG und JPG. Sofort herunterladen, ohne Anmeldung."
+  canonical={canonicalUrl}
+  ogImage={ogImage}
+>
+  <meta name="keywords" content="Wichtel Plotterdatei, Weihnachtswichtel SVG, Plotterdatei Weihnachten kostenlos, Wichtel SVG kostenlos, Merry Christmas Plotterdatei, Cricut Weihnachten, Silhouette Weihnachten, Freebie" slot="head" />
+  <meta property="og:image:alt" content="Weihnachtswichtel Plotterdatei: drei Wichtel mit Tannenbaum und Merry Christmas" slot="head" />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Kostenlose Downloads", "item": `${SITE}/downloads/` },
+      { "@type": "ListItem", "position": 3, "name": "Weihnachtswichtel", "item": canonicalUrl }
+    ]
+  })} />
+
+  <section class="section wichtel-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrümelnavigation">
+        <a href={`${base}/downloads/`}>Kostenlose Downloads</a> <span aria-hidden="true">›</span> <span>Weihnachtswichtel</span>
+      </nav>
+      <div class="wichtel-grid">
+        <div class="wichtel-bild">
+          <img src={`${base}/downloads/thumbnail_wichtel.jpg`} alt="Kostenlose Plotterdatei Weihnachtswichtel: drei Wichtel mit Geschenksack laufen zum Tannenbaum mit Merry Christmas" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="wichtel-text">
+          <span class="section-tag">GRATIS · WEIHNACHTEN</span>
+          <h1>Weihnachtswichtel – kostenlose Plotterdatei</h1>
+          <p>
+            Drei Wichtel ziehen mit ihrem Geschenksack zum Tannenbaum, darin der Schriftzug „Merry Christmas“. Das Motiv eignet sich für Weihnachtskarten, Kissen, Tassen, Fensterbilder und Geschenkanhänger.
+          </p>
+          <ul class="wichtel-fakten">
+            <li><strong>Formate:</strong> {wichtel.format}</li>
+            <li><strong>Plotter:</strong> Cricut, Silhouette, Brother u. a.</li>
+            <li><strong>Nutzung:</strong> privat, nicht-kommerziell</li>
+          </ul>
+          <a href={wichtel.url} download data-dl={dlUrl(wichtel)} class="btn btn-accent btn-download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Kostenlos herunterladen
+          </a>
+          <p class="download-hint">Direkter Download als ZIP, ohne Anmeldung und ohne E-Mail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="bundle-box">
+        <div>
+          <span class="section-tag">MEHR WEIHNACHTSMOTIVE</span>
+          <h2>Das Weihnachts Mega Bundle</h2>
+          <p>
+            Dir gefällt der Wichtel? Im Weihnachts Mega Bundle stecken viele weitere Weihnachtsmotive als Plotterdatei in einem Paket, ebenfalls als SVG, DXF und PNG, als Sofortdownload auf Etsy.
+          </p>
+        </div>
+        <a href={outUrl(MEGA_BUNDLE_URL)} target="_blank" rel="noopener noreferrer" class="btn btn-partner">Zum Mega Bundle auf Etsy</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>So verwendest du die Datei</h2>
+      <ol class="schritte">
+        <li>ZIP-Datei herunterladen und entpacken.</li>
+        <li>Die SVG-Datei in dein Plotterprogramm laden (Cricut Design Space, Silhouette Studio, Brother Canvas Workspace oder Inkscape). Für ältere Programme die DXF-Datei nehmen.</li>
+        <li>Auf die gewünschte Größe ziehen. Bei Flexfolie das Motiv vor dem Schneiden spiegeln.</li>
+        <li>Plotten, entgittern und aufbringen – fertig.</li>
+      </ol>
+
+      <h2>Häufige Fragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.frage}</summary>
+            <p>{f.antwort}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {weitereWeihnacht.length > 0 && (
+    <section class="section bg-light">
+      <div class="container">
+        <h2 class="center-title">Weitere kostenlose Weihnachtsdateien</h2>
+        <div class="weitere-grid">
+          {weitereWeihnacht.map((d) => (
+            <article class="card">
+              {d.vorschau && (
+                <div class="card-img-wrapper">
+                  <img src={`${base}${d.vorschau}`} alt={`${d.title} – kostenlose Plotterdatei`} loading="lazy" />
+                </div>
+              )}
+              <div class="card-content">
+                <h3 class="card-title">{d.title}</h3>
+                <a href={d.url} download data-dl={dlUrl(d)} class="btn btn-accent btn-sm">Herunterladen</a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p class="text-center alle-link">
+          <a href={`${base}/downloads/`} class="btn btn-primary">Alle {FREE_DOWNLOADS.length} kostenlosen Dateien ansehen</a>
+        </p>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .section-tag {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb a { color: var(--color-teal); }
+
+  .wichtel-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .wichtel-bild img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(5, 32, 53, 0.15);
+  }
+
+  .wichtel-text h1 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--color-navy);
+    margin: 0 0 1rem;
+    line-height: 1.2;
+  }
+
+  .wichtel-text p { color: var(--color-text-muted); line-height: 1.7; }
+
+  .wichtel-fakten {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.9;
+  }
+
+  .btn-download svg { vertical-align: middle; margin-right: 6px; }
+
+  .download-hint { font-size: 0.82rem; margin-top: 0.75rem; }
+
+  .bundle-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem 2.25rem;
+  }
+
+  .bundle-box h2 { margin: 0 0 0.5rem; color: var(--color-navy); }
+
+  .bundle-box p { margin: 0; color: var(--color-text-muted); line-height: 1.6; max-width: 620px; }
+
+  .bundle-box .btn { flex-shrink: 0; }
+
+  .narrow { max-width: 760px; }
+
+  .narrow h2 { color: var(--color-navy); margin-top: 0; }
+
+  .schritte { line-height: 1.8; margin-bottom: 2.5rem; padding-left: 1.25rem; }
+
+  .faq details {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.9rem 0;
+  }
+
+  .faq summary {
+    font-family: var(--font-title);
+    font-weight: 600;
+    color: var(--color-navy);
+    cursor: pointer;
+  }
+
+  .faq details p { color: var(--color-text-muted); line-height: 1.6; margin: 0.6rem 0 0; }
+
+  .weitere-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .weitere-grid .card-title { font-size: 1rem; margin: 0 0 0.75rem; }
+
+  .alle-link { margin-top: 2rem; }
+
+  @media (max-width: 800px) {
+    .wichtel-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .bundle-box { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+  }
+</style>

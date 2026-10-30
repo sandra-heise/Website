@@ -11,6 +11,7 @@ export interface Download {
   kategorie: string;
   bestseller?: boolean;
   blogPost?: string; // relativer Pfad, z. B. "/blog/halloween-laterne"
+  seite?: string; // eigene Detailseite, z. B. "/downloads/weihnachtswichtel/"
   vorschau?: string; // relativer Pfad zu einem kleinen Vorschaubild (~480 px breit), z. B. "/downloads/muttertag.jpg" – nicht die Druckdatei selbst
 }
 
@@ -222,6 +223,7 @@ export const FREE_DOWNLOADS: Download[] = [
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Weihnachten",
     bestseller: true,
+    seite: "/downloads/weihnachtswichtel/",
     vorschau: "/downloads/thumbnail_wichtel.jpg",
   },
 

@@ -11,6 +11,9 @@ export const OUTBOUND_LINKS: OutboundLink[] = [
   { slug: "etsy-shop", url: "https://www.etsy.com/shop/SunnyArtis" },
   { slug: "etsy-shop-plotterdateien", url: "https://www.etsy.com/shop/SunnyArtis?section_id=45759329" },
 
+  // Etsy – Plotterdateien
+  { slug: "etsy-4589624412", url: "https://sunnyartis.etsy.com/listing/4589624412" },
+
   // Etsy – Gemälde
   { slug: "etsy-4307467400", url: "https://www.etsy.com/de/listing/4307467400/ol-gemalde-original-frau-mit-blumen" },
   { slug: "etsy-4365612544", url: "https://www.etsy.com/de/listing/4365612544/ol-gemalde-original-farbenfrohe-frau" },
