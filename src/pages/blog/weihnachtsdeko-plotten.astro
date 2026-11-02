@@ -8,9 +8,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE = "https://sunnyartis.de";
 const canonicalUrl = `${SITE}/blog/weihnachtsdeko-plotten/`;
 const heroBild = "/blog/hirsch-lampe1.jpg";
-const ogImage = `${SITE}${heroBild}`;
-// Hochformat 1000x1500 für Pinterest (beim Pinnen dieses Bild wählen)
+// Hochformat 1000x1500 für Pinterest – auch als og:image, damit Rich Pins das Hochformat ziehen
 const pinImage = `${SITE}/blog/weihnachtsdeko-pin.jpg`;
+const ogImage = pinImage;
 
 const MEGA_BUNDLE_URL = "https://sunnyartis.etsy.com/listing/4589624412";
 const BASTEL_BUNDLE_URL = "https://sunnyartis.etsy.com/listing/4589633263";
@@ -228,7 +228,7 @@ const faq = [
           )}
           {p.id === "wichtel" && (
             <div class="article-cta">
-              <p>Den Wichtel gibt es gratis. Mehr Weihnachtsmotive findest du im <strong>Weihnachts Mega Bundle</strong>.</p>
+              <p>Den Wichtel gibt es gratis — alle Infos zu Formaten und Ideen auf der <a href={`${base}${wichtel.seite}`}>Wichtel-Downloadseite</a>. Mehr Weihnachtsmotive findest du im <strong>Weihnachts Mega Bundle</strong>.</p>
               <a href={wichtel.url} download data-dl={dlUrl(wichtel)} class="btn btn-accent">Wichtel kostenlos laden</a>
               <a href={outUrl(MEGA_BUNDLE_URL)} target="_blank" rel="noopener noreferrer" class="mehr-link">Weihnachts Mega Bundle (Etsy) →</a>
             </div>
