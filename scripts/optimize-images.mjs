@@ -28,7 +28,8 @@ for (const file of walk(ROOT)) {
   const rel = relative(ROOT, file).split(sep).join('/');
   const input = readFileSync(file);
   const { width, height } = await sharp(input).metadata();
-  const maxEdge = SPECIAL[rel] ?? MAX_EDGE;
+  // Pinterest-Bilder (pin_*.jpg, *-pin.jpg) brauchen exakt 1000x1500 px
+  const maxEdge = SPECIAL[rel] ?? (/(^|[\/_-])pin([_-]|\.jpe?g$)/i.test(rel) ? 1500 : MAX_EDGE);
   const tooWide = Math.max(width, height) > maxEdge;
   if (!tooWide && input.length < MIN_BYTES) continue;
 

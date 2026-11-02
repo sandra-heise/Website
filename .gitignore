@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Rohfotos (nur zum Einsortieren, optimierte Kopien landen in public/)
+fotos-weihnachten/

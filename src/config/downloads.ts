@@ -213,6 +213,7 @@ export const FREE_DOWNLOADS: Download[] = [
     url: "https://pub-8b47857c39ee41ef8bdb9c45b849e41d.r2.dev/SunnyArtis_Plotterdatei_0071Weihnachtsanhaenger.zip",
     format: "ZIP (SVG, PNG, DXF, JPG)",
     kategorie: "Weihnachten",
+    blogPost: "/blog/weihnachtsdeko-plotten/",
     vorschau: "/downloads/Weihnachsanhaengerkostenlos.jpg",
   },
   {
